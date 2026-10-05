@@ -1,0 +1,11 @@
+data/
+derived/
+work/
+results/
+.venv/
+.nextflow*
+*.vcf.gz
+*.tbi
+*.fastq.gz
+*.bam
+*.cram
