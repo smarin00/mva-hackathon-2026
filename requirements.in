@@ -1,0 +1,15 @@
+huggingface_hub[hf_xet]
+pysam
+cyvcf2
+numpy
+pandas
+scipy
+matplotlib
+pyGenomeTracks
+cnvpytor
+whatshap
+multiqc
+pyhpo
+obonet
+python-docx
+jupyterlab

@@ -1,0 +1,12 @@
+- VEP: ensembl-vep 116.2 (container release_116.2), cache homo_sapiens_vep_116_GRCh38, downloaded 2026-10-05
+- Exomiser: CLI 15.1.0 (native, Java 21), data 2602_hg38 + 2602_phenotype (ClinVar 2026-02-08, HPO 2026-01-08), from Exomiser discussion #640, downloaded 2026-10-05
+- mosdepth: 0.3.14 (static binary, GitHub releases)
+- delly: v2.7.0 (linux-amd64 static binary, GitHub releases; HTSlib 1.21)
+- bwa: Version: 0.7.19-r1273 (apt)
+- fastp: fastp 1.0.1 (apt)
+- VEP_plugins: release/116 (GitHub, Ensembl/VEP_plugins)
+- AlphaMissense: AlphaMissense_hg38.tsv.gz (Cheng et al. 2023), tabix-indexed
+- ExpansionHunter: v5.0.0, bundled GRCh38 variant catalog
+- ClinVar: NCBI GRCh38 VCF, fileDate 2026-10-04, renamed to chr contigs
+- SpliceAI: genome-wide precomputed files not used (BaseSpace share is US-region only; account is EU). Coding/splice-site SNV scores via Exomiser 2602 (dbNSFP 4.5a).
+Rare intronic variants scored live with SpliceAI + Pangolin (see decisions.md).

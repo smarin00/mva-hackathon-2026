@@ -1,0 +1,24 @@
+# Copy to params.yaml (gitignored) and fill in.
+# All paths are on the server.
+
+sample_id: proband
+outdir: results
+
+fastq_dir: data
+vendor_vcf: derived/vendor.chr.vcf.gz
+
+# Comma-separated HPO term IDs from the clinical phenotype
+hpo_ids: ""
+
+# Candidate panel BED, chr-prefixed (MVA / spindle-checkpoint / centromere genes)
+panel_bed: ""
+
+# Optional VEP plugin data; leave empty to skip that plugin
+vep_plugins_dir: ""
+spliceai_snv: ""
+spliceai_indel: ""
+alphamissense: ""
+clinvar: ""
+
+# ExpansionHunter catalog for GRCh38; leave empty to skip
+str_catalog: ""

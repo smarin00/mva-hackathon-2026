@@ -1,0 +1,9 @@
+{
+  "files.watcherExclude": {
+    "**/data/**": true, "**/derived/**": true, "**/work/**": true,
+    "**/results/**": true, "**/.nextflow/**": true, "**/.venv/**": true
+  },
+  "search.exclude": {
+    "**/data/**": true, "**/derived/**": true, "**/work/**": true, "**/results/**": true
+  }
+}

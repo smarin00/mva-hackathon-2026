@@ -9,3 +9,4 @@ results/
 *.fastq.gz
 *.bam
 *.cram
+params.yaml
