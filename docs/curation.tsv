@@ -1,0 +1,10 @@
+# gene	action	note
+# Gene-level curation of Exomiser candidates for the Track 1 submission (2026-10-06).
+# action: exclude | secondary. Rationale for each decision is in the note.
+# Rule-based exclusions (pairing < 50 bp, lone recessive hits, gene score < 0.1, ClinVar benign,
+# hypervariable loci) are applied in bin/make_submission.py; see docs/decisions.md.
+FANCD2	exclude	Both candidate variants classified benign/likely benign in ClinVar; FANCD2 pseudogene makes short-read calls unreliable
+HK1	exclude	Intronic variant at 1.3% population frequency, too common for a rare disorder; heterozygous carrier state only
+ADAMTS1	exclude	Two frameshifts with identical population frequency suggest a single cis haplotype, not compound het; no established Mendelian disease
+MTCH2	exclude	No established Mendelian disease; low phenotype score
+LZTR1	secondary	Secondary finding, unrelated to MVA: heterozygous stop-gained, ClinVar pathogenic/likely pathogenic; heterozygous LZTR1 loss-of-function is associated with schwannomatosis predisposition (incomplete penetrance)

@@ -50,6 +50,55 @@ MAX_ROWS = 10          # rows past 10 earn zero rank points
 ARTEFACT_GENES = re.compile(r"^(HLA-|KIR\d|MUC\d|OR\d+[A-Z]|PRAMEF|NBPF|FAM231|TRB[VJC]|TRA[VJC]|IG[HKL][VDJC])")
 
 RECESSIVE_MOIS = {"AR", "XR"}
+
+# Two variants closer than this are treated as one event / same haplotype
+# (complex indels split into records, repeat-length alleles) and never paired.
+MIN_PAIR_DISTANCE = 50
+
+# Primary rows need at least this Exomiser gene combined score; unused slots
+# stay empty rather than being filled with noise. Curated secondaries exempt.
+DEFAULT_MIN_GENE_SCORE = 0.1
+
+# Variants ClinVar classifies as benign are never submitted.
+BENIGN = re.compile(r"BENIGN", re.I)
+
+
+def load_curation(path):
+    """Gene-level curation decisions: gene <TAB> action <TAB> note.
+
+    action is 'exclude' (drop all rows for the gene) or 'secondary'
+    (keep as a secondary/incidental finding with the given note).
+    Lines starting with '#' are comments.
+    """
+    cur = {}
+    if not path:
+        return cur
+    with open(path) as fh:
+        for line in fh:
+            if not line.strip() or line.startswith("#"):
+                continue
+            parts = line.rstrip("\n").split("\t")
+            gene, action = parts[0].strip(), parts[1].strip().lower()
+            note = parts[2].strip() if len(parts) > 2 else ""
+            if action not in ("exclude", "secondary"):
+                sys.exit(f"curation: unknown action {action!r} for {gene}")
+            cur[gene] = (action, note)
+    return cur
+
+
+def apply_curation(candidates, curation, min_gene_score):
+    kept = []
+    for c in candidates:
+        action, note = curation.get(c.gene, (None, ""))
+        if action == "exclude":
+            continue
+        if action == "secondary":
+            c.finding_type = "secondary"
+            c.rationale = note or c.rationale
+        elif c.gene_score < min_gene_score:
+            continue
+        kept.append(c)
+    return kept
 EPCR_TOP = 0.95        # highest confidence assigned to the leading candidate
 EPCR_FLOOR = 0.01      # secondary findings sit below anything primary
 
@@ -63,6 +112,8 @@ class Candidate:
     rationale: str = ""
     score: float = 0.0                              # internal ranking score
     mois: set = field(default_factory=set)          # Exomiser modes this variant passed
+    gene_score: float = 0.0                         # Exomiser gene combined score
+    homozygous: bool = False
 
     @property
     def is_pair(self):
@@ -96,6 +147,8 @@ def load_ranked(path):
         for row in reader:
             if ARTEFACT_GENES.match(row.get("GENE_SYMBOL", "")):
                 continue
+            if BENIGN.search(row.get("CLINVAR_PRIMARY_INTERPRETATION", "") or ""):
+                continue
             key = (
                 chr_name(row["CONTIG"]),
                 int(row["START"]),
@@ -117,6 +170,8 @@ def load_ranked(path):
                     rationale=f"Exomiser MOI {moi}; "
                               f"gene score {gene_score:.3f}, variant score {var_score:.3f}.",
                     mois=seen_mois,
+                    gene_score=gene_score,
+                    homozygous=row.get("GENOTYPE", "").replace("|", "/") in ("1/1", "2/2"),
                 )
             best[key].mois.add(moi)
     return list(best.values())
@@ -146,6 +201,9 @@ def pair_compound_hets(candidates, phase_blocks=None):
             for j in range(i + 1, len(group)):
                 a, b = group[i], group[j]
                 key = (a.variants[0], b.variants[0])
+                va, vb = a.variants[0], b.variants[0]
+                if va[0] == vb[0] and abs(va[1] - vb[1]) < MIN_PAIR_DISTANCE:
+                    continue   # same event / same haplotype, not compound het
                 if key in in_cis or tuple(reversed(key)) in in_cis:
                     continue
                 if id(a) in used or id(b) in used:
@@ -158,6 +216,8 @@ def pair_compound_hets(candidates, phase_blocks=None):
                     Candidate(
                         variants=[a.variants[0], b.variants[0]],
                         gene=gene,
+                        gene_score=max(a.gene_score, b.gene_score),
+                        mois=a.mois | b.mois,
                         # Pairs score above either single: if the answer key
                         # is a pair, only this row can score a full match.
                         score=(a.score + b.score) / 2 + 0.10,
@@ -165,7 +225,15 @@ def pair_compound_hets(candidates, phase_blocks=None):
                     )
                 )
                 used.update({id(a), id(b)})
-    return paired + candidates
+
+    # A heterozygous variant that only fits a recessive model cannot explain the
+    # disease alone: keep it only as a hedge for a gene that has a valid pair.
+    paired_genes = {p.gene for p in paired}
+    singles = [
+        c for c in candidates
+        if not (c.mois <= RECESSIVE_MOIS and not c.homozygous and c.gene not in paired_genes)
+    ]
+    return paired + singles
 
 
 def load_cis_pairs(path):
@@ -285,6 +353,9 @@ def main():
     p.add_argument("--ranked", required=True, help="Exomiser *.variants.tsv")
     p.add_argument("--phase", help="whatshap phase block TSV")
     p.add_argument("--vcf", help="normalized VCF the candidates came from (existence check)")
+    p.add_argument("--curation", help="gene-level curation TSV (gene, action, note)")
+    p.add_argument("--min-gene-score", type=float, default=DEFAULT_MIN_GENE_SCORE,
+                   help="minimum Exomiser gene combined score for primary rows")
     p.add_argument("--proband-id", default=DEFAULT_PROBAND)
     p.add_argument("--out", required=True, help="output .csv")
     args = p.parse_args()
@@ -294,6 +365,7 @@ def main():
         sys.exit("No candidates in ranked input")
 
     candidates = pair_compound_hets(candidates, args.phase)
+    candidates = apply_curation(candidates, load_curation(args.curation), args.min_gene_score)
     candidates.sort(key=lambda c: -c.score)
     rows = assign_epcr(candidates[:MAX_ROWS])
     write_csv(rows, args.out, args.proband_id)

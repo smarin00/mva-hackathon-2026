@@ -492,8 +492,10 @@ process MAKE_SUBMISSION {
 
     script:
     def phase_arg = phase ? "--phase ${phase}" : ''
+    def cur_arg = params.curation ? "--curation ${file(params.curation)}" : ''
     """
-    make_submission.py --ranked ${ranked} ${phase_arg} --vcf ${vcf} --out submission.csv
+    make_submission.py --ranked ${ranked} ${phase_arg} ${cur_arg} \\
+        --min-gene-score ${params.min_gene_score} --vcf ${vcf} --out submission.csv
     """
 }
 
