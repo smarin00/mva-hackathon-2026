@@ -5,11 +5,8 @@ numpy
 pandas
 scipy
 matplotlib
-pyGenomeTracks
 cnvpytor
 whatshap
 multiqc
 pyhpo
-obonet
 python-docx
-jupyterlab
