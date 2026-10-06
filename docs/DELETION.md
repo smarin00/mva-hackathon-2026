@@ -1,7 +1,7 @@
 # Data deletion plan
 
 Deadline: 30 days after hackathon close (close 2026-10-24) -> delete by **2026-11-23**
-Confirm by email: RarediseaserealkidMVAhackathon2026@synapse.org
+Confirm by email: MVAHackathon2026@synapse.org (address agreed on the dataset access form); cc RarediseaserealkidMVAhackathon2026@synapse.org (address on the Rules tab)
 Rule (organiser, Discussion #2): delete anything that carries the child's genome at
 genotype scale; keep findings. "A handful of named variants is a finding; a genome-wide
 table of genotypes is the dataset in a different format."
@@ -32,8 +32,10 @@ table of genotypes is the dataset in a different format."
 - Code, docs, report, pitch, leaderboard entry
 - results/pipeline_info/ (run reports; no genotypes)
 
-## Attestation (email text)
-"I confirm that all MVA Hackathon data and derived genotype-level files have been deleted
-from all systems under my control (cloud server and its storage, laptop, code repository),
-as of <date>. Third-party LLM used: Anthropic Claude via claude.ai (<plan>), model training
-disabled, no outputs rated; no genome-scale data was shared with it."
+## Attestation (planned; send after deletion is complete)
+"I will delete all MVA Hackathon data and derived genotype-level files from all systems
+under my control (cloud server and its storage, laptop, code repository) no later than
+23 November 2026, 30 days after the hackathon closed on 24 October 2026.
+Third-party LLM used: Anthropic Claude via claude.ai (Pro - Opus 5.5), model training disabled,
+no outputs rated; no genome-scale data was shared with it."
+
