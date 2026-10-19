@@ -1,0 +1,31 @@
+# BUB1B / BubR1 (UniProt O60566, 1050 aa) functional map.
+#
+# Residue boundaries are taken from primary literature, not from inference.
+# `dispensable` records whether loss of the feature is tolerated for spindle
+# assembly checkpoint (SAC) function, where that has been tested directly.
+#
+# Sources
+#   [1] "BubR1 TPR domain supports the mitotic checkpoint..." Commun Biol 2026, doi:10.1038/s42003-026-10384-9 -- domain boundaries
+#   [2] Suijkerbuijk et al. Dev Cell 2012 -- pseudokinase, catalytic triad,
+#       kinase-domain truncation (731X) rescues SAC and alignment
+#   [3] Suijkerbuijk et al. Cancer Res 2010 (CAN-09-4319) -- MVA allele mechanism,
+#       BUBR1 dosage thresholds, truncation rescue series (386X/483X/731X)
+#   [4] Hanks et al. Nat Genet 2004 -- MVA1 patient genotypes
+#
+# dispensable values: no | yes | partial | untested
+#
+start	end	feature	role	dispensable	source
+26	28	KEN1	APC/C pseudo-substrate; required for MCC inhibition of APC/C	no	1
+59	219	TPR	MCC formation and MCC-APC/C engagement; Y155C is separation-of-function (alignment retained, SAC lost)	no	1,3
+272	277	ABBA1	Cdc20 binding	partial	1
+304	306	KEN2	Cdc20 binding within MCC	partial	1
+340	345	ABBA2	Cdc20 binding	partial	1
+408	418	GLEBS	Bub3 binding; required for kinetochore localisation (386X lacks it and fails to localise)	no	1,3
+528	533	ABBA3	Cdc20 binding	partial	1
+766	1050	PSEUDOKINASE	Catalytically inactive. Required for protein stability, NOT for SAC: 731X rescues checkpoint and alignment in full	yes	1,2,3
+#
+# Catalytic triad -- retained but non-functional; mutations here destabilise
+# rather than inactivate.
+795	795	K795	Catalytic lysine; K795A lowers Tm from 39.1 to 34.7 C	yes	2
+882	882	D882	Catalytic aspartate; D882N/A fully rescue SAC	yes	2
+911	911	D911	Catalytic aspartate; D911N mildly weakens SAC via destabilisation	yes	2
