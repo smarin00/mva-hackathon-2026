@@ -1,7 +1,7 @@
 # Data deletion plan
 
 Deadline: 30 days after hackathon close (close 2026-10-24) -> delete by **2026-11-23**
-Confirm by email: MVAHackathon2026@synapse.org (address agreed on the dataset access form); cc RarediseaserealkidMVAhackathon2026@synapse.org (address on the Rules tab)
+Confirm by email: MVAHackathon2026@synapse.org (address agreed on the dataset access form); cc RarediseaserealkidMVAhackathon2026@synapse.org (address on the Rules tab); cc cnb@sagebase.org (adress given in community notes)
 Rule (organiser, Discussion #2): delete anything that carries the child's genome at
 genotype scale; keep findings. "A handful of named variants is a finding; a genome-wide
 table of genotypes is the dataset in a different format."

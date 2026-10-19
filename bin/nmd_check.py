@@ -75,7 +75,7 @@ def scan(gtf, gene=None, transcript=None):
             if line[0] == "#":
                 continue
             f = line.rstrip("\n").split("\t")
-            if f[2] not in ("exon", "CDS", "transcript"):
+            if f[2] not in ("exon", "CDS", "transcript", "stop_codon"):
                 continue
             a = f[8]
             if transcript:
@@ -88,12 +88,14 @@ def scan(gtf, gene=None, transcript=None):
             if tid is None:
                 continue
             rec = tx.setdefault(tid, {
-                "chrom": f[0], "strand": f[6], "exons": [], "cds": [],
+                "chrom": f[0], "strand": f[6], "exons": [], "cds": [], "stop": False,
                 "biotype": None, "tags": set(), "gene": attr(a, "gene_name"),
             })
             if f[2] == "transcript":
                 rec["biotype"] = attr(a, "transcript_biotype")
                 rec["tags"] = tags(a)
+            elif f[2] == "stop_codon":
+                rec["stop"] = True
             elif f[2] == "exon":
                 rec["exons"].append((int(f[3]), int(f[4])))
             else:
@@ -132,6 +134,12 @@ def to_transcript_coord(pos, exons, strand):
             return offset + within
         offset += e - s + 1
     return None
+
+
+def aa_count(rec, cds_len):
+    """Protein length. Ensembl GTF CDS features exclude the stop codon (it is
+    a separate stop_codon feature); other GTFs may include it."""
+    return cds_len // 3 if rec.get("stop") else cds_len // 3 - 1
 
 
 def load_domains(path):
@@ -189,7 +197,7 @@ def main():
     print(f"locus       {rec['chrom']}:{min(s for s,_ in exons)}-"
           f"{max(e for _,e in exons)}  strand {strand}")
     print(f"structure   {n_exons} exons, {tx_len} nt transcript, "
-          f"{cds_len} nt CDS ({cds_len//3 - 1} aa)")
+          f"{cds_len} nt CDS ({aa_count(rec, cds_len)} aa)")
     print()
 
     # --- locate the variant ------------------------------------------------
@@ -255,7 +263,7 @@ def main():
               "transcript from decay. Not modelled here.")
 
     # --- consequence for the protein --------------------------------------
-    aa_total = cds_len // 3 - 1
+    aa_total = aa_count(rec, cds_len)
     lost = aa_total - (codon - 1)
     print()
     print(f"If translated: {codon - 1} of {aa_total} aa retained "

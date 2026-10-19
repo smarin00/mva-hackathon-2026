@@ -5,7 +5,8 @@ is tagged **[data]** (from this child's sequencing), **[literature]**
 (published experimental evidence), or **[hypothesis]** (our inference, to be
 tested or stated as such).
 
-Status: 19 Oct 2026. Pending: ESM-2 calibrated score for N1002K.
+Status: 19 Oct 2026. Mechanism analysis complete; candidates in
+`track2_candidates.md`.
 
 ---
 
@@ -16,7 +17,7 @@ Status: 19 Oct 2026. Pending: ESM-2 calibrated score for N1002K.
 | 1 | chr15:40209701 T>G | c.2210T>G | p.Leu737\* | stop-gain |
 | 2 | chr15:40220612 T>G | c.3006T>G | p.Asn1002Lys | missense, pseudokinase domain |
 
-Transcript: ENST00000287598 (MANE Select), 23 exons, 1049 aa.
+Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 
 - **[data]** Both variants were called from reads by DeepVariant and in the
   vendor VCF; Exomiser ranks BUB1B first (gene score 0.587 / 0.554).
@@ -66,10 +67,54 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1049 aa.
   L1012P**, an established HSP90-dependent stability mutant.
 - **[hypothesis]** N1002K destabilises BubR1 by the same mechanism and
   leaves the child near the ~6–13% threshold.
-- **Test (running):** ESM-2 masked-marginal score, calibrated against six
-  MVA alleles with known experimental stability classes
-  (`bin/esm_variant_score.py`). If the model separates the classes, N1002K's
-  placement is evidence; if not, it is supporting context only.
+- **[data]** ESM-2 (650M) masked-marginal score, calibrated against six MVA
+  alleles with experimentally measured stability classes
+  (`bin/esm_variant_score.py`):
+
+  | Variant | Experimental class | ESM LLR | Percentile in domain |
+  |---|---|---|---|
+  | L1012P | destabilising | −6.94 | 12.8 |
+  | **N1002K** | **patient** | **−5.81** | **18.2** |
+  | I909T | destabilising | −5.71 | 18.8 |
+  | L844F | destabilising | −3.33 | 34.8 |
+  | R727C | destabilising | −2.80 | 40.4 |
+  | Q921H | stable | −0.24 | 78.7 |
+  | R550Q | stable | +0.37 | 87.3 |
+
+  The model separates the classes completely, and N1002K falls between
+  L1012P and I909T, the two alleles for which HSP90 dependence and rescue by
+  overexpression were shown directly.
+- Caveats: n = 6 (a perfect 4-vs-2 split occurs by chance with p ≈ 0.07);
+  ESM scores evolutionary constraint, not folding, and is a stability proxy
+  here only because the pseudokinase domain's known role is structural;
+  R550Q lies outside the domain, so Q921H is the only in-domain stable
+  control.
+- **[data]** Structural context in the AlphaFold model (AF-O60566-F1;
+  `bin/structure_context.py`). N1002 is confidently modelled (pLDDT 91) and
+  partially buried (relative solvent accessibility 0.16) in an aromatic pocket
+  (Trp973, Phe977, Trp978, Val998). Its side chain makes three hydrogen bonds
+  to backbone atoms of Trp978 (N, O) and Val998 (O), bridging two segments of
+  the fold. Lysine is longer and charged: it cannot reproduce this
+  donor-acceptor bridge and places a positive charge in an aromatic pocket.
+- **[data] Calibration of the structure:** burial does **not** discriminate the
+  experimental classes. The verified destabilisers are buried (RSA 0.00–0.06),
+  but so is the stable control Q921H (0.01), a conservative polar swap; R550Q
+  is in a disordered region (pLDDT 35) and cannot be assessed. The structure
+  therefore supplies a physical mechanism, not independent discrimination.
+  N1002 and L1012 do not share contacts, so we claim the same domain and
+  sequence region, not the same pocket.
+- Monomer model: interfaces with Bub3, Mad2 and Cdc20 are not represented.
+
+| Line of evidence | Result | Weight |
+|---|---|---|
+| ESM-2, calibrated | Classes separate; N1002K between L1012P and I909T | Moderate (n = 6, p ≈ 0.07) |
+| Structure | Confident, partially buried; breaks a side-chain H-bond bridge | Physical mechanism; burial alone does not discriminate |
+| Literature | Same domain as four verified stability mutants; domain role is structural | Strong prior |
+
+- **Conclusion [hypothesis, supported by three independent lines]:** N1002K
+  most likely destabilises BubR1. No single line is proof; experimental
+  confirmation is the cycloheximide-chase step of the validation plan in
+  `track2_candidates.md`.
 
 ## 5. Therapeutic implications
 
@@ -109,12 +154,10 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1049 aa.
 
 ## 7. Open items
 
-- ESM-2 calibrated score for N1002K
-- Structural check of N1002K in the AlphaFold model (buried vs. surface,
-  local contacts)
-- Candidate generation: proteostasis modulators, drug–target evidence
-  (Open Targets), do-no-harm list beyond HSP90
+- Report (`smarin00_track2_report.pdf`) and methods form
 - Pitch video (3 min)
+- Optional: physics- or ML-based ΔΔG (e.g. ThermoMPNN) as a fourth line of
+  evidence, calibrated the same way
 
 ## References
 
