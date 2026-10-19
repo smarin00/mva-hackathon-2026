@@ -1,0 +1,33 @@
+gene        BUB1B
+transcript  ENST00000287598  (MANE_Select)
+locus       15:40161069-40221123  strand +
+structure   23 exons, 3669 nt transcript, 3150 nt CDS (1050 aa)
+
+PTC in exon 17 of 23
+  transcript coord     2362 / 3669
+  CDS coord            2210 / 3150  -> codon 737
+  last exon-exon jct   3109
+  distance to last jct 747 nt (upstream)
+
+VERDICT  NMD-SENSITIVE
+         PTC is 747 nt upstream of the last junction, beyond both the 50-nt and the conservative 55-nt boundary.
+
+If translated: 736 of 1050 aa retained (70.1%), 314 aa lost.
+
+Features RETAINED (end before the PTC):
+  KEN1           26-28
+  TPR            59-219
+  ABBA1          272-277
+  KEN2           304-306
+  ABBA2          340-345
+  GLEBS          408-418
+  ABBA3          528-533
+Features LOST or TRUNCATED (span or follow the PTC):
+  PSEUDOKINASE   766-1050   [dispensable for SAC]
+  K795           795-795   [dispensable for SAC]
+  D882           882-882   [dispensable for SAC]
+  D911           911-911   [dispensable for SAC]
+
+=> Truncated product retains every SAC-essential feature. If it escaped decay
+   and were stable, it could be partially functional (cf. BUB1B 731X, which
+   fully rescues checkpoint and alignment despite lacking the pseudokinase domain).

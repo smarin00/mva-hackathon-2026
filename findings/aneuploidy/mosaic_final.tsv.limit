@@ -1,0 +1,5 @@
+noise_floor_ratio	0.010000
+detection_limit_mosaic_fraction	0.020000
+gc_model	local
+chrom_gc_rho_local_model	0.6465
+chrom_gc_rho_used_model	0.6465

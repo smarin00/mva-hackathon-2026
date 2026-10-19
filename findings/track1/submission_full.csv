@@ -1,0 +1,5 @@
+proband_id,chrom_1,pos_1,ref_1,alt_1,chrom_2,pos_2,ref_2,alt_2,epcr,finding_type,notes
+PROBAND01,chr15,40209701,T,G,chr15,40220612,T,G,0.95,primary,BUB1B: Biallelic candidate in BUB1B; phase unresolved (variants outside a shared phase block).
+PROBAND01,chr15,40209701,T,G,,,,,0.7,primary,"BUB1B: Exomiser MOI AD; gene score 0.587, variant score 1.000."
+PROBAND01,chr15,40220612,T,G,,,,,0.45,primary,"BUB1B: Exomiser MOI AR; gene score 0.554, variant score 0.923."
+PROBAND01,chr22,20996720,C,G,,,,,0.01,secondary,"LZTR1: Secondary finding, unrelated to MVA: heterozygous stop-gained, ClinVar pathogenic/likely pathogenic; heterozygous LZTR1 loss-of-function is associated with schwannomatosis predisposition (incomplete penetrance)"

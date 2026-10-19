@@ -1,0 +1,10 @@
+# Open Targets Platform API 26.9.0, data 26.09
+query	found	drug	chembl_id	approved	max_stage	drug_type	mechanisms
+arimoclomol	yes	ARIMOCLOMOL	CHEMBL2107726	False	PHASE_3	Small molecule	not annotated
+nicotinamide riboside	yes	NICOTINAMIDE RIBOSIDE	CHEMBL438497	True	APPROVAL	Small molecule	not annotated
+nicotinamide mononucleotide	no						
+nicotinamide	yes	NIACINAMIDE	CHEMBL1140	True	APPROVAL	Small molecule	not annotated
+dasatinib	yes	DASATINIB	CHEMBL5416410	True	APPROVAL	Small molecule	Bcr/Abl fusion protein inhibitor [INHIBITOR] -> ABL1,BCR
+quercetin	yes	QUERCETIN	CHEMBL50	True	APPROVAL	Small molecule	not annotated
+fisetin	yes	FISETIN	CHEMBL31574	True	APPROVAL	Small molecule	not annotated
+navitoclax	yes	NAVITOCLAX	CHEMBL443684	True	APPROVAL	Small molecule	Apoptosis regulator Bcl-2 inhibitor [INHIBITOR] -> BCL2 | Apoptosis regulator Bcl-X inhibitor [INHIBITOR] -> BCL2L1 | Apoptosis regulator Bcl-W inhibitor [INHIBITOR] -> BCL2L2,BCL2L2-PABPN1
