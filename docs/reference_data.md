@@ -10,4 +10,4 @@
 - ClinVar: NCBI GRCh38 VCF, fileDate 2026-10-04, renamed to chr contigs
 - SpliceAI: genome-wide precomputed files not used (BaseSpace share is US-region only; account is EU). Coding/splice-site SNV scores via Exomiser 2602 (dbNSFP 4.5a).
 Rare intronic variants scored live with SpliceAI + Pangolin (see decisions.md).
-- Gene panel: ~150 genes (MVA, SAC, kinetochore, centromere, cohesion, APC/C, microcephaly and CIN differentials); built from Ensembl 116 GTF, 10 kb flanks; see docs/panel_genes.txt
+- Gene panel: 132 genes (MVA, SAC, kinetochore, centromere, cohesion, APC/C, microcephaly and CIN differentials); built from Ensembl 116 GTF, 10 kb flanks; see docs/panel_genes.txt
