@@ -2,6 +2,9 @@ data/
 derived/
 work/
 results/
+results_*/
+testdata/
+__pycache__/
 .venv/
 .nextflow*
 *.vcf.gz
@@ -9,4 +12,6 @@ results/
 *.fastq.gz
 *.bam
 *.cram
+*.pdb
 params.yaml
+repo_snapshot*
