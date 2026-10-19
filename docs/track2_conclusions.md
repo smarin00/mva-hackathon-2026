@@ -42,6 +42,10 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
   (Suijkerbuijk 2012). The 737\* product *would* be functional if made. NMD
   is what makes this allele null, not the loss of protein sequence.
 
+- **[data]** SpliceAI predicts no splice effect for either allele (all delta
+  scores <= 0.03; `make spliceai`, `docs/decisions.md`). L737\* is null through
+  NMD, not exon skipping; N1002K acts on the protein, not on splicing.
+
 **Conclusion: all of this child's BubR1 comes from the N1002K allele.**
 
 ## 3. The disease mechanism is protein dosage

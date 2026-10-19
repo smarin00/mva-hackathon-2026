@@ -30,7 +30,7 @@ Setup (once, in the project venv):
 
 Usage:
   esm_variant_score.py --fasta resources/O60566.fasta --patient N1002K \\
-      --out results_track2/esm_scores.tsv
+      --out findings/track2/esm_scores.tsv
 """
 
 import argparse

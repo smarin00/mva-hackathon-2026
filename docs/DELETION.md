@@ -9,12 +9,16 @@ table of genotypes is the dataset in a different format."
 ## DELETE — server (Hetzner CPX62, project mva-hackathon)
 - [ ] ~/mva/data/          FASTQ, provided VCF + .tbi, phenotype .docx, README
 - [ ] ~/mva/derived/       vendor.chr.vcf.gz + .tbi, phenotype.txt (if created)
+- [ ] ~/mva/testdata/      2 M-read FASTQ subset of lane 1 (smoke test): PATIENT READS
 - [ ] ~/mva/work/          all Nextflow intermediates (BAM/CRAM, VCFs, caches)
 - [ ] ~/mva/results/alignment/   CRAM + index
 - [ ] ~/mva/results/variants/    normalised / DeepVariant / mosaic / SV / repeat VCFs
 - [ ] ~/mva/results/annotation/  VEP-annotated VCFs
 - [ ] ~/mva/results/ranking/*.variants.tsv, *.html, *.json   (variant-level Exomiser output)
-- [ ] ~/mva/results/phasing/, results/aneuploidy/*.pytor, results/qc/ (per-sample QC)
+- [ ] ~/mva/results/phasing/, results/qc/ (per-sample QC)
+- [ ] ~/mva/results_full/   full read-level run: CRAM, all VCFs, phasing, QC, mosdepth
+- [ ] ~/mva/results_vcf/, ~/mva/results_smoke/   other run outputs
+- [ ] Check nothing is left:  make deletion-check   (should print nothing)
 - [ ] ~/.cache/huggingface/  (xet download cache)
 - [ ] Then: delete the server instance itself + any snapshots/backups in Hetzner console
 
@@ -31,6 +35,8 @@ table of genotypes is the dataset in a different format."
 - Aneuploidy figure + per-chromosome summary table (aggregate, not genotypes)
 - Code, docs, report, pitch, leaderboard entry
 - results/pipeline_info/ (run reports; no genotypes)
+- Everything in findings/ (collected by `make findings`, reviewed before each commit):
+  Track 2 tables (ESM scores, structural context, Open Targets screen, variant atlas)
 
 ## Attestation (planned; send after deletion is complete)
 "I will delete all MVA Hackathon data and derived genotype-level files from all systems

@@ -1,7 +1,7 @@
 # Track 2: Drug candidates
 
 Status: 19 Oct 2026. Builds on `track2_conclusions.md` (mechanism) and
-`results_track2/ot_*.tsv` (automated layer, Open Targets Platform API 26.9.0,
+`findings/track2/opentargets/ot_*.tsv` (automated layer, Open Targets Platform API 26.9.0,
 data 26.09).
 
 ## Therapeutic premise

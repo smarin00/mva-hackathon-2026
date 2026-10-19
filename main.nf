@@ -399,9 +399,9 @@ process VEP {
  * label reserves enough of the 30 GB executor budget that nothing heavy runs
  * alongside it.
  *
- * Coding and splice-region variants only: deep intronic and regulatory
- * candidates are handled on the VEP + SpliceAI track, which keeps Exomiser's
- * memory in bounds.
+ * Coding and splice-region variants only, which keeps Exomiser's memory in
+ * bounds. Deep intronic and regulatory variants are not ranked; see
+ * docs/decisions.md for why that was acceptable for this case.
  */
 process EXOMISER {
     tag "${label}"

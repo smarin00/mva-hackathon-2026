@@ -38,9 +38,9 @@ reruns of the tables and figure take seconds.
 Usage
   bub1b_atlas.py --fasta resources/O60566.fasta \\
       --gtf /opt/refs/Homo_sapiens.GRCh38.116.gtf.gz --gene BUB1B \\
-      --domains docs/bub1b_domains.tsv --pdb AF-O60566-F1-model.pdb \\
+      --domains docs/bub1b_domains.tsv --pdb resources/AF-O60566-F1-model.pdb \\
       --patient-missense N1002K --patient-ptc 737 \\
-      --outdir results_track2/atlas
+      --outdir findings/track2/atlas
 """
 
 import argparse

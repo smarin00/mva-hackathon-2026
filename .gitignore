@@ -1,17 +1,39 @@
+# ---------------------------------------------------------------------------
+# Patient data and anything derived from it at genotype scale.
+# NEVER commit these. See docs/DELETION.md.
+# ---------------------------------------------------------------------------
 data/
 derived/
+testdata/
 work/
 results/
 results_*/
-testdata/
-__pycache__/
-.venv/
-.nextflow*
-*.vcf.gz
-*.tbi
 *.fastq.gz
+*.fq.gz
 *.bam
+*.bai
 *.cram
-*.pdb
+*.crai
+*.vcf
+*.vcf.gz
+*.bcf
+*.tbi
+*.csi
+*.pytor
+
+# Local configuration (paths, HPO terms): copy params.example.yaml
 params.yaml
+
+# Re-downloadable public files and caches
+*.pdb
+*.npz
+!findings/**/*.npz
+
+# Tooling
+.venv/
+.venv-*/
+.nextflow*
+__pycache__/
+*.pyc
+.pytest_cache/
 repo_snapshot*

@@ -22,7 +22,7 @@ Caveats the output keeps in view:
 Setup: uv pip install biopython
 Usage:
   structure_context.py --uniprot O60566 --patient N1002K \\
-      --out results_track2/structure_context.tsv
+      --out findings/track2/structure_context.tsv
   structure_context.py --pdb AF-O60566-F1-model.pdb ...   # offline
 """
 

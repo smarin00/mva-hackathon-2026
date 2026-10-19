@@ -1,5 +1,5 @@
 # Copy to params.yaml (gitignored) and fill in.
-# All paths are on the server.
+# Paths match the layout created by `make install` and `make refs`.
 
 sample_id: proband
 outdir: results
@@ -8,17 +8,17 @@ fastq_dir: data
 vendor_vcf: derived/vendor.chr.vcf.gz
 
 # Comma-separated HPO term IDs from the clinical phenotype
-hpo_ids: ""
+hpo_ids: ""                                # REQUIRED, e.g. "HP:0000121,HP:0004322"
 
 # Candidate panel BED, chr-prefixed (MVA / spindle-checkpoint / centromere genes)
-panel_bed: ""
+panel_bed: resources/mva_panel.bed       # built by `make inputs`
 
 # Optional VEP plugin data; leave empty to skip that plugin
-vep_plugins_dir: ""
+vep_plugins_dir: /opt/refs/vep/Plugins
 spliceai_snv: ""
 spliceai_indel: ""
-alphamissense: ""
-clinvar: ""
+alphamissense: /opt/refs/alphamissense/AlphaMissense_hg38.tsv.gz
+clinvar: /opt/refs/clinvar/clinvar.chr.vcf.gz
 
 # ExpansionHunter catalog for GRCh38; leave empty to skip
-str_catalog: ""
+str_catalog: /opt/tools/ExpansionHunter-v5.0.0-linux_x86_64/variant_catalog/grch38/variant_catalog.json

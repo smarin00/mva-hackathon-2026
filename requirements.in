@@ -9,3 +9,6 @@ whatshap
 multiqc
 pyhpo
 python-docx
+# Track 2 (torch is installed separately, CPU build: see `make setup`)
+biopython
+fair-esm

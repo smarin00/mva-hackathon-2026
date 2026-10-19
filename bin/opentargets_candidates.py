@@ -24,7 +24,7 @@ single annotated target and would be missed by the target query.
 Standard library only. Network access to api.platform.opentargets.org.
 
 Usage
-  opentargets_candidates.py --outdir results_track2
+  opentargets_candidates.py --outdir findings/track2/opentargets
   opentargets_candidates.py --introspect Target   # print schema fields
 """
 
@@ -233,7 +233,7 @@ def introspect(type_name):
 # ---------------------------------------------------------------------------
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--outdir", default="results_track2")
+    p.add_argument("--outdir", default="findings/track2/opentargets")
     p.add_argument("--introspect", metavar="TYPE",
                    help="print the fields of a GraphQL type and exit (debug)")
     a = p.parse_args()
