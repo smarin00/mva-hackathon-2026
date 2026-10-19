@@ -261,9 +261,12 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf)
         a1.scatter([pos], [llr], s=46, zorder=4, marker="o",
                    facecolor=INK2 if filled else SURFACE, edgecolor=INK2, linewidth=1.2)
         dx, dy = LABEL_OFFSETS.get(v, (6, 4))
+        # A light backing keeps labels legible where the constraint line runs
+        # through them (the real line is far from flat).
         a1.annotate(v, (pos, llr), xytext=(dx, dy), textcoords="offset points",
                     fontsize=7, color=INK2, ha="left" if dx >= 0 else "right",
-                    va="center")
+                    va="center", zorder=6,
+                    bbox=dict(boxstyle="round,pad=0.15", facecolor=SURFACE, edgecolor="none", alpha=0.9))
     wt, pos, mt = evs.parse(patient_mis)
     llr = lp[pos - 1, AA.index(mt)] - lp[pos - 1, AA.index(wt)]
     # Patient in ink, not a palette hue: blue means "null" in panel B.
@@ -271,7 +274,8 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf)
                linewidth=1.2, zorder=5)
     a1.annotate(f"{patient_mis} (patient)", (pos, llr), xytext=(-10, -16),
                 textcoords="offset points", ha="right", va="center", fontsize=8,
-                color=INK, fontweight="bold")
+                color=INK, fontweight="bold", zorder=6,
+                bbox=dict(boxstyle="round,pad=0.15", facecolor=SURFACE, edgecolor="none", alpha=0.9))
     a1.set_ylabel("ESM-2 log-likelihood ratio\n(lower = less tolerated)", fontsize=8.5, color=INK)
     a1.set_ylim(min(-9, np.nanmin(smooth) - 1), 2.7)
     a1.set_title("BUB1B variant atlas: missense constraint (top) and fate of a "

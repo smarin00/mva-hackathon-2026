@@ -187,8 +187,10 @@ versions:
 	@mkdir -p $(FINDINGS)
 	@{ echo "# Tool and container versions, $$(date -u +%F)"; \
 	   nextflow -version 2>&1 | grep -m1 version; \
-	   for t in samtools bcftools bwa fastp mosdepth delly ExpansionHunter apptainer java; do \
+	   for t in samtools bcftools fastp mosdepth delly apptainer java; do \
 	       printf '%s: ' $$t; ($$t --version 2>&1 || $$t 2>&1) | grep -m1 -iE 'version|[0-9]+\.[0-9]+' ; done; \
+	   printf 'bwa: '; bwa 2>&1 | grep -m1 '^Version'; \
+	   printf 'ExpansionHunter: '; ExpansionHunter --version 2>&1 | grep -m1 -oE 'v[0-9]+\.[0-9]+\.[0-9]+'; \
 	   echo "## containers (sha256)"; sha256sum $(CONTAINERS)/*.sif; \
 	   echo "## python"; $(PY) -m pip freeze 2>/dev/null || uv pip freeze; \
 	} | tee $(FINDINGS)/versions.txt
