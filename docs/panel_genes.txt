@@ -1,0 +1,167 @@
+# Candidate gene panel — MVA Hackathon 2026
+#
+# Purpose: restrict compute-heavy, high-sensitivity analyses to genes where a
+# second causal allele could plausibly hide. Used for:
+#   - mosaic-aware calling (Mutect2), which is too slow genome-wide
+#   - read-backed phasing (WhatsHap)
+#   - targeted review of non-PASS vendor calls
+#   - the rare-intronic splice sweep (SpliceAI / Pangolin)
+#
+# Scope rationale: the proband's phenotype is chromosomal-instability driven.
+# The panel therefore covers (1) established MVA genes, (2) the machinery whose
+# failure produces missegregation, and (3) differential-diagnosis genes with
+# overlapping phenotypes (microcephaly, growth restriction, cancer predisposition).
+# Category 3 is deliberately included so that a competing explanation would be
+# detected rather than missed by a narrow panel.
+#
+# Symbols are current HGNC. Genes not found in the Ensembl GTF are reported by
+# bin/build_panel.py and must be checked for renaming before the panel is used.
+
+## Established MVA genes
+BUB1B
+CEP57
+TRIP13
+
+## Spindle assembly checkpoint — core
+BUB1
+BUB3
+MAD1L1
+MAD2L1
+MAD2L1BP
+TTK
+CDC20
+ZW10
+ZWILCH
+ZWINT
+AURKA
+AURKB
+AURKC
+INCENP
+BIRC5
+CDCA8
+PLK1
+CENPE
+CENPF
+
+## Kinetochore — NDC80, MIS12 and KNL1 networks
+NDC80
+NUF2
+SPC24
+SPC25
+KNL1
+MIS12
+DSN1
+NSL1
+PMF1
+SKA1
+SKA2
+SKA3
+
+## NOTE: CENPJ is CPAP in Ensembl 116 (ENSG00000151849)
+## Centromere — CENP family and CENP-A loading
+CENPA
+CENPB
+CENPC
+CENPH
+CENPI
+CPAP
+CENPK
+CENPL
+CENPM
+CENPN
+CENPO
+CENPP
+CENPQ
+CENPT
+CENPU
+CENPW
+CENPX
+ITGB3BP
+MIS18A
+MIS18BP1
+HJURP
+OIP5
+
+## Sister chromatid cohesion and separation
+ESPL1
+PTTG1
+RAD21
+SMC1A
+SMC3
+STAG1
+STAG2
+NIPBL
+PDS5A
+PDS5B
+WAPL
+SGO1
+SGO2
+CDCA5
+
+## Anaphase promoting complex / cyclosome
+ANAPC1
+ANAPC2
+ANAPC4
+ANAPC5
+ANAPC7
+ANAPC10
+ANAPC11
+ANAPC13
+ANAPC15
+ANAPC16
+CDC16
+CDC23
+CDC26
+CDC27
+FZR1
+
+## Centrosome and primary microcephaly (phenotypic overlap)
+ASPM
+WDR62
+CDK5RAP2
+STIL
+CEP152
+CEP63
+CEP135
+CEP250
+MCPH1
+PCNT
+PLK4
+SASS6
+NIN
+RTTN
+KNSTRN
+
+## Chromosome instability and DNA repair (differential diagnosis)
+FANCA
+FANCB
+FANCC
+FANCD2
+FANCE
+FANCF
+FANCG
+FANCI
+FANCL
+FANCM
+UBE2T
+BRCA1
+BRCA2
+BRIP1
+PALB2
+RAD51
+RAD51C
+XRCC2
+SLX4
+ERCC4
+NBN
+MRE11
+RAD50
+ATM
+ATR
+ATRIP
+BLM
+WRN
+RECQL4
+LIG4
+NHEJ1
+DCLRE1C

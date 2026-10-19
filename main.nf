@@ -15,7 +15,7 @@
  *
  * Tool placement:
  *   native (host)  : fastp, bwa, samtools, bcftools, mosdepth, delly, ExpansionHunter,
- *                    Exomiser (java), cnvpytor / whatshap / multiqc (uv venv)
+ *                    Exomiser (java), whatshap / multiqc / aneuploidy (uv venv)
  *   containers     : DeepVariant, GATK (Mutect2), VEP 116 (local .sif)
  */
 
@@ -130,12 +130,32 @@ process DEEPVARIANT {
     tuple path("${params.sample_id}.dv.vcf.gz"), path("${params.sample_id}.dv.vcf.gz.tbi"), emit: vcf
 
     script:
+    // Restrict CALLING to primary chromosomes. The analysis-set reference carries
+    // ~2,385 hs38d1 decoy, unplaced and unlocalised contigs, and make_examples
+    // sweeps every one of them whether or not reads are present -- that sweep, not
+    // the read volume, dominated the 1 h 58 m smoke test on empty input.
+    //
+    // This does not discard the decoys' benefit. Alignment in ALIGN_LANE used the
+    // full reference, so decoys still act as a sink for reads that would otherwise
+    // mismap onto the primary assembly. --regions changes only which windows are
+    // genotyped, not what bwa had available to align against.
+    //
+    // Excluded and not missed: chrEBV and the unplaced scaffolds carry no gene
+    // annotation in the VEP cache or the Exomiser database, so variants there
+    // could never reach a ranked candidate list. chrM is kept for completeness,
+    // but the WGS model is not built for heteroplasmy -- chrM calls are not
+    // interpreted.
     """
+    awk '\$1 ~ /^chr([0-9]+|X|Y|M)\$/ { print \$1"\\t0\\t"\$2 }' \\
+        ${params.fasta}.fai > primary.bed
+    echo "DeepVariant regions: \$(wc -l < primary.bed) primary contigs" >&2
+
     mkdir -p dv_tmp
     /opt/deepvariant/bin/run_deepvariant \\
         --model_type=WGS \\
         --ref=${params.fasta} \\
         --reads=${cram} \\
+        --regions primary.bed \\
         --sample_name=${params.sample_id} \\
         --output_vcf=${params.sample_id}.dv.vcf.gz \\
         --num_shards=${task.cpus} \\
@@ -145,8 +165,16 @@ process DEEPVARIANT {
 }
 
 /*
- * PASS only, split multiallelics, left-align. Used for both the vendor VCF
- * and the DeepVariant callset; `label` keeps their outputs apart.
+ * PASS only, primary contigs only, split multiallelics, left-align. Used for
+ * both the vendor VCF and the DeepVariant callset; `label` keeps their outputs
+ * apart.
+ *
+ * The primary-contig restriction is applied HERE, not inherited from the caller.
+ * DeepVariant is now called on primary contigs only; the vendor VCF was called
+ * genome-wide. Without this filter the two callsets would not be comparable, and
+ * any "the vendor found something DeepVariant missed" claim would be confounded
+ * by region, not by caller. Filtering both to the same intervals makes the
+ * comparison honest.
  */
 process NORMALIZE {
     tag "${label}"
@@ -161,9 +189,17 @@ process NORMALIZE {
 
     script:
     """
-    bcftools view -f PASS -O u ${vcf} \\
+    awk '\$1 ~ /^chr([0-9]+|X|Y|M)\$/ { print \$1"\\t0\\t"\$2 }' \\
+        ${params.fasta}.fai > primary.bed
+
+    n_in=\$(bcftools index -n ${vcf})
+    bcftools view -f PASS -R primary.bed -O u ${vcf} \\
     | bcftools norm -m -any -f ${params.fasta} -c w -O z -o ${label}.norm.vcf.gz -
     tabix -p vcf ${label}.norm.vcf.gz
+    n_out=\$(bcftools index -n ${label}.norm.vcf.gz)
+
+    # Audit trail: how much the PASS + primary-contig filter removed.
+    echo "${label}: \${n_in} records in, \${n_out} after PASS + primary-contig filter" >&2
     """
 }
 
@@ -208,8 +244,9 @@ process DELLY {
     tuple path("${params.sample_id}.delly.vcf.gz"), path("${params.sample_id}.delly.vcf.gz.tbi"), emit: vcf
 
     script:
+    // delly 2.x replaced the `call` subcommand with `sr` (short-read discovery)
     """
-    delly call -g ${params.fasta} -o delly.bcf ${cram}
+    delly sr -g ${params.fasta} -o delly.bcf ${cram}
     bcftools view -O z -o ${params.sample_id}.delly.vcf.gz delly.bcf
     tabix -p vcf ${params.sample_id}.delly.vcf.gz
     """
@@ -228,13 +265,38 @@ process EXPANSIONHUNTER {
     path "${params.sample_id}.eh.*", emit: all
 
     script:
+    // ExpansionHunter 5.0.0 bundles an htslib that cannot decode CRAM written
+    // by recent samtools ("Failure to decode slice"). It only inspects catalog
+    // loci, so extract those regions to a small BAM first -- this both avoids
+    // the CRAM issue and is far faster than scanning the whole alignment.
     """
+    python3 - <<'PY' > catalog_regions.bed
+    import json
+    regions = []
+    for locus in json.load(open("${catalog}")):
+        rr = locus.get("ReferenceRegion")
+        for r in (rr if isinstance(rr, list) else [rr]):
+            if not r:
+                continue
+            chrom, span = r.split(":")
+            start, end = span.split("-")
+            regions.append((chrom, max(0, int(start) - 2000), int(end) + 2000))
+    for chrom, start, end in sorted(set(regions)):
+        print(f"{chrom}\\t{start}\\t{end}")
+    PY
+
+    samtools view -b -T ${params.fasta} -L catalog_regions.bed \\
+        -o eh_input.bam ${cram}
+    samtools index eh_input.bam
+
     ExpansionHunter \\
-        --reads ${cram} \\
+        --reads eh_input.bam \\
         --reference ${params.fasta} \\
         --variant-catalog ${catalog} \\
         --threads ${task.cpus} \\
         --output-prefix ${params.sample_id}.eh
+
+    rm -f eh_input.bam eh_input.bam.bai
     """
 }
 
@@ -244,65 +306,39 @@ process EXPANSIONHUNTER {
 // ===========================================================================
 
 /*
- * Read depth + B-allele frequency. Mosaic whole-chromosome gains/losses show
- * up as fractional shifts in depth together with split BAF bands.
- * One-off setup on the host: `cnvpytor -download`
+ * Mosaic aneuploidy profiling: GC-corrected per-bin depth plus B-allele
+ * frequency at heterozygous sites, summarised per chromosome as an estimated
+ * fraction of cells carrying a gain or loss. Reports its own detection limit.
+ *
+ * Replaces CNVpytor, which targets focal CNV calling rather than
+ * chromosome-wide mosaic shifts, and whose 1.3.2 resource downloader is broken.
  */
-process CNVPYTOR {
+process ANEUPLOIDY {
     tag "${params.sample_id}"
     label 'medium'
-    publishDir "${params.outdir}/aneuploidy", mode: 'link'
-
-    input:
-    tuple path(cram), path(crai)
-    tuple path(vcf), path(tbi)
-
-    output:
-    path "${params.sample_id}.cnvpytor_calls_100k.tsv", emit: calls
-    path "*.png",                                        emit: plots
-
-    script:
-    def root = "${params.sample_id}.pytor"
-    """
-    cnvpytor -root ${root} -rd ${cram} -T ${params.fasta} -j ${task.cpus}
-    cnvpytor -root ${root} -his 100000 1000000
-    cnvpytor -root ${root} -partition 100000 1000000
-    cnvpytor -root ${root} -call 100000 > ${params.sample_id}.cnvpytor_calls_100k.tsv
-
-    cnvpytor -root ${root} -snp ${vcf} -sample ${params.sample_id}
-    cnvpytor -root ${root} -mask_snps
-    cnvpytor -root ${root} -baf 100000 1000000
-
-    cnvpytor -root ${root} -plot manhattan 1000000 -o ${params.sample_id}.manhattan.png
-    cnvpytor -root ${root} -plot baf 1000000 -o ${params.sample_id}.baf.png
-    """
-}
-
-/*
- * Needs bin/aneuploidy_plot.py (not yet written). Off by default via
- * params.run_karyoplot until it exists.
- */
-process KARYOPLOT {
-    tag "${params.sample_id}"
-    label 'low'
-    publishDir "${params.outdir}/aneuploidy", mode: 'link'
+    publishDir "${params.outdir}/aneuploidy", mode: 'copy'
 
     input:
     path bins
-    path calls
+    tuple path(vcf), path(tbi)
 
     output:
-    path "aneuploidy_karyotype.pdf", emit: figure
-    path "mosaic_fractions.tsv",     emit: fractions
+    path "aneuploidy_karyotype.pdf",   emit: figure
+    path "aneuploidy_karyotype.png",   emit: figure_png
+    path "mosaic_fractions.tsv",       emit: fractions
+    path "mosaic_fractions.tsv.limit", emit: limit
+    path "aneuploidy.log",             emit: log
 
     script:
     """
     aneuploidy_plot.py \\
         --bins ${bins} \\
-        --calls ${calls} \\
+        --fasta ${params.fasta} \\
+        --vcf ${vcf} \\
         --bin-size ${params.bin_size} \\
         --out-figure aneuploidy_karyotype.pdf \\
-        --out-table mosaic_fractions.tsv
+        --out-table mosaic_fractions.tsv 2> aneuploidy.log
+    cat aneuploidy.log >&2
     """
 }
 
@@ -535,7 +571,6 @@ process VERSIONS {
       echo "mosdepth: \$(mosdepth --version 2>&1 || true)"
       echo "delly: \$(delly --version 2>&1 | head -1 || true)"
       echo "ExpansionHunter: \$(ExpansionHunter --version 2>&1 | head -1 || true)"
-      echo "cnvpytor: \$(cnvpytor --version 2>&1 | head -1 || true)"
       echo "whatshap: \$(whatshap --version 2>&1 || true)"
       echo "exomiser: ${params.exomiser_jar}"
       echo "deepvariant: ${params.deepvariant_version}"
@@ -602,7 +637,11 @@ workflow {
                 MUTECT2_PANEL(cram, panel)
             }
             WHATSHAP_PANEL(NORMALIZE.out.vcf, cram, panel)
-            phase_ch = WHATSHAP_PANEL.out.blocks
+            // WHATSHAP_PANEL is optional (errorStrategy 'ignore'). An ignored
+            // failure leaves its output channel empty, and MAKE_SUBMISSION would
+            // then wait forever and silently never run. ifEmpty falls back to
+            // "no phasing", which make_submission.py already handles.
+            phase_ch = WHATSHAP_PANEL.out.blocks.ifEmpty([])
         }
 
         if (params.run_sv) {
@@ -612,10 +651,7 @@ workflow {
             EXPANSIONHUNTER(cram, file(params.str_catalog))
         }
         if (params.run_cnv) {
-            CNVPYTOR(cram, DEEPVARIANT.out.vcf)
-            if (params.run_karyoplot) {
-                KARYOPLOT(MOSDEPTH.out.bins, CNVPYTOR.out.calls)
-            }
+            ANEUPLOIDY(MOSDEPTH.out.bins, DEEPVARIANT.out.vcf)
         }
 
         MAKE_SUBMISSION(EXOMISER.out.variants, phase_ch, NORMALIZE.out.vcf.map { _l, vcf, tbi -> [vcf, tbi] })

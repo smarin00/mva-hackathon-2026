@@ -28,8 +28,6 @@ click==8.5.0
     #   huggingface-hub
     #   multiqc
     #   rich-click
-cnvpytor==1.3.2
-    # via -r requirements.in
 coloredlogs==15.0.1
     # via
     #   cyvcf2
@@ -50,12 +48,8 @@ fonttools==4.66.1
     # via matplotlib
 fsspec==2026.9.0
     # via huggingface-hub
-gnureadline==8.3.3
-    # via cnvpytor
 h11==0.16.0
     # via httpcore2
-h5py==3.16.0
-    # via cnvpytor
 hf-xet==1.6.0
     # via huggingface-hub
 httpcore2==2.13.1
@@ -100,9 +94,7 @@ markdown-it-py==4.2.0
 markupsafe==3.0.4
     # via jinja2
 matplotlib==3.8.4
-    # via
-    #   -r requirements.in
-    #   cnvpytor
+    # via -r requirements.in
 mdurl==0.1.2
     # via markdown-it-py
 multiqc==1.35
@@ -119,11 +111,9 @@ numpy==2.5.3
     # via
     #   -r requirements.in
     #   biopython
-    #   cnvpytor
     #   colormath2
     #   contourpy
     #   cyvcf2
-    #   h5py
     #   matplotlib
     #   multiqc
     #   pandas
@@ -173,7 +163,6 @@ pyparsing==3.3.3
 pysam==0.24.1
     # via
     #   -r requirements.in
-    #   cnvpytor
     #   whatshap
 python-dateutil==2.9.0.post0
     # via
@@ -196,7 +185,6 @@ regex==2026.9.29
     # via tiktoken
 requests==2.34.2
     # via
-    #   cnvpytor
     #   multiqc
     #   tiktoken
 rich==15.0.0
@@ -214,7 +202,6 @@ s3transfer==0.19.2
 scipy==1.18.1
     # via
     #   -r requirements.in
-    #   cnvpytor
     #   whatshap
 six==1.17.0
     # via python-dateutil
@@ -251,8 +238,6 @@ urllib3==2.8.0
     #   requests
 whatshap==2.8
     # via -r requirements.in
-xlsxwriter==3.2.9
-    # via cnvpytor
 xopen==2.1.0
     # via whatshap
 zipp==4.1.1
