@@ -13,6 +13,7 @@ genome-wide table of genotypes is the dataset in a different format").
 | `track2/structure_context.tsv` | AlphaFold structural context, same seven residues | `make structure` |
 | `track2/spliceai_two_alleles.tsv` | SpliceAI delta scores for the two causal alleles | `make spliceai` |
 | `track2/opentargets/` | Direction-aware drug screen and named-drug lookup | `make opentargets` |
+| `track2/clinvar_validation.tsv` | ClinVar BUB1B missense variants placed in the atlas (independent check) | `make clinvar` |
 | `track2/atlas/` | All possible BubR1 missense and premature-stop variants; ESM cache | `make atlas` |
 | `versions.txt` | Tool versions and container digests | `make versions` |
 

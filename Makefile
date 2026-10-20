@@ -30,7 +30,7 @@ T2 := $(FINDINGS)/track2
 
 
 .PHONY: help install refs gtf setup data inputs lint smoke track1-vcf track1 \
-	    track2 nmd esm structure opentargets atlas spliceai aneuploidy-sensitivity \
+	    track2 nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
 help:
@@ -97,7 +97,7 @@ track1:
 	@echo "Submission: $(OUT_FULL)/submission/submission.csv"
 
 # ---- Track 2 ----------------------------------------------------------------
-track2: nmd esm structure opentargets atlas spliceai
+track2: nmd esm structure opentargets atlas spliceai clinvar
 	@echo "Track 2 outputs in $(T2)/"
 
 nmd: $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt
@@ -130,6 +130,15 @@ $(T2)/atlas/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(U
 
 resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb:
 	UNIPROT=$(UNIPROT) bash scripts/prepare_inputs.sh public
+
+# Independent check of the atlas: where do ClinVar's BUB1B missense variants
+# (pathogenic, benign, uncertain) fall? Needs the ClinVar file from `make refs`.
+CLINVAR ?= $(REFS)/clinvar/clinvar.chr.vcf.gz
+clinvar: $(T2)/clinvar_validation.tsv
+$(T2)/clinvar_validation.tsv: $(T2)/atlas/atlas_figure.pdf
+	$(PY) bin/clinvar_validate.py --clinvar $(CLINVAR) --fasta $(FASTA) --gtf $(GTF) \
+	    --gene $(GENE) --protein resources/$(UNIPROT).fasta \
+	    --atlas $(T2)/atlas/atlas_missense.tsv --out $@
 
 # SpliceAI on the two causal alleles only: rules out a splicing mechanism.
 # Own environment: SpliceAI needs TensorFlow 2.15, which needs Python 3.11.

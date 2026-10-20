@@ -121,6 +121,7 @@ How the submission file is built (`bin/make_submission.py`):
 | `make structure` | `bin/structure_context.py` | Where does the residue sit in the AlphaFold structure, and which contacts does the change break? |
 | `make opentargets` | `bin/opentargets_candidates.py` | Which drugs push the pathway in the desired direction, and which push it the wrong way? |
 | `make atlas` | `bin/bub1b_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
+| `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar's pathogenic and benign BUB1B variants, which it never saw? |
 
 `make aneuploidy-sensitivity` re-runs the aneuploidy analysis under three GC
 correction models; chromosomes whose depth shift follows GC content are
