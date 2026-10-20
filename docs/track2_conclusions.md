@@ -156,9 +156,25 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 | 2D, leave-one-out | +0.48 | +1.25% | +1.42% | +1.91% |
 | poly, leave-one-out | +0.69 | +1.46% | +1.69% | +2.28% |
 
-## 7. Open items
+## 7. BUB1B variant atlas and ClinVar check
 
-- Report (`smarin00_track2_report.pdf`) and methods form
+- **[data]** The atlas (`findings/track2/atlas/`) recovers the functional map
+  from sequence alone: KEN1 (mean ESM LLR −11.2), GLEBS (−7.8) and TPR (−6.9)
+  are the most constrained regions; the disordered linker 450–650 (median
+  pLDDT 34) is nearly unconstrained (−1.0).
+- **[data]** Premature stops at codons 1–969 are NMD-sensitive; codons
+  970–1050 escape NMD and keep all checkpoint-essential features.
+- **[data]** ClinVar (`findings/track2/clinvar_validation.tsv`): 1,494 BUB1B
+  missense records, 97% VUS/conflicting. Benign variants (33 unique) fall in
+  the damaging bin at 3% vs a 43% base rate (p ≈ 2e-7), in the tolerated bin
+  at 58% vs 20% (p ≈ 2e-6). One non-calibration pathogenic variant (Q467H)
+  only, so the pathogenic side cannot be tested.
+- **[data]** ClinVar lists the verified destabilisers L1012P, L844F and R727C,
+  and the patient's N1002K, as VUS.
+
+## 8. Open items
+
+- Report: draft in `docs/smarin00_track2_report.md`; PDF and methods form
 - Pitch video (3 min)
 - Optional: physics- or ML-based ΔΔG (e.g. ThermoMPNN) as a fourth line of
   evidence, calibrated the same way
