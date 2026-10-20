@@ -1,14 +1,14 @@
-# Tool and container versions, 2026-10-19
+# Tool and container versions, 2026-10-20
       version 26.04.6 build 12646
 samtools: samtools 1.22.1
 bcftools: bcftools 1.22
-bwa: [main] unrecognized command '--version'
 fastp: fastp 1.0.1
 mosdepth: mosdepth 0.3.14
 delly: Delly version: v2.7.0
-ExpansionHunter: 2026-10-19T20:30:13,[Starting ExpansionHunter v5.0.0]
 apptainer: apptainer version 1.5.4
 java: openjdk 21.0.12.1 2026-08-18
+bwa: Version: 0.7.19-r1273
+ExpansionHunter: v5.0.0
 ## containers (sha256)
 bf679e6d8e6ddfc41082c61ac33a73ec50612aa8c3abbdabd9059b22a2ac4aee  /opt/containers/deepvariant_1.10.0.sif
 2dd14d96cbd1e9bf207b538bd008a7b20a5dcbb47e4e57ab821445897dfff0b1  /opt/containers/gatk_4.7.0.0.sif
