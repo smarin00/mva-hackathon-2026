@@ -42,20 +42,37 @@ panel)
     ;;
 public)
     echo "== UniProt $UNIPROT sequence and AlphaFold model (public)"
-    # fetch URL OUT: fail loudly with the URL; never leave a partial file
-    fetch() {
-        curl -sSfL --retry 3 "$1" -o "$2.part" \
-            || { rm -f "$2.part"; echo "ERROR: download failed: $1" >&2; exit 1; }
-        mv "$2.part" "$2"
+    # try URL OUT: download to OUT.part, rename on success; returns curl's status
+    try() {
+        curl -sSfL --retry 3 -A "mva-hackathon-pipeline (curl)" "$1" -o "$2.part" \
+            && mv "$2.part" "$2" || { rm -f "$2.part"; return 1; }
     }
+    fetch() { try "$1" "$2" || { echo "ERROR: download failed: $1" >&2; exit 1; }; }
+    PY=python3; [ -x .venv/bin/python ] && PY=.venv/bin/python
+
     fetch "https://rest.uniprot.org/uniprotkb/$UNIPROT.fasta" "resources/$UNIPROT.fasta"
     fetch "https://alphafold.ebi.ac.uk/api/prediction/$UNIPROT" "resources/AF-$UNIPROT.json"
-    url=$(python3 -c 'import json,sys
+    urls=$($PY -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 if not d: sys.exit("ERROR: AlphaFold has no prediction for " + sys.argv[2])
-print(d[0]["pdbUrl"])' "resources/AF-$UNIPROT.json" "$UNIPROT")
+print(d[0]["pdbUrl"], d[0]["cifUrl"])' "resources/AF-$UNIPROT.json" "$UNIPROT")         || { rm -f "resources/AF-$UNIPROT.json"; exit 1; }
+    url=${urls% *}; cif=${urls#* }
     rm -f "resources/AF-$UNIPROT.json"
-    fetch "$url" "resources/AF-$UNIPROT-F1-model.pdb"
+    pdb="resources/AF-$UNIPROT-F1-model.pdb"
+    if ! try "$url" "$pdb"; then
+        # Some entries are served as mmCIF only: fetch it and convert.
+        echo "   PDB file not available; using mmCIF and converting" >&2
+        url=$cif
+        fetch "$url" "resources/AF-$UNIPROT-F1-model.cif"
+        $PY - "resources/AF-$UNIPROT-F1-model.cif" "$pdb" <<'EOF'
+import sys
+from Bio.PDB import MMCIFParser, PDBIO
+io = PDBIO()
+io.set_structure(MMCIFParser(QUIET=True).get_structure("m", sys.argv[1]))
+io.save(sys.argv[2])
+EOF
+        rm -f "resources/AF-$UNIPROT-F1-model.cif"
+    fi
     echo "   $url"
     ;;
 smoke)
