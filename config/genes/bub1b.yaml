@@ -100,3 +100,18 @@ pathway:
     desired: down
     tier: "2"
     rationale: "BCL-xL; senolytic target. Senescent-cell clearance delayed ageing phenotypes in BubR1 progeroid mice (Baker 2011)."
+
+# Cancers MVA1 predisposes to, their standard chemotherapy, and the drug
+# candidates to check against it (bin/oncology_compatibility.py, FDA labels).
+#   Tumours: embryonal rhabdomyosarcoma in 2 of 5 families (Hanks 2004);
+#   Wilms tumour, rhabdomyosarcoma, leukaemia (Atlas of Genetics and Cytogenetics
+#   in Oncology, BUB1B). Leukaemia subtype unspecified: no regimen modelled.
+#   Regimens: VAC (COG D9803), VAC/VI (COG ARST0531); EE-4A and DD-4A (Wilms).
+oncology:
+  tumours: [embryonal rhabdomyosarcoma, Wilms tumour, leukaemia]
+  regimens:
+    RMS VAC: [vincristine, dactinomycin, cyclophosphamide]
+    RMS VAC/VI: [vincristine, dactinomycin, cyclophosphamide, irinotecan]
+    Wilms EE-4A: [vincristine, dactinomycin]
+    Wilms DD-4A: [vincristine, dactinomycin, doxorubicin]
+  candidates: [niacin, arimoclomol, dasatinib, quercetin, valproic acid, nicotinamide riboside]

@@ -22,6 +22,7 @@ records the versions actually present, with container sha256 digests, in
 | BubR1 sequence | UniProt O60566 (1050 aa) | rest.uniprot.org | 2026-10-19 |
 | BubR1 structure | AlphaFold DB model AF-O60566-F1 | alphafold.ebi.ac.uk | 2026-10-19 |
 | Gene-disease annotations | HPO release v2026-09-01 (`genes_to_disease.txt`, `phenotype.hpoa`; OMIM + Orphanet) | github.com/obophenotype/human-phenotype-ontology releases | 2026-10-21 |
+| Drug labels | US prescribing information via openFDA drug label API (version and date per label in `findings/track2/oncology/labels.tsv`) | api.fda.gov | at run time |
 | Drug-target data | Open Targets Platform, API 26.9.0, data 26.09 | api.platform.opentargets.org | 2026-10-19 |
 | Protein language model | ESM-2 650M (`esm2_t33_650M_UR50D`) | fair-esm | 2026-10-19 |
 | Splice prediction | SpliceAI 1.3.1 (built-in GRCh38 annotation), two patient alleles only | PyPI, separate Python 3.11 env (TensorFlow 2.15 CPU) | 2026-10-19 |

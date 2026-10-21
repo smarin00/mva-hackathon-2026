@@ -45,7 +45,7 @@ SUBMISSION = $(OUT)/submission/submission.csv
 .PHONY: help all install refs gtf setup data inputs inputs-run lint smoke track1-vcf track1 \
 	    case gene-config gene-atlas related-genes related-genes-run mva-genes hpo \
 	    track2 track2-steps \
-	    nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
+	    nmd esm structure opentargets oncology atlas spliceai clinvar aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
 help:
@@ -156,7 +156,8 @@ $(RCASE): $(CASE) $(GTF) $(wildcard $(SUBMISSION)) $(wildcard config/genes/*.yam
 	    --submission $(SUBMISSION) --out $@
 
 track2-steps: $(if $(PATIENT_PTC_POS),nmd) $(if $(PATIENT_MISSENSE),esm structure) \
-	    $(if $(PANEL),opentargets) $(if $(PATIENT_PTC_POS)$(PATIENT_MISSENSE),spliceai) \
+	    $(if $(PANEL),opentargets) $(if $(ONCOLOGY),oncology) \
+	    $(if $(PATIENT_PTC_POS)$(PATIENT_MISSENSE),spliceai) \
 	    atlas clinvar
 
 nmd: $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt
@@ -178,6 +179,12 @@ $(T2)/structure_context.tsv: resources/AF-$(UNIPROT)-F1-model.pdb
 opentargets: $(T2)/opentargets/ot_target_drugs.tsv
 $(T2)/opentargets/ot_target_drugs.tsv:
 	$(PY) bin/opentargets_candidates.py --config $(RCASE) --outdir $(T2)/opentargets
+
+# Candidates vs the chemotherapy of the cancers the disease predisposes to,
+# from FDA labels (openFDA); needs an `oncology` block in the gene file.
+oncology: $(T2)/oncology/compatibility.tsv
+$(T2)/oncology/compatibility.tsv: $(RCASE)
+	$(PY) bin/oncology_compatibility.py --config $(RCASE) --outdir $(T2)/oncology
 
 atlas: $(T2)/atlas/atlas_figure.pdf
 $(T2)/atlas/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb

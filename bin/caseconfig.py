@@ -82,6 +82,7 @@ def make_vars(path):
         v = get(cfg, key)
         out.append(f"{var} := {'' if v is None else v}")
     out.append(f"PANEL := {'yes' if cfg['pathway'] else ''}")
+    out.append(f"ONCOLOGY := {'yes' if cfg.get('oncology') else ''}")
     return "\n".join(out) + "\n"
 
 

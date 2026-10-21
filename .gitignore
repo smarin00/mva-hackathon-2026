@@ -39,3 +39,4 @@ __pycache__/
 .pytest_cache/
 repo_snapshot*
 build/
+resources/labels/
