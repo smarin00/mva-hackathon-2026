@@ -20,7 +20,7 @@ ROUTE   = $(or $(call case,mode),full)
 # auto | list of symbols | empty (mva_genes: older name of the same key)
 RELATED = $(or $(call case,related_genes),$(call case,mva_genes))
 # GENE, UNIPROT, DOMAINS, PANEL, PATIENT_*: from the resolved case, written
-# by `make case` as case.mk and included below once it exists.
+# by `make case` as build/case.mk and included below once it exists.
 
 # ---- locations ------------------------------------------------------------
 REFS       ?= /opt/refs
@@ -34,8 +34,10 @@ PY         ?= .venv/bin/python
 NXF        ?= nextflow run main.nf -params-file $(CASE)
 
 T2    := $(FINDINGS)/track2
+# internal state (not results): generated make variables, gene lists, temp files
+BUILD := build
 RCASE := $(T2)/case.yaml
--include $(wildcard $(T2)/case.mk)
+-include $(wildcard $(BUILD)/case.mk)
 OUT    = $(if $(filter vcf,$(ROUTE)),$(OUT_VCF),$(OUT_FULL))
 SUBMISSION = $(OUT)/submission/submission.csv
 
@@ -140,11 +142,14 @@ track2: case
 	$(MAKE) --no-print-directory track2-steps
 	@echo "Track 2 outputs in $(T2)/"
 
+# case.mk deliberately has no rule of its own: make would otherwise try to
+# rebuild it (and the whole case) before every command, even `make help`.
 case: $(RCASE)
+	mkdir -p $(BUILD)
+	$(PY) bin/caseconfig.py --make $(RCASE) > $(BUILD)/case.mk
 $(RCASE): $(CASE) $(GTF) $(wildcard $(SUBMISSION)) $(wildcard config/genes/*.yaml)
 	$(PY) bin/resolve_case.py --case $(CASE) --gtf $(GTF) --fasta $(FASTA) \
 	    --submission $(SUBMISSION) --out $@
-	$(PY) bin/caseconfig.py --make $@ > $(T2)/case.mk
 
 track2-steps: $(if $(PATIENT_PTC_POS),nmd) $(if $(PATIENT_MISSENSE),esm structure) \
 	    $(if $(PANEL),opentargets) $(if $(PATIENT_PTC_POS)$(PATIENT_MISSENSE),spliceai) \
@@ -200,16 +205,18 @@ $(FINDINGS)/genes/%/atlas_figure.pdf: $(GTF) resources/$(GUNI).fasta resources/A
 # failing (e.g. not in the annotation) is reported and does not stop the rest.
 related-genes: $(if $(filter auto,$(RELATED)),case)
 	$(MAKE) --no-print-directory related-genes-run
-related-genes-run: $(if $(filter auto,$(RELATED)),$(T2)/related_genes.txt)
+related-genes-run: $(if $(filter auto,$(RELATED)),$(BUILD)/related_genes.txt)
 	@failed=""; \
-	for g in $(if $(filter auto,$(RELATED)),$$(cat $(T2)/related_genes.txt),$(RELATED)); do \
+	for g in $(if $(filter auto,$(RELATED)),$$(cat $(BUILD)/related_genes.txt),$(RELATED)); do \
 	    $(MAKE) --no-print-directory gene-atlas G=$$g || failed="$$failed $$g"; done; \
 	if [ -n "$$failed" ]; then echo "WARNING: no atlas for:$$failed (see messages above)"; fi
 mva-genes: related-genes
 
-$(T2)/related_genes.txt: $(RCASE) $(HPO)/genes_to_disease.txt $(HPO)/phenotype.hpoa
+$(BUILD)/related_genes.txt: $(RCASE) $(HPO)/genes_to_disease.txt $(HPO)/phenotype.hpoa
+	mkdir -p $(@D)
 	$(PY) bin/related_genes.py --gene $(GENE) --g2d $(HPO)/genes_to_disease.txt \
-	    --hpoa $(HPO)/phenotype.hpoa --out $(T2)/related_genes.tsv > $@
+	    --hpoa $(HPO)/phenotype.hpoa --out $(T2)/related_genes.tsv > $@.tmp
+	mv $@.tmp $@
 
 # Public protein inputs for any UniProt accession
 resources/%.fasta resources/AF-%-F1-model.pdb:
@@ -229,22 +236,22 @@ $(T2)/clinvar_validation.tsv: $(T2)/atlas/atlas_figure.pdf
 SPLICEAI_PY := .venv-spliceai/bin/python
 spliceai: $(T2)/spliceai_two_alleles.tsv
 $(T2)/spliceai_two_alleles.tsv: $(SPLICEAI_PY)
-	mkdir -p $(T2)
+	mkdir -p $(T2) $(BUILD)
 	len=$$(awk -v c=$(PATIENT_CHROM) '$$1==c{print $$2}' $(FASTA).fai); \
 	printf '##fileformat=VCFv4.2\n##contig=<ID=%s,length=%s>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n' \
-	    $(PATIENT_CHROM) $$len > $(T2)/.two.vcf; \
+	    $(PATIENT_CHROM) $$len > $(BUILD)/two.vcf; \
 	for a in "$(PATIENT_PTC_ALLELE)" "$(PATIENT_MIS_ALLELE)"; do \
-	    set -- $$a; printf '%s\t%s\t.\t%s\t%s\t.\t.\t.\n' $(PATIENT_CHROM) $$1 $$2 $$3 >> $(T2)/.two.vcf; \
+	    set -- $$a; printf '%s\t%s\t.\t%s\t%s\t.\t.\t.\n' $(PATIENT_CHROM) $$1 $$2 $$3 >> $(BUILD)/two.vcf; \
 	done
-	.venv-spliceai/bin/spliceai -I $(T2)/.two.vcf -O $(T2)/.two.spliceai.vcf \
+	.venv-spliceai/bin/spliceai -I $(BUILD)/two.vcf -O $(BUILD)/two.spliceai.vcf \
 	    -R $(FASTA) -A grch38 -D 4999
 	{ printf 'chrom\tpos\tref\talt\tgene\tDS_AG\tDS_AL\tDS_DG\tDS_DL\n'; \
-	  grep -v '^#' $(T2)/.two.spliceai.vcf | awk -F'\t' '{ \
+	  grep -v '^#' $(BUILD)/two.spliceai.vcf | awk -F'\t' '{ \
 	    split($$8, kv, "SpliceAI="); n = split(kv[2], ann, ","); \
 	    for (i = 1; i <= n; i++) { split(ann[i], f, "|"); \
 	      print $$1"\t"$$2"\t"$$4"\t"$$5"\t"f[2]"\t"f[3]"\t"f[4]"\t"f[5]"\t"f[6] } }'; \
 	} | tee $@
-	rm -f $(T2)/.two.vcf $(T2)/.two.spliceai.vcf
+	rm -f $(BUILD)/two.vcf $(BUILD)/two.spliceai.vcf
 
 $(SPLICEAI_PY):
 	uv venv .venv-spliceai --python 3.11
@@ -294,4 +301,4 @@ deletion-check:
 	    [ -e "$$p" ] && du -sh "$$p" 2>/dev/null; done; true
 
 clean:
-	rm -rf work .nextflow* results_smoke
+	rm -rf work .nextflow* results_smoke $(BUILD)

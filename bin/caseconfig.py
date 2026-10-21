@@ -15,7 +15,7 @@ gene file), which is what the Track 2 scripts read.
 As a module:   cfg = caseconfig.load("config/genes/bub1b.yaml")
 From make:     caseconfig.py FILE KEY      e.g. caseconfig.py params.yaml mode
                (lists are space-joined; a missing key prints nothing)
-               caseconfig.py --make findings/track2/case.yaml > case.mk
+               caseconfig.py --make findings/track2/case.yaml > build/case.mk
 """
 import sys
 
