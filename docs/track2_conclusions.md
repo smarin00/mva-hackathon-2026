@@ -132,6 +132,11 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
   for any future oncology treatment in a cancer-predisposed child.
 - **[literature]** Proteasome inhibition rescued mutant BubR1 levels in
   vitro. That is a proof of mechanism, not a treatment suggestion.
+- **[literature]** BubR1 acetylation at K250 is mitosis-only and protects it
+  from APC/C degradation until checkpoint silencing, when HDAC2/3 remove it
+  (Choi 2009; Park 2017). It sets mitotic timing, not steady-state level
+  (Park 2013). HDAC inhibition (valproate) is therefore an exploratory
+  hypothesis, not a dose-raising candidate; see `track2_candidates.md`.
 - Not relevant: read-through or NMD-modulating strategies for L737\*. They
   are theoretically interesting because the truncated product would be
   functional, but they are a far weaker lever than stabilising the allele
@@ -188,6 +193,9 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
   *Cancer Res* 70, 4891–4900 (2010).
 - Suijkerbuijk S.J.E. et al. The vertebrate mitotic checkpoint protein BUBR1
   is an unusual pseudokinase. *Dev Cell* 22, 1321–1329 (2012).
+- Choi E. et al. *EMBO J* 28, 2077–2089 (2009). doi:10.1038/emboj.2009.123
+- Park I. et al. *J Cell Biol* 202, 295–309 (2013). doi:10.1083/jcb.201210099
+- Park I. et al. *FEBS J* 284, 4035–4050 (2017). doi:10.1111/febs.14286
 - BubR1 TPR domain supports the mitotic checkpoint by promoting MCC formation
   and MCC-APC/C interaction. *Commun Biol* (2026),
   doi:10.1038/s42003-026-10384-9.

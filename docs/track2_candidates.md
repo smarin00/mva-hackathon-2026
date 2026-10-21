@@ -63,6 +63,14 @@ The mechanism and evidence for the NAD⁺ route:
   problem.
 - **Gap.** SIRT2-mediated stabilisation was shown for wild-type BubR1; it is
   untested whether it rescues a misfolding-prone mutant.
+- **Second acetylation site, opposite sign.** BubR1 also carries K250, whose
+  acetylation by PCAF *protects* it from APC/C-mediated degradation in
+  mitosis (Choi 2009). SIRT2 deacetylated K250 in vitro (Suematsu 2014, as
+  cited in Park 2017), which in principle works against BubR1. Park 2017 found
+  no mitosis-specific SIRT2–BubR1 binding and suggests SIRT2 acts mainly in
+  interphase; the in vivo net effect of more SIRT2 was more BubR1 and longer
+  life (North 2014). The validation plan measures BubR1 through mitosis, not
+  only at steady state, for this reason.
 - **Measurable.** BubR1 protein in patient lymphocytes; whole-blood NAD⁺.
 
 ### 2. Arimoclomol (heat-shock response amplifier)
@@ -92,6 +100,42 @@ The mechanism and evidence for the NAD⁺ route:
   navitoclax is excluded (dose-limiting thrombocytopenia).
 - **Gap.** Baker 2011 used *genetic* clearance, not drugs. This treats
   consequences, not cause. Long-term and lowest priority.
+
+## Considered, not ranked: HDAC inhibition (valproic acid)
+
+HDAC2 and HDAC3 deacetylate BubR1 at K250, so a class I HDAC inhibitor would
+keep BubR1 acetylated. Valproic acid is an approved class I HDAC inhibitor
+with long pediatric use (epilepsy), so it is the obvious approved drug for
+this route. We read the three primary papers in full; they argue against
+ranking it.
+
+- **It acts on timing in mitosis, not on dose.** K250 is acetylated only in
+  prometaphase, and HDAC2/3 bind BubR1 only in mitosis, not in interphase
+  (Choi 2009; Park 2017). Acetylation decides *when* BubR1 is destroyed at
+  the end of mitosis. An acetylation-deficient allele left overall BubR1
+  levels unchanged in mouse tissues (Park 2013). This child's deficit is
+  BubR1 *quantity*, set largely by turnover of an unstable protein; HDAC
+  inhibition does not address that.
+- **The direct effect is mitotic arrest.** Keeping BubR1 acetylated (the
+  K250Q mimic) held cells in metaphase about 45 min longer than wild type
+  (Park 2017); the pan-HDAC inhibitor TSA delayed mitotic exit by at least
+  5 h (Choi 2009). HDAC inhibitors act against cancer cells partly through
+  mitotic arrest (Park 2017). In MVA, where mitosis is too short, a longer
+  checkpoint could in principle help; but whether it helps cells with too
+  little BubR1, or simply arrests and kills dividing cells (marrow, gut), is
+  untested.
+- **Where it could help.** Acetylated BubR1 is needed to recruit PP2A-B56 for
+  stable kinetochore attachment, and the acetylation-deficient allele caused
+  tumours and missegregation in mice (Park 2013). Raising the acetylated
+  fraction of the little BubR1 this child has is a coherent hypothesis.
+- **Pharmacology.** Valproate is a weak, broad class I inhibitor acting at
+  millimolar concentrations; its effect on BubR1 K250 at therapeutic levels is
+  unknown. Known risks include hepatotoxicity (highest under age 2) and
+  pancreatitis.
+
+Verdict: a mechanistically coherent but double-edged hypothesis. It is
+included in the validation plan as an exploratory arm (mitotic timing and
+missegregation in patient cells), not as a ranked candidate.
 
 ## Rejected at curation
 
@@ -128,13 +172,17 @@ In patient-derived cells (lymphoblastoid line or fibroblasts):
 3. HSP90 inhibitor as a positive control for further depletion, which also
    tests the do-no-harm prediction directly.
 4. Cycloheximide chase to show any rise in level comes from slower turnover.
+5. Exploratory: valproic acid at therapeutic concentrations (0.3–0.7 mM),
+   reading out acetyl-K250 BubR1, time from nuclear-envelope breakdown to
+   anaphase, and missegregation. A longer mitosis without fewer errors, or
+   mitotic death, would rule it out.
 
 Success criterion: BubR1 raised from below to above ~13% of normal, with a
 measurable fall in missegregation.
 
 ## Automated layer: how candidates were screened
 
-`bin/opentargets_candidates.py` queries 11 pathway genes, each with a
+`bin/opentargets_candidates.py` queries 13 pathway genes (`config/bub1b.toml`), each with a
 literature-justified desired direction, against Open Targets known drugs and
 clinical candidates, and classifies every drug by its ChEMBL action type.
 
@@ -152,6 +200,19 @@ clinical candidates, and classifies every drug by its ChEMBL action type.
   ageing-associated disorders. *Nature* 479, 232–236 (2011).
   doi:10.1038/nature10600
 - Suijkerbuijk S.J.E. et al. *Cancer Res* 70, 4891–4900 (2010).
+- Choi E. et al. BubR1 acetylation at prometaphase is required for modulating
+  APC/C activity and timing of mitosis. *EMBO J* 28, 2077–2089 (2009).
+  doi:10.1038/emboj.2009.123
+- Park I. et al. Loss of BubR1 acetylation causes defects in spindle assembly
+  checkpoint signaling and promotes tumor formation. *J Cell Biol* 202,
+  295–309 (2013). doi:10.1083/jcb.201210099
+- Park I. et al. HDAC2/3 binding and deacetylation of BubR1 initiates spindle
+  assembly checkpoint silencing. *FEBS J* 284, 4035–4050 (2017).
+  doi:10.1111/febs.14286
+- Suematsu T. et al. Deacetylation of the mitotic checkpoint protein BubR1 at
+  lysine 250 by SIRT2 and subsequent effects on BubR1 degradation during the
+  prometaphase/anaphase transition. *Biochem Biophys Res Commun* (2014).
+  Cited via Park 2017; not read in full.
 - Pirinen E. et al. Niacin cures systemic NAD+ deficiency and improves muscle
   performance in adult-onset mitochondrial myopathy. *Cell Metab* 31,
   1078–1090 (2020). doi:10.1016/j.cmet.2020.04.008

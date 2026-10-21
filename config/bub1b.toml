@@ -81,12 +81,12 @@ rationale = "CBP acetylates BubR1 K668, opposing SIRT2 (North 2014). Caution: CR
 symbol = "HDAC2"
 desired = "down"
 tier = "1"
-rationale = "Deacetylates BubR1 K250 to initiate checkpoint silencing (Park 2017); K250 acetylation by PCAF protects BubR1 from degradation in mitosis (Choi 2009)."
+rationale = "Deacetylates BubR1 K250 in mitosis to initiate checkpoint silencing (Park 2017); K250 acetylation protects BubR1 from APC/C degradation in mitosis (Choi 2009). Acts on mitotic timing, not steady-state level (Park 2013): exploratory."
 [[pathway]]
 symbol = "HDAC3"
 desired = "down"
 tier = "1"
-rationale = "As HDAC2 (Park 2017)."
+rationale = "As HDAC2 (Park 2017). Exploratory: inhibition prolongs metaphase."
 [[pathway]]
 symbol = "HSF1"
 desired = "up"

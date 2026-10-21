@@ -206,7 +206,7 @@ Candidate identification combined an **automated screen** and **mechanism-led
 curation**:
 
 1. **Direction-aware drug screen** (`bin/opentargets_candidates.py`). An
-   11-gene panel around BubR1 dosage, each gene annotated with the direction
+   13-gene panel around BubR1 dosage, each gene annotated with the direction
    that would help (for example SIRT2 up, HSF1 up, HSP90 *not inhibited*) and
    the literature behind it, was crossed with every drug and clinical
    candidate in Open Targets (API 26.9.0, data 26.09) and its ChEMBL action
@@ -244,7 +244,10 @@ riboside, a dietary supplement rather than an approved medicine, is a
 better-tolerated alternative with pediatric precedent: 25 mg/kg/day for four
 months in 24 patients with ataxia-telangiectasia, 17 of them under 18 [7].
 *Gap:* SIRT2-mediated stabilisation was shown for wild-type BubR1; whether it
-rescues a destabilised mutant is the first thing to test.
+rescues a destabilised mutant is the first thing to test. *Caveat:* SIRT2 can
+also deacetylate a second site, K250, whose acetylation protects BubR1 in
+mitosis [11]; the in vivo net effect of more SIRT2 was more BubR1 [5], but
+validation should measure BubR1 through mitosis as well as at steady state.
 
 **2. Arimoclomol.** It amplifies HSF1-driven induction of HSP70-family
 chaperones under stress, supporting proteins prone to misfolding. The
@@ -262,6 +265,17 @@ when started late [4]. That study used genetic clearance; dasatinib +
 quercetin is the senolytic regimen studied in humans. This treats
 consequences rather than cause and carries real toxicity, so it ranks last.
 Fisetin is a better-tolerated, non-approved alternative.
+
+**Considered, not ranked: valproic acid.** HDAC2/3 remove the protective K250
+acetylation at the end of mitosis [12], so a class I HDAC inhibitor such as
+valproate, approved and long used in children, is the obvious approved drug on
+this route. The primary papers argue against ranking it. K250 acetylation
+exists only in mitosis and sets *when* BubR1 is destroyed, not how much there
+is: an acetylation-deficient allele left overall BubR1 levels unchanged
+[13]. Its direct effect is a longer metaphase, which in a checkpoint that is
+too short might help, but which HDAC inhibitors also use to arrest and kill
+dividing cells [11, 12]. It enters the validation plan as an exploratory arm
+(mitotic timing and missegregation in patient cells), not as a candidate.
 
 **Rejected at curation.** PRI-724 appears as a CBP inhibitor, which is the
 desired direction, but it blocks the CBP–β-catenin interaction, not CBP's
@@ -434,3 +448,12 @@ reviewed by the author. No genome-scale data were shared (`docs/llm_usage.md`).
 10. BubR1 TPR domain supports the mitotic checkpoint by promoting MCC
     formation and MCC-APC/C interaction. *Commun Biol* (2026).
     doi:10.1038/s42003-026-10384-9. (Domain boundaries.)
+11. Choi E. et al. BubR1 acetylation at prometaphase is required for
+    modulating APC/C activity and timing of mitosis. *EMBO J* 28, 2077–2089
+    (2009). doi:10.1038/emboj.2009.123
+12. Park I. et al. HDAC2/3 binding and deacetylation of BubR1 initiates
+    spindle assembly checkpoint silencing. *FEBS J* 284, 4035–4050 (2017).
+    doi:10.1111/febs.14286
+13. Park I. et al. Loss of BubR1 acetylation causes defects in spindle
+    assembly checkpoint signaling and promotes tumor formation. *J Cell Biol*
+    202, 295–309 (2013). doi:10.1083/jcb.201210099
