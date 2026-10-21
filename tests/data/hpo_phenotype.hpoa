@@ -1,0 +1,16 @@
+#version: 2026-09-01 (test subset)
+database_id	disease_name
+OMIM:114500	Colorectal cancer
+OMIM:176430	Premature chromatid separation trait
+OMIM:176807	Prostate cancer
+OMIM:257300	Mosaic variegated aneuploidy syndrome 1
+OMIM:261600	Phenylketonuria
+OMIM:614114	Mosaic variegated aneuploidy syndrome 2
+OMIM:617598	Mosaic variegated aneuploidy syndrome 3
+OMIM:619011	Oocyte maturation defect 9
+OMIM:620153	Mosaic variegated aneuploidy syndrome 4
+OMIM:620183	Microcephaly 30, primary, autosomal recessive
+OMIM:620189	Mosaic variegated aneuploidy syndrome 7 with inflammation and tumor predisposition
+ORPHA:1052	Mosaic variegated aneuploidy syndrome
+ORPHA:2209	Maternal phenylketonuria syndrome
+ORPHA:654	Nephroblastoma

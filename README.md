@@ -41,7 +41,8 @@ make all         # Track 1, then Track 2 on its top candidate, then atlases
                  # for genes causing related diseases       (~5 h VCF route)
 ```
 
-`make` on its own prints the menu; each part also runs on its own
+`make test` checks the scripts on synthetic data in about ten seconds (also run by
+GitHub Actions on every push). `make` on its own prints the menu; each part also runs on its own
 (`make track1-vcf`, `make track2`, `make related-genes`). Every step can be
 re-run safely: finished work is reused, not repeated.
 
@@ -173,6 +174,7 @@ main.nf                 Track 1 pipeline (Nextflow)
 nextflow.config         resources, containers, error handling
 params.example.yaml     case file template -> params.yaml (not committed)
 bin/                    all analysis scripts (Track 1 and Track 2)
+tests/                  tests on synthetic data (make test; CI in .github/workflows)
 config/genes/           gene knowledge: domains, calibration, drug panel (one YAML each)
 config/cases/           committed Track 2 case for reproducing without patient data
 scripts/                install_tools.sh, setup_refs.sh, prepare_inputs.sh

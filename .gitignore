@@ -40,3 +40,8 @@ __pycache__/
 repo_snapshot*
 build/
 resources/labels/
+
+# Synthetic test fixtures (made-up genome and records, no patient data):
+# re-included after the data rules above.
+!tests/data/
+!tests/data/**

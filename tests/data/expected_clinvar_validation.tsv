@@ -1,0 +1,3 @@
+variant	chrom	pos	ref	alt	clinvar_id	clnsig	review_status	class	calibration_allele	esm_llr	atlas_bin	therapy_direction	feature
+L1012P	chr15	15186	T	C	1004	Pathogenic	criteria_provided,_single_submitter	P/LP	True	-6.940	like_destabilisers	stability defect: dose-raising strategy applies	PSEUDOKINASE
+N700T	chr15	11250	A	C	1003	Uncertain_significance	criteria_provided,_single_submitter	VUS/conflicting	False	-4.132	like_destabilisers	uncertain	linker/other

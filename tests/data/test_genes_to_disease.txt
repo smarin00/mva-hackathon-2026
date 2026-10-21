@@ -1,0 +1,5 @@
+ncbi_gene_id	gene_symbol	association_type	disease_id	source
+NCBIGene:0	BUB1B	MENDELIAN	OMIM:100000	x
+NCBIGene:1	HK1	MENDELIAN	OMIM:100001	x
+NCBIGene:2	CFTR	MENDELIAN	OMIM:100002	x
+NCBIGene:3	LZTR1	MENDELIAN	OMIM:100003	x

@@ -44,7 +44,7 @@ OUT    = $(if $(filter vcf,$(ROUTE)),$(OUT_VCF),$(OUT_FULL))
 SUBMISSION = $(OUT)/submission/submission.csv
 
 
-.PHONY: help all install refs gtf setup data inputs inputs-run lint smoke track1-vcf track1 \
+.PHONY: help all install refs gtf setup data inputs inputs-run lint test smoke track1-vcf track1 \
 	    case gene-config gene-atlas related-genes related-genes-run mva-genes hpo \
 	    track2 track2-steps \
 	    nmd esm structure opentargets oncology atlas spliceai clinvar alphamissense \
@@ -71,6 +71,7 @@ help:
 	@echo "                    related_genes: auto in params.yaml, or a list)"
 	@echo "  make gene-atlas G=CEP57   atlas for any gene -> $(FINDINGS)/genes/"
 	@echo ""
+	@echo "  make test         tests of the scripts on synthetic data (~10 s)"
 	@echo "  make smoke        quick pipeline test on a 2 M-read subset"
 	@echo "  make findings     copy shareable results into $(FINDINGS)/ (safe to commit)"
 	@echo "  make versions     record tool and container versions"
@@ -126,6 +127,11 @@ all:
 
 lint:
 	nextflow lint main.nf nextflow.config
+
+# Tests on synthetic data (tests/data/): no patient data, no network, ~10 s
+test:
+	$(PY) -m pytest --version >/dev/null 2>&1 || uv pip install --python $(PY) pytest==8.3.5
+	$(PY) -m pytest -q tests
 
 # ---- Track 1 ----------------------------------------------------------------
 smoke:
