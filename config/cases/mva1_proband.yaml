@@ -8,3 +8,4 @@ track2:
     - {chrom: chr15, pos: 40209701, ref: T, alt: G}   # p.Leu737*
     - {chrom: chr15, pos: 40220612, ref: T, alt: G}   # p.Asn1002Lys
 related_genes: auto
+curation: config/cases/mva1_proband.curation.tsv      # Track 1 gene-level review

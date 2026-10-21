@@ -31,7 +31,8 @@ OUT_VCF    ?= results_vcf
 OUT_FULL   ?= results_full
 FINDINGS   ?= findings
 PY         ?= .venv/bin/python
-NXF        ?= nextflow run main.nf -params-file $(CASE)
+NXF        ?= nextflow run main.nf -params-file $(CASE) \
+              --gene_diseases $(HPO)/genes_to_disease.txt
 
 T2    := $(FINDINGS)/track2
 # internal state (not results): generated make variables, gene lists, temp files
@@ -129,11 +130,11 @@ smoke:
 	bash scripts/prepare_inputs.sh smoke
 	$(NXF) --fastq_dir testdata --outdir results_smoke --sample_id TESTRUN -resume
 
-track1-vcf:
+track1-vcf: hpo
 	$(NXF) --mode vcf --outdir $(OUT_VCF) -resume
 	@echo "Submission: $(OUT_VCF)/submission/submission.csv"
 
-track1:
+track1: hpo
 	$(NXF) --outdir $(OUT_FULL) -resume
 	@echo "Submission: $(OUT_FULL)/submission/submission.csv"
 

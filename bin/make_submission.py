@@ -59,6 +59,16 @@ MIN_PAIR_DISTANCE = 50
 # stay empty rather than being filled with noise. Curated secondaries exempt.
 DEFAULT_MIN_GENE_SCORE = 0.1
 
+# Allele frequency must fit the mode of inheritance (maximum population
+# frequency, %, from Exomiser's MAX_FREQ). A dominant rare-disease allele
+# above 0.1% is implausible (cf. ACMG BS1); recessive alleles can be common
+# (CFTR F508del > 1%), and Exomiser's own filter already removes > 2%.
+DEFAULT_MAX_FREQ = {"AD": 0.1, "XD": 0.1, "AR": 2.0, "XR": 2.0}
+
+# Genes with no OMIM/Orphanet disease (HPO genes_to_disease) are demoted below
+# disease genes, not dropped: a novel disease gene can still be the answer.
+NO_DISEASE_PENALTY = 0.5
+
 # Variants ClinVar classifies as benign are never submitted.
 BENIGN = re.compile(r"BENIGN", re.I)
 
@@ -114,6 +124,7 @@ class Candidate:
     mois: set = field(default_factory=set)          # Exomiser modes this variant passed
     gene_score: float = 0.0                         # Exomiser gene combined score
     homozygous: bool = False
+    max_freq: float = None                          # max population frequency, %
 
     @property
     def is_pair(self):
@@ -144,6 +155,9 @@ def load_ranked(path):
         reader = csv.DictReader(fh, delimiter="\t")
         # header may start with '#RANK'
         reader.fieldnames = [f.lstrip("#") for f in reader.fieldnames]
+        if "MAX_FREQ" not in reader.fieldnames:
+            print("WARNING: no MAX_FREQ column in the Exomiser table: "
+                  "frequency-vs-inheritance rule not applied", file=sys.stderr)
         for row in reader:
             if ARTEFACT_GENES.match(row.get("GENE_SYMBOL", "")):
                 continue
@@ -162,6 +176,8 @@ def load_ranked(path):
 
             moi = row.get("MOI", "?")
             seen_mois = best[key].mois if key in best else set()
+            freq = row.get("MAX_FREQ")
+            freq = float(freq) if freq not in (None, "", ".") else None
             if key not in best or score > best[key].score:
                 best[key] = Candidate(
                     variants=[key],
@@ -172,9 +188,53 @@ def load_ranked(path):
                     mois=seen_mois,
                     gene_score=gene_score,
                     homozygous=row.get("GENOTYPE", "").replace("|", "/") in ("1/1", "2/2"),
+                    max_freq=freq,
                 )
             best[key].mois.add(moi)
     return list(best.values())
+
+
+def frequency_fits_moi(candidates, caps):
+    """Keep only the modes of inheritance a variant's population frequency is
+    compatible with; drop variants left with none. Unknown frequency: kept."""
+    kept, notes = [], []
+    for c in candidates:
+        if c.max_freq is None:
+            kept.append(c)
+            continue
+        ok = {m for m in c.mois if c.max_freq <= caps.get(m, 100.0)}
+        where = f"{c.gene} {c.variants[0][0]}:{c.variants[0][1]} ({c.max_freq:g}%)"
+        if not ok:
+            notes.append(f"dropped {where}: too common for {'/'.join(sorted(c.mois))}")
+        elif ok != c.mois:
+            notes.append(f"{where}: too common for {'/'.join(sorted(c.mois - ok))}, "
+                         f"kept as {'/'.join(sorted(ok))}")
+        if ok:
+            c.mois = ok
+            kept.append(c)
+    return kept, notes
+
+
+def load_disease_genes(path):
+    """Gene symbols with at least one OMIM/Orphanet disease (HPO genes_to_disease.txt)."""
+    genes = set()
+    with open(path) as fh:
+        next(fh)
+        for line in fh:
+            f = line.split("\t")
+            if len(f) >= 4 and f[3].startswith(("OMIM:", "ORPHA:")):
+                genes.add(f[1])
+    return genes
+
+
+def demote_no_disease(candidates, disease_genes):
+    demoted = set()
+    for c in candidates:
+        if c.gene not in disease_genes:
+            c.score -= NO_DISEASE_PENALTY
+            c.rationale += " No established disease association (OMIM/Orphanet)."
+            demoted.add(c.gene)
+    return sorted(demoted)
 
 
 def pair_compound_hets(candidates, phase_blocks=None):
@@ -356,6 +416,12 @@ def main():
     p.add_argument("--curation", help="gene-level curation TSV (gene, action, note)")
     p.add_argument("--min-gene-score", type=float, default=DEFAULT_MIN_GENE_SCORE,
                    help="minimum Exomiser gene combined score for primary rows")
+    p.add_argument("--gene-diseases", help="HPO genes_to_disease.txt: demote genes "
+                   "without an OMIM/Orphanet disease")
+    p.add_argument("--max-freq-dominant", type=float, default=DEFAULT_MAX_FREQ["AD"],
+                   help="max population frequency (%%) for AD/XD (default 0.1)")
+    p.add_argument("--max-freq-recessive", type=float, default=DEFAULT_MAX_FREQ["AR"],
+                   help="max population frequency (%%) for AR/XR (default 2.0)")
     p.add_argument("--proband-id", default=DEFAULT_PROBAND)
     p.add_argument("--out", required=True, help="output .csv")
     args = p.parse_args()
@@ -364,7 +430,15 @@ def main():
     if not candidates:
         sys.exit("No candidates in ranked input")
 
+    caps = {"AD": args.max_freq_dominant, "XD": args.max_freq_dominant,
+            "AR": args.max_freq_recessive, "XR": args.max_freq_recessive}
+    candidates, notes = frequency_fits_moi(candidates, caps)
+    for n in notes:
+        print(f"rule: frequency vs inheritance: {n}", file=sys.stderr)
     candidates = pair_compound_hets(candidates, args.phase)
+    if args.gene_diseases:
+        for g in demote_no_disease(candidates, load_disease_genes(args.gene_diseases)):
+            print(f"rule: no established disease, demoted {g}", file=sys.stderr)
     candidates = apply_curation(candidates, load_curation(args.curation), args.min_gene_score)
     candidates.sort(key=lambda c: -c.score)
     rows = assign_epcr(candidates[:MAX_ROWS])

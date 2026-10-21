@@ -116,8 +116,10 @@ How the submission file is built (`bin/make_submission.py`):
   they are at least 50 bp apart.
 - Excluded: ClinVar-benign variants, hypervariable loci (HLA, KIR, MUC,
   olfactory receptors, Ig/TCR), lone heterozygous hits in recessive-only genes,
-  and genes below a minimum Exomiser score. Gene-level curation with reasons is
-  in `docs/curation.tsv`.
+  and genes below a minimum Exomiser score; variants too common for the mode of
+  inheritance (dominant > 0.1%); genes with no known disease are ranked last.
+- These rules apply to every genome. Gene-level review decisions for this case,
+  with reasons, are in `config/cases/mva1_proband.curation.tsv`.
 - The output is checked against the scorer's rules, and every variant is
   confirmed to exist exactly as written in the source VCF.
 
@@ -178,7 +180,6 @@ findings/               shareable results
 docs/
   reference_data.md     tools and references, versions and sources
   decisions.md          analysis decisions and rationale
-  curation.tsv          gene-level curation of submitted candidates
   bub1b_domains.tsv     BubR1 functional map with literature sources
   track2_*.md           mechanism conclusions and drug candidates
   llm_usage.md          AI-assistant use declaration

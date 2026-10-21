@@ -18,6 +18,11 @@ vendor_vcf: derived/vendor.chr.vcf.gz
 # Comma-separated HPO term IDs from the clinical phenotype
 hpo_ids: ""                                # REQUIRED, e.g. "HP:0000121,HP:0004322"
 
+# Gene-level review of Track 1 candidates (exclude / secondary, with reasons),
+# applied after the automatic rules. Empty for a first run; this case's:
+# config/cases/mva1_proband.curation.tsv
+curation: ""
+
 # Candidate panel for mosaic calling and phasing: gene list -> BED (`make inputs`).
 # The default list covers MVA, spindle-checkpoint and centromere genes.
 panel_genes: docs/panel_genes.txt
