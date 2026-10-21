@@ -15,7 +15,8 @@ REPO=$(cd "$(dirname "$0")/.." && pwd)
 cd "$REPO"
 REFS=${REFS:-/opt/refs}
 DATASET=SageBio/mva-hackathon-2026-data
-VENDOR_VCF=data/WGS_EX2312012_HGWCNDSX7.vcf.gz
+# the dataset's single VCF and its lane-1 reads, whatever the sample is called
+VENDOR_VCF=${VENDOR_VCF:-$(ls data/*.vcf.gz 2>/dev/null | head -1 || true)}
 UNIPROT=${UNIPROT:-O60566}
 
 for part in "$@"; do
@@ -27,6 +28,7 @@ data)
     ;;
 vcf)
     echo "== provided VCF -> chr-named contigs (primary chromosomes only)"
+    [ -n "$VENDOR_VCF" ] || { echo "ERROR: no data/*.vcf.gz (run: make data)"; exit 1; }
     mkdir -p derived
     bcftools view -r "$(cut -f1 resources/chr_map.txt | paste -sd,)" "$VENDOR_VCF" \
         | bcftools annotate --rename-chrs resources/chr_map.txt \
@@ -90,7 +92,9 @@ smoke)
     echo "== testdata/: first 2 M read pairs of lane 1 (PATIENT DATA: never commit)"
     mkdir -p testdata
     for R in 1 2; do
-        zcat "data/WGS_EX2312012_HGWCNDSX7_S16_L001_R${R}_001.fastq.gz" | head -n 8000000 \
+        fq=$(ls data/*_L001_R${R}_001.fastq.gz 2>/dev/null | head -1 || true)
+        [ -n "$fq" ] || { echo "ERROR: no data/*_L001_R${R}_001.fastq.gz (run: make data)"; exit 1; }
+        zcat "$fq" | head -n 8000000 \
             | gzip > "testdata/TEST_S16_L001_R${R}_001.fastq.gz" || true
     done
     ;;

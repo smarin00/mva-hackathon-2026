@@ -183,6 +183,7 @@ docs/
   llm_usage.md          AI-assistant use declaration
   DELETION.md           data deletion plan
 requirements.in/.lock   Python environment
+LICENSE, CITATION.cff   licence (CC BY 4.0) and citation metadata
 ```
 
 ## Data handling
@@ -210,9 +211,10 @@ Hackathon possible.
 ## Licence
 
 Code and documentation are released under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), in line with the
-hackathon's submission terms. The underlying dataset is not covered by this
-licence and is not distributed here.
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (`LICENSE`), in line
+with the hackathon's submission terms. The underlying dataset is not covered by
+this licence and is not distributed here. To cite this work, use
+`CITATION.cff` (GitHub: "Cite this repository").
 
 ## Author
 

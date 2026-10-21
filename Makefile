@@ -99,7 +99,7 @@ setup: .venv/.done
 .venv/.done: requirements.lock
 	uv venv --python 3.12
 	uv pip sync requirements.lock
-	uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+	uv pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
 	touch $@
 
 data:

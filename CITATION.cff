@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "MVA Hackathon 2026: from a child's genome to drug hypotheses"
+abstract: >-
+  Pipeline for the Rare Disease, Real Kid: MVA Hackathon 2026. Track 1 ranks
+  candidate variants from whole-genome sequencing; Track 2 derives the disease
+  mechanism (NMD, ESM-2, AlphaFold structure, ClinVar validation) and screens
+  approved medicines by desired direction of action, with a variant atlas for
+  every gene that causes a related disease.
+type: software
+authors:
+  - family-names: Marin Martinez
+    given-names: Santiago
+license: CC-BY-4.0
+repository-code: "https://github.com/smarin00/mva-hackathon-2026"
+date-released: "2026-10-24"
+keywords:
+  - rare disease
+  - mosaic variegated aneuploidy
+  - BUB1B
+  - drug repurposing
+  - variant interpretation
