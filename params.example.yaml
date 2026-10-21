@@ -41,5 +41,7 @@ track2:
   gene: auto
   variants: auto
 
-# Genes with a related phenotype: variant atlas without patient data.
-mva_genes: [CEP57, TRIP13]
+# Genes causing other forms of the same disease get a variant atlas too (no
+# patient data). auto: looked up in HPO (OMIM series + Orphanet group of the
+# Track 2 gene); or a list, e.g. [CEP57, TRIP13]; or [] for none.
+related_genes: auto

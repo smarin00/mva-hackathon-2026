@@ -37,12 +37,12 @@ make refs        # reference genome and databases      (1-3 h, ~100 GB)
 make setup       # Python environment                  (~5 min)
 make data        # patient dataset (approved access only, see below)
 make inputs      # prepare inputs; creates params.yaml -> add the HPO terms
-make all         # Track 1, then Track 2 on its top candidate, then the
-                 # atlases for related genes                (~4 h VCF route)
+make all         # Track 1, then Track 2 on its top candidate, then atlases
+                 # for genes causing related diseases       (~5 h VCF route)
 ```
 
 `make` on its own prints the menu; each part also runs on its own
-(`make track1-vcf`, `make track2`, `make mva-genes`). Every step can be
+(`make track1-vcf`, `make track2`, `make related-genes`). Every step can be
 re-run safely: finished work is reused, not repeated.
 
 **One file describes the case.** `params.yaml` holds everything about one
@@ -132,7 +132,7 @@ How the submission file is built (`bin/make_submission.py`):
 | `make case` | `bin/resolve_case.py` | Which gene and variants, and what does each do to the protein (stop, missense)? |
 | `make atlas` | `bin/variant_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar variants it never saw? |
-| `make mva-genes` | `bin/variant_atlas.py` | Constraint and NMD maps for the other MVA genes, CEP57 (MVA2) and TRIP13 (MVA3) |
+| `make related-genes` | `bin/related_genes.py`, `bin/variant_atlas.py` | Which genes cause other forms of the same disease (HPO: OMIM series, Orphanet group), and their constraint and NMD maps |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar's pathogenic and benign BUB1B variants, which it never saw? |
 
 `make aneuploidy-sensitivity` re-runs the aneuploidy analysis under three GC

@@ -7,4 +7,4 @@ track2:
   variants:
     - {chrom: chr15, pos: 40209701, ref: T, alt: G}   # p.Leu737*
     - {chrom: chr15, pos: 40220612, ref: T, alt: G}   # p.Asn1002Lys
-mva_genes: [CEP57, TRIP13]
+related_genes: auto

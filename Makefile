@@ -5,7 +5,7 @@
 # generated from UniProt when missing. After the one-time setup,
 #     make all
 # runs Track 1, hands the top-ranked candidate to Track 2, and builds the
-# atlases for the genes listed in the case file.
+# atlases for genes that cause related diseases (looked up in HPO).
 
 # A recipe that fails deletes its half-written target, so a rerun redoes it.
 .DELETE_ON_ERROR:
@@ -16,8 +16,9 @@ PYC   = $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 CFG   = $(PYC) bin/caseconfig.py
 # value from the case file (evaluated only where used)
 case  = $(shell $(CFG) $(CASE) $(1) 2>/dev/null)
-ROUTE     = $(or $(call case,mode),full)
-MVA_GENES = $(call case,mva_genes)
+ROUTE   = $(or $(call case,mode),full)
+# auto | list of symbols | empty (mva_genes: older name of the same key)
+RELATED = $(or $(call case,related_genes),$(call case,mva_genes))
 # GENE, UNIPROT, DOMAINS, PANEL, PATIENT_*: from the resolved case, written
 # by `make case` as case.mk and included below once it exists.
 
@@ -40,7 +41,8 @@ SUBMISSION = $(OUT)/submission/submission.csv
 
 
 .PHONY: help all install refs gtf setup data inputs lint smoke track1-vcf track1 \
-	    case gene-config gene-atlas mva-genes track2 track2-steps \
+	    case gene-config gene-atlas related-genes related-genes-run mva-genes hpo \
+	    track2 track2-steps \
 	    nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
@@ -60,7 +62,8 @@ help:
 	@echo "  make track1       Track 1 from raw reads (FASTQ)      (~15 h) -> $(OUT_FULL)/"
 	@echo "  make track2       Track 2 mechanism + drug analyses   (~1.5 h) -> $(T2)/"
 	@echo "                    variants from params.yaml, or Track 1's top candidate"
-	@echo "  make mva-genes    variant atlas for the genes in params.yaml (mva_genes)"
+	@echo "  make related-genes  atlas for genes causing related diseases (HPO;"
+	@echo "                    related_genes: auto in params.yaml, or a list)"
 	@echo "  make gene-atlas G=CEP57   atlas for any gene -> $(FINDINGS)/genes/"
 	@echo ""
 	@echo "  make smoke        quick pipeline test on a 2 M-read subset"
@@ -74,6 +77,15 @@ install:
 
 refs:
 	REFS=$(REFS) CONTAINERS=$(CONTAINERS) bash scripts/setup_refs.sh
+	$(MAKE) --no-print-directory hpo
+
+# HPO gene-disease annotations (OMIM + Orphanet), pinned release
+HPO_REL ?= v2026-09-01
+HPO      = $(REFS)/hpo/$(HPO_REL)
+hpo: $(HPO)/genes_to_disease.txt $(HPO)/phenotype.hpoa
+$(HPO)/%:
+	mkdir -p $(@D)
+	wget -q -O $@ https://github.com/obophenotype/human-phenotype-ontology/releases/download/$(HPO_REL)/$*
 
 # Track 2 needs only the gene annotation, not the full reference set
 gtf: $(GTF)
@@ -100,7 +112,7 @@ inputs:
 all:
 	$(MAKE) --no-print-directory $(if $(filter vcf,$(ROUTE)),track1-vcf,track1 aneuploidy-sensitivity)
 	$(MAKE) --no-print-directory track2
-	$(MAKE) --no-print-directory mva-genes
+	$(MAKE) --no-print-directory related-genes
 	$(MAKE) --no-print-directory findings versions
 
 lint:
@@ -183,8 +195,21 @@ $(FINDINGS)/genes/%/atlas_figure.pdf: $(GTF) resources/$(GUNI).fasta resources/A
 	$(PY) bin/variant_atlas.py --config $(GCFG) --fasta resources/$(GUNI).fasta \
 	    --gtf $(GTF) --pdb resources/AF-$(GUNI)-F1-model.pdb --outdir $(@D)
 
-mva-genes:
-	for g in $(MVA_GENES); do $(MAKE) --no-print-directory gene-atlas G=$$g || exit 1; done
+# Genes causing other forms of the same disease: the OMIM series and the
+# Orphanet group of the Track 2 gene (bin/related_genes.py). One gene's atlas
+# failing (e.g. not in the annotation) is reported and does not stop the rest.
+related-genes: $(if $(filter auto,$(RELATED)),case)
+	$(MAKE) --no-print-directory related-genes-run
+related-genes-run: $(if $(filter auto,$(RELATED)),$(T2)/related_genes.txt)
+	@failed=""; \
+	for g in $(if $(filter auto,$(RELATED)),$$(cat $(T2)/related_genes.txt),$(RELATED)); do \
+	    $(MAKE) --no-print-directory gene-atlas G=$$g || failed="$$failed $$g"; done; \
+	if [ -n "$$failed" ]; then echo "WARNING: no atlas for:$$failed (see messages above)"; fi
+mva-genes: related-genes
+
+$(T2)/related_genes.txt: $(RCASE) $(HPO)/genes_to_disease.txt $(HPO)/phenotype.hpoa
+	$(PY) bin/related_genes.py --gene $(GENE) --g2d $(HPO)/genes_to_disease.txt \
+	    --hpoa $(HPO)/phenotype.hpoa --out $(T2)/related_genes.tsv > $@
 
 # Public protein inputs for any UniProt accession
 resources/%.fasta resources/AF-%-F1-model.pdb:

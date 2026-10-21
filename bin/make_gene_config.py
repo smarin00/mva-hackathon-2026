@@ -47,16 +47,18 @@ def lookup(gene):
     if len(hits) != 1:
         sys.exit(f"ERROR: expected one reviewed human UniProt entry for {gene}, "
                  f"found {len(hits)}: write config/genes/{gene.lower()}.yaml by hand")
-    return hits[0]["Entry"], hits[0]["Protein names"].split(" (")[0]
+    h = hits[0]
+    return h["Entry"], h["Gene Names (primary)"], h["Protein names"].split(" (")[0]
 
 
 def write(gene, out):
-    acc, name = lookup(gene)
+    # make passes the lower-case file stem; keep UniProt's spelling (C1orf112)
+    acc, gene, name = lookup(gene.upper())
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     with open(out, "w") as fh:
-        fh.write(TEMPLATE.format(gene=gene.upper(), name=name, acc=acc,
+        fh.write(TEMPLATE.format(gene=gene, name=name, acc=acc,
                                  date=datetime.date.today().isoformat()))
-    print(f"wrote {out}: {gene.upper()} = UniProt {acc} ({name})", file=sys.stderr)
+    print(f"wrote {out}: {gene} = UniProt {acc} ({name})", file=sys.stderr)
 
 
 if __name__ == "__main__":
