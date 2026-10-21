@@ -1,0 +1,501 @@
+codon	wt	cds_pos	tx_pos	exon	nt_to_last_junction	nmd	essential_features_lost	outcome	caveat
+1	M	1	202	1	1271	NMD	-	null (NMD)	start-proximal: reinitiation possible
+2	A	4	205	1	1268	NMD	-	null (NMD)	start-proximal: reinitiation possible
+3	A	7	208	1	1265	NMD	-	null (NMD)	start-proximal: reinitiation possible
+4	A	10	211	1	1262	NMD	-	null (NMD)	start-proximal: reinitiation possible
+5	S	13	214	1	1259	NMD	-	null (NMD)	start-proximal: reinitiation possible
+6	V	16	217	1	1256	NMD	-	null (NMD)	start-proximal: reinitiation possible
+7	S	19	220	1	1253	NMD	-	null (NMD)	start-proximal: reinitiation possible
+8	A	22	223	1	1250	NMD	-	null (NMD)	start-proximal: reinitiation possible
+9	A	25	226	1	1247	NMD	-	null (NMD)	start-proximal: reinitiation possible
+10	S	28	229	1	1244	NMD	-	null (NMD)	start-proximal: reinitiation possible
+11	G	31	232	1	1241	NMD	-	null (NMD)	start-proximal: reinitiation possible
+12	S	34	235	1	1238	NMD	-	null (NMD)	start-proximal: reinitiation possible
+13	H	37	238	1	1235	NMD	-	null (NMD)	start-proximal: reinitiation possible
+14	L	40	241	1	1232	NMD	-	null (NMD)	start-proximal: reinitiation possible
+15	S	43	244	1	1229	NMD	-	null (NMD)	start-proximal: reinitiation possible
+16	N	46	247	2	1226	NMD	-	null (NMD)	start-proximal: reinitiation possible
+17	S	49	250	2	1223	NMD	-	null (NMD)	start-proximal: reinitiation possible
+18	F	52	253	2	1220	NMD	-	null (NMD)	start-proximal: reinitiation possible
+19	A	55	256	2	1217	NMD	-	null (NMD)	start-proximal: reinitiation possible
+20	E	58	259	2	1214	NMD	-	null (NMD)	start-proximal: reinitiation possible
+21	P	61	262	2	1211	NMD	-	null (NMD)	start-proximal: reinitiation possible
+22	S	64	265	2	1208	NMD	-	null (NMD)	start-proximal: reinitiation possible
+23	R	67	268	2	1205	NMD	-	null (NMD)	start-proximal: reinitiation possible
+24	S	70	271	2	1202	NMD	-	null (NMD)	start-proximal: reinitiation possible
+25	N	73	274	2	1199	NMD	-	null (NMD)	start-proximal: reinitiation possible
+26	G	76	277	2	1196	NMD	-	null (NMD)	start-proximal: reinitiation possible
+27	S	79	280	2	1193	NMD	-	null (NMD)	start-proximal: reinitiation possible
+28	M	82	283	2	1190	NMD	-	null (NMD)	start-proximal: reinitiation possible
+29	V	85	286	2	1187	NMD	-	null (NMD)	start-proximal: reinitiation possible
+30	R	88	289	2	1184	NMD	-	null (NMD)	start-proximal: reinitiation possible
+31	H	91	292	2	1181	NMD	-	null (NMD)	start-proximal: reinitiation possible
+32	S	94	295	2	1178	NMD	-	null (NMD)	start-proximal: reinitiation possible
+33	S	97	298	2	1175	NMD	-	null (NMD)	start-proximal: reinitiation possible
+34	S	100	301	2	1172	NMD	-	null (NMD)	start-proximal: reinitiation possible
+35	P	103	304	2	1169	NMD	-	null (NMD)	start-proximal: reinitiation possible
+36	Y	106	307	2	1166	NMD	-	null (NMD)	start-proximal: reinitiation possible
+37	V	109	310	2	1163	NMD	-	null (NMD)	start-proximal: reinitiation possible
+38	V	112	313	2	1160	NMD	-	null (NMD)	start-proximal: reinitiation possible
+39	Y	115	316	2	1157	NMD	-	null (NMD)	start-proximal: reinitiation possible
+40	P	118	319	2	1154	NMD	-	null (NMD)	start-proximal: reinitiation possible
+41	S	121	322	2	1151	NMD	-	null (NMD)	start-proximal: reinitiation possible
+42	D	124	325	2	1148	NMD	-	null (NMD)	start-proximal: reinitiation possible
+43	K	127	328	2	1145	NMD	-	null (NMD)	start-proximal: reinitiation possible
+44	P	130	331	2	1142	NMD	-	null (NMD)	start-proximal: reinitiation possible
+45	F	133	334	2	1139	NMD	-	null (NMD)	start-proximal: reinitiation possible
+46	L	136	337	2	1136	NMD	-	null (NMD)	start-proximal: reinitiation possible
+47	N	139	340	2	1133	NMD	-	null (NMD)	start-proximal: reinitiation possible
+48	S	142	343	2	1130	NMD	-	null (NMD)	start-proximal: reinitiation possible
+49	D	145	346	2	1127	NMD	-	null (NMD)	start-proximal: reinitiation possible
+50	L	148	349	2	1124	NMD	-	null (NMD)	start-proximal: reinitiation possible
+51	R	151	352	2	1121	NMD	-	null (NMD)	
+52	R	154	355	2	1118	NMD	-	null (NMD)	
+53	S	157	358	2	1115	NMD	-	null (NMD)	
+54	P	160	361	2	1112	NMD	-	null (NMD)	
+55	S	163	364	2	1109	NMD	-	null (NMD)	
+56	K	166	367	2	1106	NMD	-	null (NMD)	
+57	P	169	370	2	1103	NMD	-	null (NMD)	
+58	T	172	373	2	1100	NMD	-	null (NMD)	
+59	L	175	376	2	1097	NMD	-	null (NMD)	
+60	A	178	379	2	1094	NMD	-	null (NMD)	
+61	Y	181	382	2	1091	NMD	-	null (NMD)	
+62	P	184	385	2	1088	NMD	-	null (NMD)	
+63	E	187	388	2	1085	NMD	-	null (NMD)	
+64	S	190	391	2	1082	NMD	-	null (NMD)	
+65	N	193	394	2	1079	NMD	-	null (NMD)	
+66	S	196	397	2	1076	NMD	-	null (NMD)	
+67	R	199	400	2	1073	NMD	-	null (NMD)	
+68	A	202	403	2	1070	NMD	-	null (NMD)	
+69	I	205	406	3	1067	NMD	-	null (NMD)	
+70	F	208	409	3	1064	NMD	-	null (NMD)	
+71	S	211	412	3	1061	NMD	-	null (NMD)	
+72	A	214	415	3	1058	NMD	-	null (NMD)	
+73	L	217	418	3	1055	NMD	-	null (NMD)	
+74	K	220	421	3	1052	NMD	-	null (NMD)	
+75	N	223	424	3	1049	NMD	-	null (NMD)	
+76	L	226	427	3	1046	NMD	-	null (NMD)	
+77	Q	229	430	3	1043	NMD	-	null (NMD)	
+78	D	232	433	3	1040	NMD	-	null (NMD)	
+79	K	235	436	3	1037	NMD	-	null (NMD)	
+80	I	238	439	3	1034	NMD	-	null (NMD)	
+81	R	241	442	3	1031	NMD	-	null (NMD)	
+82	R	244	445	3	1028	NMD	-	null (NMD)	
+83	L	247	448	3	1025	NMD	-	null (NMD)	
+84	E	250	451	3	1022	NMD	-	null (NMD)	
+85	L	253	454	3	1019	NMD	-	null (NMD)	
+86	E	256	457	3	1016	NMD	-	null (NMD)	
+87	R	259	460	3	1013	NMD	-	null (NMD)	
+88	I	262	463	3	1010	NMD	-	null (NMD)	
+89	Q	265	466	3	1007	NMD	-	null (NMD)	
+90	A	268	469	3	1004	NMD	-	null (NMD)	
+91	E	271	472	3	1001	NMD	-	null (NMD)	
+92	E	274	475	3	998	NMD	-	null (NMD)	
+93	S	277	478	3	995	NMD	-	null (NMD)	
+94	V	280	481	3	992	NMD	-	null (NMD)	
+95	K	283	484	3	989	NMD	-	null (NMD)	
+96	T	286	487	3	986	NMD	-	null (NMD)	
+97	L	289	490	3	983	NMD	-	null (NMD)	
+98	S	292	493	3	980	NMD	-	null (NMD)	
+99	R	295	496	3	977	NMD	-	null (NMD)	
+100	E	298	499	3	974	NMD	-	null (NMD)	
+101	T	301	502	3	971	NMD	-	null (NMD)	
+102	I	304	505	3	968	NMD	-	null (NMD)	
+103	E	307	508	3	965	NMD	-	null (NMD)	
+104	Y	310	511	3	962	NMD	-	null (NMD)	
+105	K	313	514	3	959	NMD	-	null (NMD)	
+106	K	316	517	3	956	NMD	-	null (NMD)	
+107	V	319	520	3	953	NMD	-	null (NMD)	
+108	L	322	523	3	950	NMD	-	null (NMD)	
+109	D	325	526	3	947	NMD	-	null (NMD)	
+110	E	328	529	3	944	NMD	-	null (NMD)	
+111	Q	331	532	3	941	NMD	-	null (NMD)	
+112	I	334	535	3	938	NMD	-	null (NMD)	
+113	Q	337	538	3	935	NMD	-	null (NMD)	
+114	E	340	541	3	932	NMD	-	null (NMD)	
+115	R	343	544	3	929	NMD	-	null (NMD)	
+116	E	346	547	3	926	NMD	-	null (NMD)	
+117	N	349	550	3	923	NMD	-	null (NMD)	
+118	S	352	553	3	920	NMD	-	null (NMD)	
+119	K	355	556	3	917	NMD	-	null (NMD)	
+120	N	358	559	3	914	NMD	-	null (NMD)	
+121	E	361	562	3	911	NMD	-	null (NMD)	
+122	E	364	565	3	908	NMD	-	null (NMD)	
+123	S	367	568	3	905	NMD	-	null (NMD)	
+124	K	370	571	3	902	NMD	-	null (NMD)	
+125	H	373	574	3	899	NMD	-	null (NMD)	
+126	N	376	577	3	896	NMD	-	null (NMD)	
+127	Q	379	580	3	893	NMD	-	null (NMD)	
+128	E	382	583	3	890	NMD	-	null (NMD)	
+129	L	385	586	4	887	NMD	-	null (NMD)	
+130	T	388	589	4	884	NMD	-	null (NMD)	
+131	S	391	592	4	881	NMD	-	null (NMD)	
+132	Q	394	595	4	878	NMD	-	null (NMD)	
+133	L	397	598	4	875	NMD	-	null (NMD)	
+134	L	400	601	4	872	NMD	-	null (NMD)	
+135	A	403	604	4	869	NMD	-	null (NMD)	
+136	A	406	607	4	866	NMD	-	null (NMD)	
+137	E	409	610	4	863	NMD	-	null (NMD)	
+138	N	412	613	4	860	NMD	-	null (NMD)	
+139	K	415	616	4	857	NMD	-	null (NMD)	
+140	C	418	619	4	854	NMD	-	null (NMD)	
+141	N	421	622	4	851	NMD	-	null (NMD)	
+142	L	424	625	4	848	NMD	-	null (NMD)	
+143	L	427	628	4	845	NMD	-	null (NMD)	
+144	E	430	631	4	842	NMD	-	null (NMD)	
+145	K	433	634	4	839	NMD	-	null (NMD)	
+146	Q	436	637	4	836	NMD	-	null (NMD)	
+147	L	439	640	4	833	NMD	-	null (NMD)	
+148	E	442	643	4	830	NMD	-	null (NMD)	
+149	Y	445	646	4	827	NMD	-	null (NMD)	
+150	M	448	649	4	824	NMD	-	null (NMD)	
+151	R	451	652	4	821	NMD	-	null (NMD)	
+152	N	454	655	4	818	NMD	-	null (NMD)	
+153	M	457	658	4	815	NMD	-	null (NMD)	
+154	I	460	661	4	812	NMD	-	null (NMD)	
+155	K	463	664	4	809	NMD	-	null (NMD)	
+156	H	466	667	4	806	NMD	-	null (NMD)	
+157	A	469	670	4	803	NMD	-	null (NMD)	
+158	E	472	673	4	800	NMD	-	null (NMD)	
+159	M	475	676	4	797	NMD	-	null (NMD)	
+160	E	478	679	4	794	NMD	-	null (NMD)	
+161	R	481	682	4	791	NMD	-	null (NMD)	
+162	T	484	685	4	788	NMD	-	null (NMD)	
+163	S	487	688	4	785	NMD	-	null (NMD)	
+164	V	490	691	4	782	NMD	-	null (NMD)	
+165	L	493	694	4	779	NMD	-	null (NMD)	
+166	E	496	697	4	776	NMD	-	null (NMD)	
+167	K	499	700	4	773	NMD	-	null (NMD)	
+168	Q	502	703	4	770	NMD	-	null (NMD)	
+169	V	505	706	5	767	NMD	-	null (NMD)	
+170	S	508	709	5	764	NMD	-	null (NMD)	
+171	L	511	712	5	761	NMD	-	null (NMD)	
+172	E	514	715	5	758	NMD	-	null (NMD)	
+173	R	517	718	5	755	NMD	-	null (NMD)	
+174	E	520	721	5	752	NMD	-	null (NMD)	
+175	R	523	724	5	749	NMD	-	null (NMD)	
+176	Q	526	727	5	746	NMD	-	null (NMD)	
+177	H	529	730	5	743	NMD	-	null (NMD)	
+178	D	532	733	5	740	NMD	-	null (NMD)	
+179	Q	535	736	5	737	NMD	-	null (NMD)	
+180	T	538	739	5	734	NMD	-	null (NMD)	
+181	H	541	742	5	731	NMD	-	null (NMD)	
+182	V	544	745	5	728	NMD	-	null (NMD)	
+183	Q	547	748	5	725	NMD	-	null (NMD)	
+184	S	550	751	5	722	NMD	-	null (NMD)	
+185	Q	553	754	5	719	NMD	-	null (NMD)	
+186	L	556	757	5	716	NMD	-	null (NMD)	
+187	E	559	760	5	713	NMD	-	null (NMD)	
+188	K	562	763	5	710	NMD	-	null (NMD)	
+189	L	565	766	5	707	NMD	-	null (NMD)	
+190	D	568	769	5	704	NMD	-	null (NMD)	
+191	L	571	772	5	701	NMD	-	null (NMD)	
+192	L	574	775	5	698	NMD	-	null (NMD)	
+193	E	577	778	5	695	NMD	-	null (NMD)	
+194	Q	580	781	5	692	NMD	-	null (NMD)	
+195	E	583	784	5	689	NMD	-	null (NMD)	
+196	Y	586	787	5	686	NMD	-	null (NMD)	
+197	N	589	790	5	683	NMD	-	null (NMD)	
+198	K	592	793	5	680	NMD	-	null (NMD)	
+199	L	595	796	5	677	NMD	-	null (NMD)	
+200	T	598	799	5	674	NMD	-	null (NMD)	
+201	T	601	802	5	671	NMD	-	null (NMD)	
+202	M	604	805	5	668	NMD	-	null (NMD)	
+203	Q	607	808	5	665	NMD	-	null (NMD)	
+204	A	610	811	5	662	NMD	-	null (NMD)	
+205	L	613	814	5	659	NMD	-	null (NMD)	
+206	A	616	817	5	656	NMD	-	null (NMD)	
+207	E	619	820	5	653	NMD	-	null (NMD)	
+208	K	622	823	6	650	NMD	-	null (NMD)	
+209	K	625	826	6	647	NMD	-	null (NMD)	
+210	M	628	829	6	644	NMD	-	null (NMD)	
+211	Q	631	832	6	641	NMD	-	null (NMD)	
+212	E	634	835	6	638	NMD	-	null (NMD)	
+213	L	637	838	6	635	NMD	-	null (NMD)	
+214	E	640	841	6	632	NMD	-	null (NMD)	
+215	A	643	844	6	629	NMD	-	null (NMD)	
+216	K	646	847	6	626	NMD	-	null (NMD)	
+217	L	649	850	6	623	NMD	-	null (NMD)	
+218	H	652	853	6	620	NMD	-	null (NMD)	
+219	E	655	856	6	617	NMD	-	null (NMD)	
+220	E	658	859	6	614	NMD	-	null (NMD)	
+221	E	661	862	6	611	NMD	-	null (NMD)	
+222	Q	664	865	6	608	NMD	-	null (NMD)	
+223	E	667	868	6	605	NMD	-	null (NMD)	
+224	R	670	871	6	602	NMD	-	null (NMD)	
+225	K	673	874	6	599	NMD	-	null (NMD)	
+226	R	676	877	6	596	NMD	-	null (NMD)	
+227	M	679	880	6	593	NMD	-	null (NMD)	
+228	Q	682	883	6	590	NMD	-	null (NMD)	
+229	A	685	886	6	587	NMD	-	null (NMD)	
+230	K	688	889	6	584	NMD	-	null (NMD)	
+231	A	691	892	6	581	NMD	-	null (NMD)	
+232	A	694	895	6	578	NMD	-	null (NMD)	
+233	E	697	898	6	575	NMD	-	null (NMD)	
+234	L	700	901	7	572	NMD	-	null (NMD)	
+235	Q	703	904	7	569	NMD	-	null (NMD)	
+236	T	706	907	7	566	NMD	-	null (NMD)	
+237	G	709	910	7	563	NMD	-	null (NMD)	
+238	L	712	913	7	560	NMD	-	null (NMD)	
+239	E	715	916	7	557	NMD	-	null (NMD)	
+240	T	718	919	7	554	NMD	-	null (NMD)	
+241	N	721	922	7	551	NMD	-	null (NMD)	
+242	R	724	925	7	548	NMD	-	null (NMD)	
+243	L	727	928	7	545	NMD	-	null (NMD)	
+244	I	730	931	7	542	NMD	-	null (NMD)	
+245	F	733	934	7	539	NMD	-	null (NMD)	
+246	E	736	937	7	536	NMD	-	null (NMD)	
+247	D	739	940	7	533	NMD	-	null (NMD)	
+248	K	742	943	7	530	NMD	-	null (NMD)	
+249	A	745	946	7	527	NMD	-	null (NMD)	
+250	T	748	949	7	524	NMD	-	null (NMD)	
+251	P	751	952	7	521	NMD	-	null (NMD)	
+252	C	754	955	7	518	NMD	-	null (NMD)	
+253	V	757	958	7	515	NMD	-	null (NMD)	
+254	P	760	961	7	512	NMD	-	null (NMD)	
+255	N	763	964	7	509	NMD	-	null (NMD)	
+256	A	766	967	7	506	NMD	-	null (NMD)	
+257	R	769	970	7	503	NMD	-	null (NMD)	
+258	R	772	973	7	500	NMD	-	null (NMD)	
+259	I	775	976	7	497	NMD	-	null (NMD)	
+260	K	778	979	7	494	NMD	-	null (NMD)	
+261	K	781	982	7	491	NMD	-	null (NMD)	
+262	K	784	985	7	488	NMD	-	null (NMD)	
+263	K	787	988	7	485	NMD	-	null (NMD)	
+264	S	790	991	7	482	NMD	-	null (NMD)	
+265	K	793	994	7	479	NMD	-	null (NMD)	
+266	P	796	997	7	476	NMD	-	null (NMD)	
+267	P	799	1000	7	473	NMD	-	null (NMD)	
+268	E	802	1003	7	470	NMD	-	null (NMD)	
+269	K	805	1006	7	467	NMD	-	null (NMD)	
+270	K	808	1009	8	464	NMD	-	null (NMD)	
+271	S	811	1012	8	461	NMD	-	null (NMD)	
+272	S	814	1015	8	458	NMD	-	null (NMD)	
+273	R	817	1018	8	455	NMD	-	null (NMD)	
+274	N	820	1021	8	452	NMD	-	null (NMD)	
+275	Y	823	1024	8	449	NMD	-	null (NMD)	
+276	F	826	1027	8	446	NMD	-	null (NMD)	
+277	G	829	1030	8	443	NMD	-	null (NMD)	
+278	A	832	1033	8	440	NMD	-	null (NMD)	
+279	Q	835	1036	8	437	NMD	-	null (NMD)	
+280	P	838	1039	8	434	NMD	-	null (NMD)	
+281	H	841	1042	8	431	NMD	-	null (NMD)	
+282	Y	844	1045	8	428	NMD	-	null (NMD)	
+283	R	847	1048	8	425	NMD	-	null (NMD)	
+284	L	850	1051	8	422	NMD	-	null (NMD)	
+285	C	853	1054	8	419	NMD	-	null (NMD)	
+286	L	856	1057	8	416	NMD	-	null (NMD)	
+287	G	859	1060	8	413	NMD	-	null (NMD)	
+288	D	862	1063	8	410	NMD	-	null (NMD)	
+289	M	865	1066	8	407	NMD	-	null (NMD)	
+290	P	868	1069	8	404	NMD	-	null (NMD)	
+291	F	871	1072	8	401	NMD	-	null (NMD)	
+292	V	874	1075	8	398	NMD	-	null (NMD)	
+293	A	877	1078	8	395	NMD	-	null (NMD)	
+294	G	880	1081	8	392	NMD	-	null (NMD)	
+295	K	883	1084	8	389	NMD	-	null (NMD)	
+296	S	886	1087	9	386	NMD	-	null (NMD)	
+297	T	889	1090	9	383	NMD	-	null (NMD)	
+298	S	892	1093	9	380	NMD	-	null (NMD)	
+299	P	895	1096	9	377	NMD	-	null (NMD)	
+300	S	898	1099	9	374	NMD	-	null (NMD)	
+301	H	901	1102	9	371	NMD	-	null (NMD)	
+302	A	904	1105	9	368	NMD	-	null (NMD)	
+303	V	907	1108	9	365	NMD	-	null (NMD)	
+304	V	910	1111	9	362	NMD	-	null (NMD)	
+305	A	913	1114	9	359	NMD	-	null (NMD)	
+306	N	916	1117	9	356	NMD	-	null (NMD)	
+307	V	919	1120	9	353	NMD	-	null (NMD)	
+308	Q	922	1123	9	350	NMD	-	null (NMD)	
+309	L	925	1126	9	347	NMD	-	null (NMD)	
+310	V	928	1129	9	344	NMD	-	null (NMD)	
+311	L	931	1132	9	341	NMD	-	null (NMD)	
+312	H	934	1135	9	338	NMD	-	null (NMD)	
+313	L	937	1138	9	335	NMD	-	null (NMD)	
+314	M	940	1141	9	332	NMD	-	null (NMD)	
+315	K	943	1144	9	329	NMD	-	null (NMD)	
+316	Q	946	1147	9	326	NMD	-	null (NMD)	
+317	H	949	1150	9	323	NMD	-	null (NMD)	
+318	S	952	1153	9	320	NMD	-	null (NMD)	
+319	K	955	1156	9	317	NMD	-	null (NMD)	
+320	A	958	1159	9	314	NMD	-	null (NMD)	
+321	L	961	1162	9	311	NMD	-	null (NMD)	
+322	C	964	1165	9	308	NMD	-	null (NMD)	
+323	N	967	1168	9	305	NMD	-	null (NMD)	
+324	D	970	1171	9	302	NMD	-	null (NMD)	
+325	R	973	1174	9	299	NMD	-	null (NMD)	
+326	V	976	1177	9	296	NMD	-	null (NMD)	
+327	I	979	1180	9	293	NMD	-	null (NMD)	
+328	N	982	1183	9	290	NMD	-	null (NMD)	
+329	S	985	1186	9	287	NMD	-	null (NMD)	
+330	I	988	1189	9	284	NMD	-	null (NMD)	
+331	P	991	1192	9	281	NMD	-	null (NMD)	
+332	L	994	1195	9	278	NMD	-	null (NMD)	
+333	A	997	1198	9	275	NMD	-	null (NMD)	
+334	K	1000	1201	9	272	NMD	-	null (NMD)	
+335	Q	1003	1204	9	269	NMD	-	null (NMD)	
+336	V	1006	1207	9	266	NMD	-	null (NMD)	
+337	S	1009	1210	9	263	NMD	-	null (NMD)	
+338	S	1012	1213	9	260	NMD	-	null (NMD)	
+339	R	1015	1216	9	257	NMD	-	null (NMD)	
+340	G	1018	1219	9	254	NMD	-	null (NMD)	
+341	G	1021	1222	9	251	NMD	-	null (NMD)	
+342	K	1024	1225	9	248	NMD	-	null (NMD)	
+343	S	1027	1228	9	245	NMD	-	null (NMD)	
+344	K	1030	1231	9	242	NMD	-	null (NMD)	
+345	K	1033	1234	9	239	NMD	-	null (NMD)	
+346	L	1036	1237	9	236	NMD	-	null (NMD)	
+347	S	1039	1240	9	233	NMD	-	null (NMD)	
+348	V	1042	1243	9	230	NMD	-	null (NMD)	
+349	T	1045	1246	9	227	NMD	-	null (NMD)	
+350	P	1048	1249	9	224	NMD	-	null (NMD)	
+351	P	1051	1252	9	221	NMD	-	null (NMD)	
+352	S	1054	1255	9	218	NMD	-	null (NMD)	
+353	S	1057	1258	9	215	NMD	-	null (NMD)	
+354	N	1060	1261	9	212	NMD	-	null (NMD)	
+355	G	1063	1264	9	209	NMD	-	null (NMD)	
+356	I	1066	1267	9	206	NMD	-	null (NMD)	
+357	N	1069	1270	9	203	NMD	-	null (NMD)	
+358	E	1072	1273	9	200	NMD	-	null (NMD)	
+359	E	1075	1276	9	197	NMD	-	null (NMD)	
+360	L	1078	1279	9	194	NMD	-	null (NMD)	
+361	S	1081	1282	9	191	NMD	-	null (NMD)	
+362	E	1084	1285	9	188	NMD	-	null (NMD)	
+363	V	1087	1288	9	185	NMD	-	null (NMD)	
+364	L	1090	1291	9	182	NMD	-	null (NMD)	
+365	Q	1093	1294	9	179	NMD	-	null (NMD)	
+366	T	1096	1297	9	176	NMD	-	null (NMD)	
+367	L	1099	1300	9	173	NMD	-	null (NMD)	
+368	Q	1102	1303	9	170	NMD	-	null (NMD)	
+369	D	1105	1306	9	167	NMD	-	null (NMD)	
+370	E	1108	1309	9	164	NMD	-	null (NMD)	
+371	F	1111	1312	9	161	NMD	-	null (NMD)	
+372	G	1114	1315	9	158	NMD	-	null (NMD)	
+373	Q	1117	1318	9	155	NMD	-	null (NMD)	
+374	M	1120	1321	9	152	NMD	-	null (NMD)	
+375	S	1123	1324	9	149	NMD	-	null (NMD)	
+376	F	1126	1327	9	146	NMD	-	null (NMD)	
+377	D	1129	1330	10	143	NMD	-	null (NMD)	
+378	H	1132	1333	10	140	NMD	-	null (NMD)	
+379	Q	1135	1336	10	137	NMD	-	null (NMD)	
+380	Q	1138	1339	10	134	NMD	-	null (NMD)	
+381	L	1141	1342	10	131	NMD	-	null (NMD)	
+382	A	1144	1345	10	128	NMD	-	null (NMD)	
+383	K	1147	1348	10	125	NMD	-	null (NMD)	
+384	L	1150	1351	10	122	NMD	-	null (NMD)	
+385	I	1153	1354	10	119	NMD	-	null (NMD)	
+386	Q	1156	1357	10	116	NMD	-	null (NMD)	
+387	E	1159	1360	10	113	NMD	-	null (NMD)	
+388	S	1162	1363	10	110	NMD	-	null (NMD)	
+389	P	1165	1366	10	107	NMD	-	null (NMD)	
+390	T	1168	1369	10	104	NMD	-	null (NMD)	
+391	V	1171	1372	10	101	NMD	-	null (NMD)	
+392	E	1174	1375	10	98	NMD	-	null (NMD)	
+393	L	1177	1378	10	95	NMD	-	null (NMD)	
+394	K	1180	1381	10	92	NMD	-	null (NMD)	
+395	D	1183	1384	10	89	NMD	-	null (NMD)	
+396	K	1186	1387	10	86	NMD	-	null (NMD)	
+397	L	1189	1390	10	83	NMD	-	null (NMD)	
+398	E	1192	1393	10	80	NMD	-	null (NMD)	
+399	C	1195	1396	10	77	NMD	-	null (NMD)	
+400	E	1198	1399	10	74	NMD	-	null (NMD)	
+401	L	1201	1402	10	71	NMD	-	null (NMD)	
+402	E	1204	1405	10	68	NMD	-	null (NMD)	
+403	A	1207	1408	10	65	NMD	-	null (NMD)	
+404	L	1210	1411	10	62	NMD	-	null (NMD)	
+405	V	1213	1414	10	59	NMD	-	null (NMD)	
+406	G	1216	1417	10	56	NMD	-	null (NMD)	
+407	R	1219	1420	10	53	NMD (borderline)	-	null (NMD)	
+408	M	1222	1423	10	50	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+409	E	1225	1426	10	47	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+410	A	1228	1429	10	44	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+411	K	1231	1432	10	41	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+412	A	1234	1435	10	38	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+413	N	1237	1438	10	35	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+414	Q	1240	1441	10	32	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+415	I	1243	1444	10	29	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+416	T	1246	1447	10	26	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+417	K	1249	1450	10	23	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+418	V	1252	1453	10	20	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+419	R	1255	1456	10	17	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+420	K	1258	1459	10	14	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+421	Y	1261	1462	10	11	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+422	Q	1264	1465	10	8	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+423	A	1267	1468	10	5	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+424	Q	1270	1471	10	2	escapes (<=50 nt from last junction)	-	escapes NMD; features not assessed	
+425	L	1273	1474	11	-1	escapes (last exon)	-	escapes NMD; features not assessed	
+426	E	1276	1477	11	-4	escapes (last exon)	-	escapes NMD; features not assessed	
+427	K	1279	1480	11	-7	escapes (last exon)	-	escapes NMD; features not assessed	
+428	Q	1282	1483	11	-10	escapes (last exon)	-	escapes NMD; features not assessed	
+429	K	1285	1486	11	-13	escapes (last exon)	-	escapes NMD; features not assessed	
+430	L	1288	1489	11	-16	escapes (last exon)	-	escapes NMD; features not assessed	
+431	E	1291	1492	11	-19	escapes (last exon)	-	escapes NMD; features not assessed	
+432	K	1294	1495	11	-22	escapes (last exon)	-	escapes NMD; features not assessed	
+433	Q	1297	1498	11	-25	escapes (last exon)	-	escapes NMD; features not assessed	
+434	K	1300	1501	11	-28	escapes (last exon)	-	escapes NMD; features not assessed	
+435	K	1303	1504	11	-31	escapes (last exon)	-	escapes NMD; features not assessed	
+436	E	1306	1507	11	-34	escapes (last exon)	-	escapes NMD; features not assessed	
+437	L	1309	1510	11	-37	escapes (last exon)	-	escapes NMD; features not assessed	
+438	K	1312	1513	11	-40	escapes (last exon)	-	escapes NMD; features not assessed	
+439	A	1315	1516	11	-43	escapes (last exon)	-	escapes NMD; features not assessed	
+440	T	1318	1519	11	-46	escapes (last exon)	-	escapes NMD; features not assessed	
+441	K	1321	1522	11	-49	escapes (last exon)	-	escapes NMD; features not assessed	
+442	K	1324	1525	11	-52	escapes (last exon)	-	escapes NMD; features not assessed	
+443	T	1327	1528	11	-55	escapes (last exon)	-	escapes NMD; features not assessed	
+444	L	1330	1531	11	-58	escapes (last exon)	-	escapes NMD; features not assessed	
+445	D	1333	1534	11	-61	escapes (last exon)	-	escapes NMD; features not assessed	
+446	E	1336	1537	11	-64	escapes (last exon)	-	escapes NMD; features not assessed	
+447	E	1339	1540	11	-67	escapes (last exon)	-	escapes NMD; features not assessed	
+448	R	1342	1543	11	-70	escapes (last exon)	-	escapes NMD; features not assessed	
+449	N	1345	1546	11	-73	escapes (last exon)	-	escapes NMD; features not assessed	
+450	S	1348	1549	11	-76	escapes (last exon)	-	escapes NMD; features not assessed	
+451	S	1351	1552	11	-79	escapes (last exon)	-	escapes NMD; features not assessed	
+452	S	1354	1555	11	-82	escapes (last exon)	-	escapes NMD; features not assessed	
+453	R	1357	1558	11	-85	escapes (last exon)	-	escapes NMD; features not assessed	
+454	S	1360	1561	11	-88	escapes (last exon)	-	escapes NMD; features not assessed	
+455	G	1363	1564	11	-91	escapes (last exon)	-	escapes NMD; features not assessed	
+456	I	1366	1567	11	-94	escapes (last exon)	-	escapes NMD; features not assessed	
+457	T	1369	1570	11	-97	escapes (last exon)	-	escapes NMD; features not assessed	
+458	G	1372	1573	11	-100	escapes (last exon)	-	escapes NMD; features not assessed	
+459	T	1375	1576	11	-103	escapes (last exon)	-	escapes NMD; features not assessed	
+460	T	1378	1579	11	-106	escapes (last exon)	-	escapes NMD; features not assessed	
+461	N	1381	1582	11	-109	escapes (last exon)	-	escapes NMD; features not assessed	
+462	K	1384	1585	11	-112	escapes (last exon)	-	escapes NMD; features not assessed	
+463	K	1387	1588	11	-115	escapes (last exon)	-	escapes NMD; features not assessed	
+464	D	1390	1591	11	-118	escapes (last exon)	-	escapes NMD; features not assessed	
+465	F	1393	1594	11	-121	escapes (last exon)	-	escapes NMD; features not assessed	
+466	M	1396	1597	11	-124	escapes (last exon)	-	escapes NMD; features not assessed	
+467	K	1399	1600	11	-127	escapes (last exon)	-	escapes NMD; features not assessed	
+468	L	1402	1603	11	-130	escapes (last exon)	-	escapes NMD; features not assessed	
+469	R	1405	1606	11	-133	escapes (last exon)	-	escapes NMD; features not assessed	
+470	P	1408	1609	11	-136	escapes (last exon)	-	escapes NMD; features not assessed	
+471	G	1411	1612	11	-139	escapes (last exon)	-	escapes NMD; features not assessed	
+472	E	1414	1615	11	-142	escapes (last exon)	-	escapes NMD; features not assessed	
+473	K	1417	1618	11	-145	escapes (last exon)	-	escapes NMD; features not assessed	
+474	R	1420	1621	11	-148	escapes (last exon)	-	escapes NMD; features not assessed	
+475	R	1423	1624	11	-151	escapes (last exon)	-	escapes NMD; features not assessed	
+476	K	1426	1627	11	-154	escapes (last exon)	-	escapes NMD; features not assessed	
+477	N	1429	1630	11	-157	escapes (last exon)	-	escapes NMD; features not assessed	
+478	L	1432	1633	11	-160	escapes (last exon)	-	escapes NMD; features not assessed	
+479	Q	1435	1636	11	-163	escapes (last exon)	-	escapes NMD; features not assessed	
+480	L	1438	1639	11	-166	escapes (last exon)	-	escapes NMD; features not assessed	
+481	L	1441	1642	11	-169	escapes (last exon)	-	escapes NMD; features not assessed	
+482	K	1444	1645	11	-172	escapes (last exon)	-	escapes NMD; features not assessed	
+483	D	1447	1648	11	-175	escapes (last exon)	-	escapes NMD; features not assessed	
+484	M	1450	1651	11	-178	escapes (last exon)	-	escapes NMD; features not assessed	
+485	Q	1453	1654	11	-181	escapes (last exon)	-	escapes NMD; features not assessed	
+486	S	1456	1657	11	-184	escapes (last exon)	-	escapes NMD; features not assessed	
+487	I	1459	1660	11	-187	escapes (last exon)	-	escapes NMD; features not assessed	
+488	Q	1462	1663	11	-190	escapes (last exon)	-	escapes NMD; features not assessed	
+489	N	1465	1666	11	-193	escapes (last exon)	-	escapes NMD; features not assessed	
+490	S	1468	1669	11	-196	escapes (last exon)	-	escapes NMD; features not assessed	
+491	L	1471	1672	11	-199	escapes (last exon)	-	escapes NMD; features not assessed	
+492	Q	1474	1675	11	-202	escapes (last exon)	-	escapes NMD; features not assessed	
+493	S	1477	1678	11	-205	escapes (last exon)	-	escapes NMD; features not assessed	
+494	S	1480	1681	11	-208	escapes (last exon)	-	escapes NMD; features not assessed	
+495	S	1483	1684	11	-211	escapes (last exon)	-	escapes NMD; features not assessed	
+496	L	1486	1687	11	-214	escapes (last exon)	-	escapes NMD; features not assessed	
+497	C	1489	1690	11	-217	escapes (last exon)	-	escapes NMD; features not assessed	
+498	W	1492	1693	11	-220	escapes (last exon)	-	escapes NMD; features not assessed	
+499	D	1495	1696	11	-223	escapes (last exon)	-	escapes NMD; features not assessed	
+500	Y	1498	1699	11	-226	escapes (last exon)	-	escapes NMD; features not assessed	

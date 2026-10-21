@@ -1,0 +1,10 @@
+# Resolved by bin/resolve_case.py from results_full/submission/submission.csv, rank 1.
+# Generated file: edit params.yaml instead.
+gene: BUB1B
+gene_config: config/genes/bub1b.yaml
+transcript: ENST00000287598
+variants:
+- {chrom: chr15, pos: 40209701, ref: T, alt: G, codon: 737, protein: L737*, type: ptc}
+- {chrom: chr15, pos: 40220612, ref: T, alt: G, codon: 1002, protein: N1002K, type: missense}
+patient: {chrom: chr15, ptc_pos: 40209701, ptc_codon: 737, ptc_allele: 40209701 T
+    G, missense: N1002K, missense_allele: 40220612 T G}

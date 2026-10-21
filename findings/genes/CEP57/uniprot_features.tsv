@@ -1,0 +1,9 @@
+# Domain annotations from UniProt Q86XR8 (https://rest.uniprot.org/uniprotkb/Q86XR8.json); essentiality not assessed
+start	end	feature	role	dispensable	source
+1	34	Disordered	Region	untested	UniProt Q86XR8
+43	62	Disordered	Region	untested	UniProt Q86XR8
+58	239	centrosome localization domain (CLD)	Region	untested	UniProt Q86XR8
+277	491	Mediates interaction with microtubules	Region	untested	UniProt Q86XR8
+434	472	Disordered	Region	untested	UniProt Q86XR8
+63	242	Coiled coil	Coiled coil	untested	UniProt Q86XR8
+392	492	Coiled coil	Coiled coil	untested	UniProt Q86XR8
