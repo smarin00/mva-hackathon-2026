@@ -160,6 +160,28 @@ predisposition (rhabdomyosarcoma, Wilms tumour, leukaemia).
 | MPS1 / TTK inhibitors | 2 | Weaken the spindle assembly checkpoint directly | BAY-1161909, BAY-1217389 |
 | SIRT2 inhibitors | 0 in clinic | Would block the K668 deacetylation route | AGK2 (research tool) |
 
+## Compatibility with cancer treatment
+
+MVA1 predisposes to embryonal rhabdomyosarcoma, Wilms tumour and leukaemia
+(Hanks 2004; Atlas of Genetics and Cytogenetics in Oncology). `make oncology`
+checks every candidate against the standard regimens (VAC and VAC/VI for
+rhabdomyosarcoma, COG D9803 and ARST0531; EE-4A and DD-4A for Wilms tumour)
+using the current FDA labels from openFDA. Three checks per pair: one label
+names the other drug; the candidate inhibits or induces CYP3A4 and the
+chemotherapy drug is a CYP3A4 substrate; both labels warn of the same organ
+toxicity. Each flag carries the label sentences (`findings/track2/oncology/`).
+
+| Candidate | Flags | Reading |
+|---|---|---|
+| Niacin | liver (with dactinomycin, cyclophosphamide: hepatic veno-occlusive disease) | compatible with liver-enzyme monitoring |
+| Arimoclomol | none; its label states it is not a CYP3A4/5 inhibitor or inducer | compatible |
+| Dasatinib | CYP3A4 (vincristine, irinotecan, doxorubicin); marrow (all); heart/QT (doxorubicin, cyclophosphamide); liver | avoid during chemotherapy |
+| Valproic acid | marrow (all); liver (dactinomycin, cyclophosphamide) | supports "not ranked" |
+| Quercetin, NR | no US prescription label | not assessable |
+
+The leukaemia subtype in MVA is not specified, so no leukaemia regimen was
+modelled. Flags prompt clinical review; a missing flag is not proof of safety.
+
 ## Proposed validation (before any clinical use)
 
 In patient-derived cells (lymphoblastoid line or fibroblasts):

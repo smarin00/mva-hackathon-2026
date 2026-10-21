@@ -298,6 +298,30 @@ use or trials.
 | Aurora B inhibitors | 18 | Impair error correction in an already weakened checkpoint | barasertib, tozasertib, danusertib |
 | MPS1 (TTK) inhibitors | 2 | Weaken the spindle assembly checkpoint directly | BAY-1161909, BAY-1217389 |
 
+### 3.4 Compatibility with cancer treatment
+
+MVA1 predisposes to embryonal rhabdomyosarcoma, Wilms tumour and leukaemia
+[1, 14]. A candidate this child might take for years has to be compatible with
+the chemotherapy the child would receive if one of these develops. We checked each
+candidate against the standard regimens, VAC and VAC/VI for rhabdomyosarcoma
+[15, 16] and EE-4A and DD-4A for Wilms tumour [17], using the current US
+prescribing information (FDA labels via openFDA [18]; `make oncology`). Every
+flag rests on a quoted label sentence (`findings/track2/oncology/`).
+
+| Candidate | Flags with the regimen drugs | Reading |
+|---|---|---|
+| Niacin | Liver: both niacin and dactinomycin/cyclophosphamide (hepatic veno-occlusive disease) carry liver warnings | Compatible with liver-enzyme monitoring; no shared metabolism |
+| Arimoclomol | None. Its label states it neither inhibits nor induces CYP3A4/5 | Compatible |
+| Dasatinib | CYP3A4 (it inhibits the enzyme that clears vincristine, irinotecan and doxorubicin); marrow suppression with every drug; heart/QT with doxorubicin and cyclophosphamide | Avoid during chemotherapy |
+| Valproic acid | Marrow (thrombocytopenia) with every drug; liver with dactinomycin and cyclophosphamide | Further reason not to rank it |
+| Quercetin, NR | No US prescription label | Not assessable this way |
+
+The check therefore separates the candidates: the two that act on BubR1 dose,
+niacin and arimoclomol, could continue alongside cancer treatment, while
+dasatinib, which treats consequences rather than cause, should be stopped
+before it. The flags are prompts for clinical review, not verdicts; the absence
+of a flag is not proof of safety.
+
 ## 4. A resource for other families: the BUB1B variant atlas
 
 Every MVA1 patient reported so far carries one truncating and one missense
@@ -457,3 +481,16 @@ reviewed by the author. No genome-scale data were shared (`docs/llm_usage.md`).
 13. Park I. et al. Loss of BubR1 acetylation causes defects in spindle
     assembly checkpoint signaling and promotes tumor formation. *J Cell Biol*
     202, 295–309 (2013). doi:10.1083/jcb.201210099
+14. Atlas of Genetics and Cytogenetics in Oncology and Haematology: BUB1B.
+    atlasgeneticsoncology.org/gene/854 (tumours in MVA).
+15. Arndt C.A.S. et al. Vincristine, actinomycin, and cyclophosphamide compared
+    with VAC alternating with vincristine, topotecan, and cyclophosphamide for
+    intermediate-risk rhabdomyosarcoma: COG study D9803. *J Clin Oncol* (2009).
+16. Hawkins D.S. et al. Addition of vincristine and irinotecan to vincristine,
+    dactinomycin, and cyclophosphamide does not improve outcome for
+    intermediate-risk rhabdomyosarcoma (COG ARST0531). *J Clin Oncol* (2018).
+17. Wilms tumour regimens EE-4A (vincristine, dactinomycin) and DD-4A (plus
+    doxorubicin), as summarised in: South African National Department of
+    Health, Dactinomycin for nephroblastoma, historically accepted use (2025).
+18. US FDA prescribing information via the openFDA drug label API; label set
+    IDs, versions and dates in `findings/track2/oncology/labels.tsv`.
