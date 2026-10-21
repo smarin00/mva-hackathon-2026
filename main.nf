@@ -267,33 +267,51 @@ process EXPANSIONHUNTER {
     script:
     // ExpansionHunter 5.0.0 bundles an htslib that cannot decode CRAM written
     // by recent samtools ("Failure to decode slice"). It only inspects catalog
-    // loci, so extract those regions to a small BAM first -- this both avoids
-    // the CRAM issue and is far faster than scanning the whole alignment.
+    // loci, so extract those regions (and their off-target regions) to a small
+    // BAM first. The bundled GRCh38 catalog names contigs without "chr"; they
+    // are renamed to match the reference, or every locus silently gets no reads.
     """
-    python3 - <<'PY' > catalog_regions.bed
+    python3 - <<'PY'
     import json
-    regions = []
-    for locus in json.load(open("${catalog}")):
-        rr = locus.get("ReferenceRegion")
-        for r in (rr if isinstance(rr, list) else [rr]):
+    contigs = {l.split("\\t")[0] for l in open("${params.fasta}.fai")}
+
+    def fix(region):
+        chrom, span = region.rsplit(":", 1)
+        for c in (chrom, "chr" + chrom, "chrM" if chrom in ("MT", "M") else None):
+            if c in contigs:
+                return f"{c}:{span}"
+        raise SystemExit(f"catalog contig {chrom!r} not in the reference")
+
+    catalog, regions = json.load(open("${catalog}")), set()
+    for locus in catalog:
+        for key in ("ReferenceRegion", "OfftargetRegions"):
+            r = locus.get(key)
             if not r:
                 continue
-            chrom, span = r.split(":")
-            start, end = span.split("-")
-            regions.append((chrom, max(0, int(start) - 2000), int(end) + 2000))
-    for chrom, start, end in sorted(set(regions)):
-        print(f"{chrom}\\t{start}\\t{end}")
+            fixed = [fix(x) for x in r] if isinstance(r, list) else fix(r)
+            locus[key] = fixed
+            for x in (fixed if isinstance(fixed, list) else [fixed]):
+                chrom, span = x.rsplit(":", 1)
+                start, end = span.split("-")
+                regions.add((chrom, max(0, int(start) - 2000), int(end) + 2000))
+    json.dump(catalog, open("catalog.ref.json", "w"), indent=1)
+    with open("catalog_regions.bed", "w") as fh:
+        for chrom, start, end in sorted(regions):
+            fh.write(f"{chrom}\\t{start}\\t{end}\\n")
     PY
 
-    samtools view -b -T ${params.fasta} -L catalog_regions.bed \\
+    samtools view -b -M -T ${params.fasta} -L catalog_regions.bed \
         -o eh_input.bam ${cram}
     samtools index eh_input.bam
+    n=\$(samtools view -c eh_input.bam)
+    echo "reads extracted for ExpansionHunter: \$n" >&2
+    [ "\$n" -gt 0 ] || { echo "ERROR: no reads in catalog regions (contig names?)" >&2; exit 1; }
 
-    ExpansionHunter \\
-        --reads eh_input.bam \\
-        --reference ${params.fasta} \\
-        --variant-catalog ${catalog} \\
-        --threads ${task.cpus} \\
+    ExpansionHunter \
+        --reads eh_input.bam \
+        --reference ${params.fasta} \
+        --variant-catalog catalog.ref.json \
+        --threads ${task.cpus} \
         --output-prefix ${params.sample_id}.eh
 
     rm -f eh_input.bam eh_input.bam.bai

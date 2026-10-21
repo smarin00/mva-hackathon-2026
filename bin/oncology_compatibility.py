@@ -260,7 +260,7 @@ def main():
           file=sys.stderr)
     for c in cands:
         if not labels[c]:
-            print(f"  {c:<24} no US drug label: not checked", file=sys.stderr)
+            print(f"  {c:<24} no US prescription label: not checked", file=sys.stderr)
             continue
         for d in chemo_regs:
             f = [r for r in rows if r[0] == c and r[1] == d]
