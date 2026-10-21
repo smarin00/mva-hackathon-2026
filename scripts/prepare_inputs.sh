@@ -42,38 +42,49 @@ panel)
     ;;
 public)
     echo "== UniProt $UNIPROT sequence and AlphaFold model (public)"
-    # try URL OUT: download to OUT.part, rename on success; returns curl's status
-    try() {
-        curl -sSfL --retry 3 -A "mva-hackathon-pipeline (curl)" "$1" -o "$2.part" \
-            && mv "$2.part" "$2" || { rm -f "$2.part"; return 1; }
-    }
-    fetch() { try "$1" "$2" || { echo "ERROR: download failed: $1" >&2; exit 1; }; }
+    # Downloads use Python's urllib, the client that fetched the BUB1B model
+    # in structure_context.py. EBI's AlphaFold file server refused curl (403)
+    # for the same URLs.
     PY=python3; [ -x .venv/bin/python ] && PY=.venv/bin/python
+    $PY - "$UNIPROT" <<'EOF'
+import json, os, sys, urllib.request
+acc = sys.argv[1]
 
-    fetch "https://rest.uniprot.org/uniprotkb/$UNIPROT.fasta" "resources/$UNIPROT.fasta"
-    fetch "https://alphafold.ebi.ac.uk/api/prediction/$UNIPROT" "resources/AF-$UNIPROT.json"
-    urls=$($PY -c 'import json,sys
-d = json.load(open(sys.argv[1]))
-if not d: sys.exit("ERROR: AlphaFold has no prediction for " + sys.argv[2])
-print(d[0]["pdbUrl"], d[0]["cifUrl"])' "resources/AF-$UNIPROT.json" "$UNIPROT")         || { rm -f "resources/AF-$UNIPROT.json"; exit 1; }
-    url=${urls% *}; cif=${urls#* }
-    rm -f "resources/AF-$UNIPROT.json"
-    pdb="resources/AF-$UNIPROT-F1-model.pdb"
-    if ! try "$url" "$pdb"; then
-        # Some entries are served as mmCIF only: fetch it and convert.
-        echo "   PDB file not available; using mmCIF and converting" >&2
-        url=$cif
-        fetch "$url" "resources/AF-$UNIPROT-F1-model.cif"
-        $PY - "resources/AF-$UNIPROT-F1-model.cif" "$pdb" <<'EOF'
-import sys
-from Bio.PDB import MMCIFParser, PDBIO
-io = PDBIO()
-io.set_structure(MMCIFParser(QUIET=True).get_structure("m", sys.argv[1]))
-io.save(sys.argv[2])
+def get(url, dest=None):
+    """Download url (to dest via dest.part, or return bytes); exit with the URL on failure."""
+    try:
+        with urllib.request.urlopen(url, timeout=120) as r:
+            data = r.read()
+    except Exception as e:
+        sys.exit(f"ERROR: download failed: {url} ({e})")
+    if dest is None:
+        return data
+    with open(dest + ".part", "wb") as fh:
+        fh.write(data)
+    os.replace(dest + ".part", dest)
+
+get(f"https://rest.uniprot.org/uniprotkb/{acc}.fasta", f"resources/{acc}.fasta")
+entries = json.loads(get(f"https://alphafold.ebi.ac.uk/api/prediction/{acc}"))
+if not entries:
+    sys.exit(f"ERROR: AlphaFold has no prediction for {acc}")
+e = entries[0]
+pdb = f"resources/AF-{acc}-F1-model.pdb"
+try:
+    get(e["pdbUrl"], pdb)
+    print("   " + e["pdbUrl"])
+except SystemExit as err:
+    # Some entries are served as mmCIF only: fetch it and convert (pLDDT is
+    # kept in the B-factor column).
+    print(f"   {err}; trying mmCIF", file=sys.stderr)
+    cif = pdb[:-4] + ".cif"
+    get(e["cifUrl"], cif)
+    from Bio.PDB import MMCIFParser, PDBIO
+    io = PDBIO()
+    io.set_structure(MMCIFParser(QUIET=True).get_structure("m", cif))
+    io.save(pdb)
+    os.remove(cif)
+    print("   " + e["cifUrl"] + " (converted to PDB)")
 EOF
-        rm -f "resources/AF-$UNIPROT-F1-model.cif"
-    fi
-    echo "   $url"
     ;;
 smoke)
     echo "== testdata/: first 2 M read pairs of lane 1 (PATIENT DATA: never commit)"
