@@ -132,6 +132,7 @@ How the submission file is built (`bin/make_submission.py`):
 | `make structure` | `bin/structure_context.py` | Where does the residue sit in the AlphaFold structure, and which contacts does the change break? |
 | `make opentargets` | `bin/opentargets_candidates.py` | Which drugs push the pathway in the desired direction, and which push it the wrong way? |
 | `make case` | `bin/resolve_case.py` | Which gene and variants, and what does each do to the protein (stop, missense)? |
+| `make alphamissense` | `bin/alphamissense_compare.py` | Does an independent predictor (AlphaMissense) agree with ESM-2 on the calibration alleles, across the protein, and against ClinVar? |
 | `make oncology` | `bin/oncology_compatibility.py` | Do the candidates clash with the chemotherapy for the cancers MVA predisposes to (shared metabolism, overlapping toxicity)? From FDA labels. |
 | `make atlas` | `bin/variant_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar variants it never saw? |

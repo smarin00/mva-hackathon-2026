@@ -27,6 +27,7 @@ REFS       ?= /opt/refs
 CONTAINERS ?= /opt/containers
 GTF        ?= $(REFS)/Homo_sapiens.GRCh38.116.gtf.gz
 FASTA      ?= $(REFS)/GRCh38.fa
+ALPHAMISSENSE ?= $(REFS)/alphamissense/AlphaMissense_hg38.tsv.gz
 OUT_VCF    ?= results_vcf
 OUT_FULL   ?= results_full
 FINDINGS   ?= findings
@@ -46,7 +47,8 @@ SUBMISSION = $(OUT)/submission/submission.csv
 .PHONY: help all install refs gtf setup data inputs inputs-run lint smoke track1-vcf track1 \
 	    case gene-config gene-atlas related-genes related-genes-run mva-genes hpo \
 	    track2 track2-steps \
-	    nmd esm structure opentargets oncology atlas spliceai clinvar aneuploidy-sensitivity \
+	    nmd esm structure opentargets oncology atlas spliceai clinvar alphamissense \
+	    aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
 help:
@@ -159,7 +161,7 @@ $(RCASE): $(CASE) $(GTF) $(wildcard $(SUBMISSION)) $(wildcard config/genes/*.yam
 track2-steps: $(if $(PATIENT_PTC_POS),nmd) $(if $(PATIENT_MISSENSE),esm structure) \
 	    $(if $(PANEL),opentargets) $(if $(ONCOLOGY),oncology) \
 	    $(if $(PATIENT_PTC_POS)$(PATIENT_MISSENSE),spliceai) \
-	    atlas clinvar
+	    atlas clinvar $(if $(wildcard $(ALPHAMISSENSE)),alphamissense)
 
 nmd: $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt
 $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt: $(GTF)
@@ -242,6 +244,14 @@ $(T2)/clinvar_validation.tsv: $(T2)/atlas/atlas_figure.pdf
 	$(PY) bin/clinvar_validate.py --clinvar $(CLINVAR) --fasta $(FASTA) --gtf $(GTF) \
 	    --config $(RCASE) --protein resources/$(UNIPROT).fasta \
 	    --atlas $(T2)/atlas/atlas_missense.tsv --out $@
+
+# AlphaMissense as a second, independent missense predictor: calibration
+# alleles, agreement with ESM-2, and the ClinVar comparison.
+alphamissense: $(T2)/alphamissense/summary.txt
+$(T2)/alphamissense/summary.txt: $(T2)/atlas/atlas_figure.pdf $(T2)/clinvar_validation.tsv
+	$(PY) bin/alphamissense_compare.py --config $(RCASE) --am $(ALPHAMISSENSE) --gtf $(GTF) \
+	    --atlas $(T2)/atlas/atlas_missense.tsv --clinvar $(T2)/clinvar_validation.tsv \
+	    --outdir $(T2)/alphamissense
 
 # SpliceAI on the two causal alleles only: rules out a splicing mechanism.
 # Own environment: SpliceAI needs TensorFlow 2.15, which needs Python 3.11.
