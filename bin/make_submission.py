@@ -437,8 +437,10 @@ def main():
         print(f"rule: frequency vs inheritance: {n}", file=sys.stderr)
     candidates = pair_compound_hets(candidates, args.phase)
     if args.gene_diseases:
-        for g in demote_no_disease(candidates, load_disease_genes(args.gene_diseases)):
-            print(f"rule: no established disease, demoted {g}", file=sys.stderr)
+        demoted = demote_no_disease(candidates, load_disease_genes(args.gene_diseases))
+        if demoted:
+            print(f"rule: no established disease, demoted {len(demoted)} genes "
+                  f"(e.g. {', '.join(demoted[:5])})", file=sys.stderr)
     candidates = apply_curation(candidates, load_curation(args.curation), args.min_gene_score)
     candidates.sort(key=lambda c: -c.score)
     rows = assign_epcr(candidates[:MAX_ROWS])

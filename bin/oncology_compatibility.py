@@ -109,23 +109,38 @@ def pick(results, drug):
     return best if best and plain(best, drug) else {}
 
 
+def query(drug):
+    """openFDA search with retries: 404 = no label; 5xx and timeouts are
+    retried with backoff, then with a smaller result page."""
+    import time
+    q = urllib.parse.quote(f'openfda.generic_name:"{drug}"')
+    last = None
+    for limit in (100, 25):
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(f"{API}?search={q}&limit={limit}",
+                                            timeout=60) as r:
+                    return json.load(r).get("results", [])
+            except urllib.error.HTTPError as e:
+                if e.code == 404:
+                    return []
+                if e.code < 500 and e.code != 429:
+                    sys.exit(f"ERROR: openFDA query failed for {drug}: {e}")
+                last = e
+            except (urllib.error.URLError, TimeoutError) as e:
+                last = e
+            time.sleep(2 ** attempt)
+        print(f"  openFDA: {drug}: {last}; retrying with limit 25", file=sys.stderr)
+    sys.exit(f"ERROR: openFDA query failed for {drug} after retries: {last}")
+
+
 def fetch(drug, cache, offline):
     path = os.path.join(cache, re.sub(r"\W+", "_", drug.lower()) + ".json")
     if os.path.exists(path):
         return json.load(open(path))
     if offline:
         return None
-    q = f'openfda.generic_name:"{drug}"'
-    url = f"{API}?search={urllib.parse.quote(q)}&limit=100"
-    try:
-        with urllib.request.urlopen(url, timeout=60) as r:
-            results = json.load(r).get("results", [])
-    except urllib.error.HTTPError as e:
-        if e.code != 404:                       # 404 = no label for this name
-            sys.exit(f"ERROR: openFDA query failed for {drug}: {e}")
-        results = []
-    except Exception as e:
-        sys.exit(f"ERROR: openFDA query failed for {drug}: {e}")
+    results = query(drug)
     label = pick(results, drug)
     os.makedirs(cache, exist_ok=True)
     json.dump(label, open(path, "w"))
