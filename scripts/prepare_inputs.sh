@@ -14,14 +14,18 @@ set -euo pipefail
 REPO=$(cd "$(dirname "$0")/.." && pwd)
 cd "$REPO"
 REFS=${REFS:-/opt/refs}
-DATASET=SageBio/mva-hackathon-2026-data
+# Case-specific values come from the case file via make (see params.example.yaml)
+DATASET=${DATASET:-}
+PANEL_GENES=${PANEL_GENES:-docs/panel_genes.txt}
+PANEL_BED=${PANEL_BED:-resources/mva_panel.bed}
 # the dataset's single VCF and its lane-1 reads, whatever the sample is called
 VENDOR_VCF=${VENDOR_VCF:-$(ls data/*.vcf.gz 2>/dev/null | head -1 || true)}
-UNIPROT=${UNIPROT:-O60566}
+UNIPROT=${UNIPROT:-}
 
 for part in "$@"; do
 case "$part" in
 data)
+    [ -n "$DATASET" ] || { echo "ERROR: set dataset: in the case file (Hugging Face dataset id)"; exit 1; }
     echo "== downloading $DATASET into data/ (FASTQ ~100 GB)"
     hf download "$DATASET" --repo-type dataset --local-dir ./data \
         --include "*.fastq.gz" "*.vcf.gz" "*.vcf.gz.tbi" "*.docx" "README.md"
@@ -38,11 +42,13 @@ vcf)
     ;;
 panel)
     echo "== candidate panel from Ensembl GTF"
-    python3 bin/build_panel.py --genes docs/panel_genes.txt \
+    echo "   genes: $PANEL_GENES -> $PANEL_BED"
+    python3 bin/build_panel.py --genes "$PANEL_GENES" \
         --gtf "$REFS/Homo_sapiens.GRCh38.116.gtf.gz" --pad 10000 \
-        --out resources/mva_panel.bed
+        --out "$PANEL_BED"
     ;;
 public)
+    [ -n "$UNIPROT" ] || { echo "ERROR: set UNIPROT=<accession> (make does this per gene)"; exit 1; }
     echo "== UniProt $UNIPROT sequence and AlphaFold model (public)"
     # Downloads use Python's urllib, the client that fetched the BUB1B model
     # in structure_context.py. EBI's AlphaFold file server refused curl (403)

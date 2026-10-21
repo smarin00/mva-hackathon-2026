@@ -42,7 +42,7 @@ OUT    = $(if $(filter vcf,$(ROUTE)),$(OUT_VCF),$(OUT_FULL))
 SUBMISSION = $(OUT)/submission/submission.csv
 
 
-.PHONY: help all install refs gtf setup data inputs lint smoke track1-vcf track1 \
+.PHONY: help all install refs gtf setup data inputs inputs-run lint smoke track1-vcf track1 \
 	    case gene-config gene-atlas related-genes related-genes-run mva-genes hpo \
 	    track2 track2-steps \
 	    nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
@@ -103,12 +103,16 @@ setup: .venv/.done
 	touch $@
 
 data:
-	bash scripts/prepare_inputs.sh data
+	DATASET=$(call case,dataset) bash scripts/prepare_inputs.sh data
 
 inputs:
-	REFS=$(REFS) bash scripts/prepare_inputs.sh vcf panel
 	@test -f $(CASE) || { cp params.example.yaml $(CASE); \
 	    echo "Created $(CASE) from the template: add the HPO terms before running."; }
+	$(MAKE) --no-print-directory inputs-run
+inputs-run:
+	REFS=$(REFS) PANEL_GENES=$(or $(call case,panel_genes),docs/panel_genes.txt) \
+	PANEL_BED=$(or $(call case,panel_bed),resources/mva_panel.bed) \
+	    bash scripts/prepare_inputs.sh vcf panel
 
 # ---- everything -------------------------------------------------------------
 all:

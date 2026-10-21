@@ -6,6 +6,9 @@
 # full: from raw reads (~15 h)  |  vcf: from the provided VCF (~2 h)
 mode: full
 
+# Hugging Face dataset with the reads and VCF (`make data`)
+dataset: SageBio/mva-hackathon-2026-data
+
 sample_id: proband
 outdir: results
 
@@ -15,8 +18,10 @@ vendor_vcf: derived/vendor.chr.vcf.gz
 # Comma-separated HPO term IDs from the clinical phenotype
 hpo_ids: ""                                # REQUIRED, e.g. "HP:0000121,HP:0004322"
 
-# Candidate panel BED, chr-prefixed (MVA / spindle-checkpoint / centromere genes)
-panel_bed: resources/mva_panel.bed       # built by `make inputs`
+# Candidate panel for mosaic calling and phasing: gene list -> BED (`make inputs`).
+# The default list covers MVA, spindle-checkpoint and centromere genes.
+panel_genes: docs/panel_genes.txt
+panel_bed: resources/mva_panel.bed
 
 # Optional VEP plugin data; leave empty to skip that plugin
 vep_plugins_dir: /opt/refs/vep/Plugins
