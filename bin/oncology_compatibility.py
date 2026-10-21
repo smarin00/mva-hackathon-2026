@@ -83,7 +83,8 @@ def section_text(label, fields):
 # A keyword preceded by these is a risk factor or a symptom list, not a
 # toxicity of the drug ("in patients with renal failure").
 RISK_CONTEXT = re.compile(r"(patients? with|history of|in patients|pre-?existing|"
-                          r"suggestive|symptoms|suspected|risk factors?)[^.]{0,120}$", re.I)
+                          r"suggestive|symptoms|suspected|risk factors?).{0,300}$", re.I)
+# (the text searched is already a single sentence, so '.' here is a decimal point)
 
 
 def find(label, fields, pattern, toxicity=False):
