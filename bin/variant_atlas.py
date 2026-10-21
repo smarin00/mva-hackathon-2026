@@ -283,7 +283,7 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf,
 
     # --- panel A: positional constraint + features + calibrated variants
     shade = [d for d in domains if d["end"] - d["start"] >= 5 or d["feature"].startswith(("KEN", "ABBA"))]
-    for d in shade:
+    for d in (shade if curated else []):
         a1.axvspan(d["start"] - 0.5, d["end"] + 0.5, color="#f1f0ec", lw=0, zorder=0)
     if curated:
         for d in domains:
@@ -293,14 +293,29 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf,
                         d["feature"] if req else "pseudokinase (dispensable)",
                         ha="center", va="bottom", fontsize=7.5,
                         color=INK if req else INK2, fontweight="bold" if req else "normal")
-    else:
-        # UniProt annotations: label the longer ones, staggered, never bold
-        # (essentiality is not assessed).
-        big = sorted([d for d in domains if d["end"] - d["start"] >= 0.04 * len(seq)],
-                     key=lambda d: d["start"])
-        for k, d in enumerate(big):
-            a1.text((d["start"] + d["end"]) / 2, 1.9 - 0.7 * (k % 2), d["feature"][:28],
-                    ha="center", va="bottom", fontsize=7, color=INK2)
+    lanes = []
+    if not curated and domains:
+        # UniProt annotations overlap and nest, so they get their own track:
+        # one thin bar per feature, full label above it, packed into rows so
+        # that neither bars nor labels collide. Never bold: essentiality is
+        # not assessed.
+        char = L / 165                       # approx. residues per label character
+        for d in sorted(domains, key=lambda d: (d["start"], -d["end"])):
+            mid = (d["start"] + d["end"]) / 2
+            half = max(d["end"] - d["start"], len(d["feature"]) * char) / 2 + L * 0.01
+            lo, hi = mid - half, mid + half
+            for lane in lanes:
+                if all(hi < a or lo > b for a, b, _ in lane):
+                    lane.append((lo, hi, d)); break
+            else:
+                lanes.append([(lo, hi, d)])
+        for i, lane in enumerate(lanes):
+            y = 1.0 + 1.6 * i
+            for _, _, d in lane:
+                a1.plot([d["start"], d["end"]], [y, y], color=INK2, lw=2.2,
+                        solid_capstyle="butt", zorder=2)
+                a1.text((d["start"] + d["end"]) / 2, y + 0.25, d["feature"],
+                        ha="center", va="bottom", fontsize=6.8, color=INK2)
     a1.plot(x, smooth, color=INK, lw=1.2, zorder=2)
     a1.axhline(0, color=GRID, lw=0.8, zorder=1)
 
@@ -328,7 +343,9 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf,
                     color=INK, fontweight="bold", zorder=6,
                     bbox=dict(boxstyle="round,pad=0.15", facecolor=SURFACE, edgecolor="none", alpha=0.9))
     a1.set_ylabel("ESM-2 log-likelihood ratio\n(lower = less tolerated)", fontsize=8.5, color=INK)
-    a1.set_ylim(min(-9, np.nanmin(smooth) - 1), 2.7)
+    a1.set_ylim(min(-9, np.nanmin(smooth) - 1), 2.7 if not lanes else 1.0 + 1.6 * len(lanes) + 0.6)
+    if lanes:
+        a1.set_yticks([t for t in a1.get_yticks() if t <= 0])
     a1.set_title(f"{gene} variant atlas: missense constraint (top) and fate of a "
                  "premature stop at each codon (bottom)", loc="left", fontsize=10.5,
                  color=INK, pad=8)
@@ -337,8 +354,10 @@ def plot(seq, lp, domains, trunc, calib, patient_mis, patient_ptc, geo, out_pdf,
                    "circles: verified destabilising alleles; open: verified stable.\n"
                    "Bold: features required for function; light bands: other annotated motifs.")
     else:
-        caption = ("Line: mean over 19 substitutions, 9-residue window. Bands: UniProt "
-                   "domain annotations (essentiality not assessed). No calibration alleles.")
+        caption = ("Line: mean over 19 substitutions, 9-residue window. "
+                   + ("Bars: UniProt annotations (essentiality not assessed). " if domains
+                      else "No UniProt domain annotations. ")
+                   + "No calibration alleles.")
     a1.text(0.0, -0.02, caption, transform=a1.transAxes, fontsize=7, color=MUTED, va="top")
 
     # --- panel B: truncation outcome strip
