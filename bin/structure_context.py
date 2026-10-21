@@ -21,7 +21,7 @@ Caveats the output keeps in view:
 
 Setup: uv pip install biopython
 Usage:
-  structure_context.py --uniprot O60566 --patient N1002K \\
+  structure_context.py --config config/bub1b.toml --uniprot O60566 \\
       --out findings/track2/structure_context.tsv
   structure_context.py --pdb AF-O60566-F1-model.pdb ...   # offline
 """
@@ -42,9 +42,7 @@ THREE = {"A": "ALA", "R": "ARG", "N": "ASN", "D": "ASP", "C": "CYS",
          "S": "SER", "T": "THR", "W": "TRP", "Y": "TYR", "V": "VAL"}
 BACKBONE = {"N", "CA", "C", "O"}
 
-CALIBRATION = [("I909T", "destabilising"), ("L1012P", "destabilising"),
-               ("R727C", "destabilising"), ("L844F", "destabilising"),
-               ("Q921H", "stable"), ("R550Q", "stable")]
+# Calibration alleles come from the case configuration (config/<gene>.toml).
 
 BURIED_RSA = 0.20          # conventional cut-off
 CONTACT_A = 4.5            # heavy-atom contact distance
@@ -101,9 +99,19 @@ def main():
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--uniprot")
     g.add_argument("--pdb")
-    p.add_argument("--patient", required=True)
+    p.add_argument("--config", required=True, help="config/<gene>.toml")
+    p.add_argument("--patient", help="default: patient.missense in the config")
     p.add_argument("--out", required=True)
     a = p.parse_args()
+
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import caseconfig
+    cfg = caseconfig.load(a.config)
+    CALIBRATION = caseconfig.calibration(cfg)
+    a.patient = a.patient or cfg["patient"].get("missense")
+    if not a.patient:
+        sys.exit("needs a patient missense (--patient or patient.missense in the config)")
 
     from Bio.PDB import PDBParser
     from Bio.PDB.SASA import ShrakeRupley

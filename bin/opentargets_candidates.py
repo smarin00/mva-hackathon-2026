@@ -4,7 +4,7 @@ Automated candidate layer for Track 2: map a BubR1-dosage pathway panel to
 known drugs in the Open Targets Platform, and classify every drug by whether
 its action moves the target in the therapeutically desired direction.
 
-The biology is encoded explicitly in PANEL below: each gene carries the
+The biology is encoded explicitly in the case configuration's pathway panel: each gene carries the
 direction we want (raise BubR1 dose, or do not weaken the checkpoint) and the
 literature it rests on. Open Targets supplies the drugs and their action type
 (ChEMBL mechanism annotations). The cross of the two gives:
@@ -30,6 +30,7 @@ Usage
 
 import argparse
 import json
+import os
 import sys
 import time
 import urllib.error
@@ -37,34 +38,11 @@ import urllib.request
 
 API = "https://api.platform.opentargets.org/api/v4/graphql"
 
-# ---------------------------------------------------------------------------
-# The biology. desired: 'up' | 'down' | 'no_inhibit'
-# ---------------------------------------------------------------------------
-PANEL = [
-    # (symbol, desired, tier, rationale)
-    ("BUB1B",    "up",         "1", "The deficient protein; MVA1 is a BubR1 dosage disorder (Suijkerbuijk 2010)."),
-    ("SIRT2",    "up",         "1", "Deacetylates BubR1 K668 and raises BubR1 abundance; extends lifespan of BubR1 hypomorphic mice (North 2014)."),
-    ("NAMPT",    "up",         "1", "Rate-limiting NAD+ salvage enzyme; NAD+ supports SIRT2 activity on BubR1 (North 2014)."),
-    ("CREBBP",   "down",       "1", "CBP acetylates BubR1 K668, opposing SIRT2 (North 2014). Caution: CREBBP loss causes Rubinstein-Taybi syndrome."),
-    ("HSF1",     "up",         "1", "Master regulator of the heat-shock response; chaperone support for a misfolding-prone client."),
-    ("HSPA1A",   "up",         "1", "HSP70; folding support for destabilised clients."),
-    ("HSP90AA1", "no_inhibit", "1", "Mutant BubR1 is an HSP90 client; HSP90 inhibition depletes it (Suijkerbuijk 2010)."),
-    ("HSP90AB1", "no_inhibit", "1", "HSP90 beta; as above."),
-    ("TTK",      "no_inhibit", "1", "MPS1 kinase; inhibition weakens the spindle assembly checkpoint further."),
-    ("AURKB",    "no_inhibit", "1", "Aurora B; inhibition impairs error correction and the checkpoint."),
-    ("BCL2L1",   "down",       "2", "BCL-xL; senolytic target. Senescent-cell clearance delayed ageing phenotypes in BubR1 progeroid mice (Baker 2011)."),
-]
-
-NAMED_DRUGS = [
-    "arimoclomol",
-    "nicotinamide riboside",
-    "nicotinamide mononucleotide",
-    "nicotinamide",
-    "dasatinib",
-    "quercetin",
-    "fisetin",
-    "navitoclax",
-]
+# The biology -- pathway panel (symbol, desired direction, tier, rationale)
+# and named drugs -- comes from the case configuration (config/<gene>.toml).
+# desired: 'up' | 'down' | 'no_inhibit'
+PANEL = []
+NAMED_DRUGS = []
 
 UP = {"AGONIST", "ACTIVATOR", "POSITIVE ALLOSTERIC MODULATOR", "PARTIAL AGONIST",
       "OPENER", "STABILISER", "POSITIVE MODULATOR", "INDUCER"}
@@ -233,6 +211,7 @@ def introspect(type_name):
 # ---------------------------------------------------------------------------
 def main():
     p = argparse.ArgumentParser()
+    p.add_argument("--config", help="config/<gene>.toml (pathway panel, named drugs)")
     p.add_argument("--outdir", default="findings/track2/opentargets")
     p.add_argument("--introspect", metavar="TYPE",
                    help="print the fields of a GraphQL type and exit (debug)")
@@ -241,6 +220,16 @@ def main():
     if a.introspect:
         introspect(a.introspect)
         return 0
+
+    global PANEL, NAMED_DRUGS
+    if not a.config:
+        sys.exit("--config is required (pathway panel and named drugs)")
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import caseconfig
+    cfg = caseconfig.load(a.config)
+    PANEL, NAMED_DRUGS = caseconfig.panel(cfg), list(cfg["named_drugs"])
+    if not PANEL:
+        sys.exit(f"{a.config} has no [[pathway]] panel")
 
     import os
     os.makedirs(a.outdir, exist_ok=True)

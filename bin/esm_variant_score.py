@@ -34,22 +34,14 @@ Usage:
 """
 
 import argparse
+import os
 import sys
 
 AA = "ACDEFGHIKLMNPQRSTVWY"
 
-# Experimental classes from Suijkerbuijk et al. 2010 (Cancer Res 70:4891).
-# 'destabilising': reduced steady-state level / faster turnover, HSP90-dependent.
-# 'stable': level and function indistinguishable from wild type.
-CALIBRATION = [
-    ("I909T",  "destabilising"),
-    ("L1012P", "destabilising"),
-    ("R727C",  "destabilising"),
-    ("L844F",  "destabilising"),
-    ("Q921H",  "stable"),
-    ("R550Q",  "stable"),
-]
-DOMAIN = (766, 1050)   # pseudokinase domain boundaries, Commun Biol 2026 (doi:10.1038/s42003-026-10384-9)
+# Calibration alleles and the domain map come from the case configuration
+# (config/<gene>.toml); for BUB1B these are the six MVA alleles characterised
+# by Suijkerbuijk et al. 2010 (Cancer Res 70:4891).
 WINDOW = 1022
 
 
@@ -74,8 +66,9 @@ def window(seq, pos):
 
 def main():
     p = argparse.ArgumentParser()
+    p.add_argument("--config", required=True, help="config/<gene>.toml")
     p.add_argument("--fasta", required=True)
-    p.add_argument("--patient", required=True, help="e.g. N1002K")
+    p.add_argument("--patient", help="e.g. N1002K (default: patient.missense in the config)")
     p.add_argument("--out", required=True)
     p.add_argument("--model", default="esm2_t33_650M_UR50D")
     p.add_argument("--threads", type=int, default=16)
@@ -87,8 +80,26 @@ def main():
     import esm
     torch.set_num_threads(a.threads)
 
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import caseconfig
+    import nmd_check
+    cfg = caseconfig.load(a.config)
+    CALIBRATION = caseconfig.calibration(cfg)
+    a.patient = a.patient or cfg["patient"].get("missense")
+    if not a.patient or not CALIBRATION:
+        sys.exit("needs a patient missense and calibration alleles (see the config)")
+
     seq = read_fasta(a.fasta)
     print(f"sequence length {len(seq)}", file=sys.stderr)
+
+    # Percentile context: the curated domain holding the patient residue,
+    # else the whole protein.
+    ppos = parse(a.patient)[1]
+    hits = [d for d in (nmd_check.load_domains(cfg["domains"]) if cfg["domains"] else [])
+            if d["start"] <= ppos <= d["end"] and d["end"] - d["start"] >= 20]
+    DOMAIN = (hits[0]["start"], hits[0]["end"]) if hits else (1, len(seq))
+    print(f"percentile context: residues {DOMAIN[0]}-{DOMAIN[1]}"
+          f"{' (' + hits[0]['feature'] + ')' if hits else ' (whole protein)'}", file=sys.stderr)
 
     variants = [(a.patient, "PATIENT")] + CALIBRATION
     for v, _ in variants:

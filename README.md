@@ -46,7 +46,8 @@ work is reused, not repeated.
 
 **Track 2 runs without the patient data.** It needs only public resources (the
 Ensembl annotation, the protein sequence and structure, and drug databases)
-and the two variant positions, which are set at the top of the `Makefile`. To
+and the case description in `config/bub1b.toml` (gene, variant positions,
+calibration alleles, drug-screen panel). To
 reproduce the Track 2 results on any Linux machine with
 [uv](https://docs.astral.sh/uv/) installed: `make setup gtf track2 REFS=$HOME/refs`.
 
@@ -120,7 +121,9 @@ How the submission file is built (`bin/make_submission.py`):
 | `make esm` | `bin/esm_variant_score.py` | Does the missense look like the known MVA stability mutants? (ESM-2, calibrated on six experimentally characterised alleles) |
 | `make structure` | `bin/structure_context.py` | Where does the residue sit in the AlphaFold structure, and which contacts does the change break? |
 | `make opentargets` | `bin/opentargets_candidates.py` | Which drugs push the pathway in the desired direction, and which push it the wrong way? |
-| `make atlas` | `bin/bub1b_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
+| `make atlas` | `bin/variant_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
+| `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar variants it never saw? |
+| `make mva-genes` | `bin/variant_atlas.py` | Constraint and NMD maps for the other MVA genes, CEP57 (MVA2) and TRIP13 (MVA3) |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar's pathogenic and benign BUB1B variants, which it never saw? |
 
 `make aneuploidy-sensitivity` re-runs the aneuploidy analysis under three GC
@@ -139,11 +142,16 @@ flagged as unconfirmed rather than called.
 
 - **Another patient:** new `params.yaml` (data paths, HPO terms) and the same
   commands.
-- **Another BubR1 variant:** `make track2 PATIENT_MISSENSE=R550Q PATIENT_PTC_POS=...`,
-  or look it up directly in `findings/track2/atlas/`.
-- **Another gene:** the NMD, structure and Open Targets scripts take the gene,
-  protein and pathway as inputs. The calibration alleles and pathway panel are
-  currently defined at the top of the Track 2 scripts.
+- **Another BubR1 variant:** look it up in `findings/track2/atlas/`, or copy
+  `config/bub1b.toml`, change the `[patient]` block and run
+  `make track2 CONFIG=config/<copy>.toml`.
+- **Another gene:** write a config file with at least the gene symbol and
+  UniProt accession (see `config/cep57.toml`), then
+  `make gene-atlas CONFIG=config/<gene>.toml`. Without a curated domain map the
+  atlas uses UniProt's domain annotations; without calibration alleles it
+  reports constraint but makes no mechanism call; without a `[[pathway]]`
+  panel there is no drug screen. Each of these is a few lines of TOML, and
+  the curation behind them is the real work for a new gene.
 
 ## Repository layout
 
@@ -153,6 +161,7 @@ main.nf                 Track 1 pipeline (Nextflow)
 nextflow.config         resources, containers, error handling
 params.example.yaml     configuration template -> params.yaml (not committed)
 bin/                    all analysis scripts (Track 1 and Track 2)
+config/                 one file per gene/case: domains, calibration, patient, drug panel
 scripts/                install_tools.sh, setup_refs.sh, prepare_inputs.sh
 resources/              chr_map.txt (contig renaming); downloaded files land here
 findings/               shareable results

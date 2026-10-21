@@ -1,0 +1,7 @@
+# Gene-level configuration: CEP57 / MVA type 2.
+# No curated domain map, calibration alleles or patient: the atlas reports
+# positional constraint (ESM-2) and the NMD fate of every possible premature
+# stop, with domain annotations taken from UniProt.
+gene = "CEP57"
+uniprot = "Q86XR8"
+disorder = "MVA2"

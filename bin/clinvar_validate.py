@@ -40,6 +40,7 @@ from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import caseconfig                  # noqa: E402
 import nmd_check as nmd            # noqa: E402
 import esm_variant_score as evs    # noqa: E402
 
@@ -98,13 +99,15 @@ def main():
     a.add_argument("--clinvar", required=True)
     a.add_argument("--fasta", required=True)
     a.add_argument("--gtf", required=True)
-    a.add_argument("--gene", default="BUB1B")
+    a.add_argument("--config", required=True, help="config/<gene>.toml")
     a.add_argument("--protein", required=True)
     a.add_argument("--atlas", required=True)
     a.add_argument("--out", required=True)
     args = a.parse_args()
 
     import pysam
+    cfg = caseconfig.load(args.config)
+    args.gene = cfg["gene"]
 
     protein = evs.read_fasta(args.protein)
     tid, chrom, strand, cds = cds_map(args.gtf, args.gene)
@@ -127,7 +130,7 @@ def main():
         for r in csv.DictReader(fh, delimiter="\t"):
             atlas[(int(r["pos"]), r["wt"], r["mt"])] = r
 
-    calib = {v for v, _ in evs.CALIBRATION}
+    calib = {v for v, _ in caseconfig.calibration(cfg)}
     lo, hi = min(cds), max(cds)
     vcf = pysam.VariantFile(args.clinvar)
     rows = []

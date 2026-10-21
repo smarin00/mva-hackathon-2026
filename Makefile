@@ -1,19 +1,21 @@
 # MVA Hackathon 2026 -- single entry point.  Run `make` for the menu.
 #
-# Everything case-specific is in the block below; override on the command
-# line, e.g.  make track2 PATIENT_MISSENSE=R550Q
+# Everything case-specific (gene, protein, domain map, calibration alleles,
+# patient variants, drug-screen panel) is in a config file. The default is
+# this patient's case; another gene is one argument away:
+#     make gene-atlas CONFIG=config/cep57.toml
 
 # ---- case -----------------------------------------------------------------
-GENE              ?= BUB1B
-UNIPROT           ?= O60566
-# GRCh38 position (VCF POS) of the stop-gain, and its codon
-PATIENT_PTC_POS   ?= 40209701
-PATIENT_PTC_CODON ?= 737
-PATIENT_MISSENSE  ?= N1002K
-# Genomic alleles (GRCh38) of the two causal variants, for splice scoring
-PATIENT_CHROM     ?= chr15
-PATIENT_PTC_ALLELE ?= 40209701 T G
-PATIENT_MIS_ALLELE ?= 40220612 T G
+CONFIG ?= config/bub1b.toml
+CFG    := python3 bin/caseconfig.py $(CONFIG)
+GENE               := $(shell $(CFG) gene)
+UNIPROT            := $(shell $(CFG) uniprot)
+DOMAINS            := $(shell $(CFG) domains)
+PATIENT_CHROM      := $(shell $(CFG) patient.chrom)
+PATIENT_PTC_POS    := $(shell $(CFG) patient.ptc_pos)
+PATIENT_PTC_ALLELE := $(shell $(CFG) patient.ptc_allele)
+PATIENT_MIS_ALLELE := $(shell $(CFG) patient.missense_allele)
+MVA_GENES          ?= cep57 trip13
 
 # ---- locations ------------------------------------------------------------
 REFS       ?= /opt/refs
@@ -30,6 +32,7 @@ T2 := $(FINDINGS)/track2
 
 
 .PHONY: help install refs gtf setup data inputs lint smoke track1-vcf track1 \
+	    gene-atlas mva-genes \
 	    track2 nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
@@ -46,6 +49,8 @@ help:
 	@echo "  make track1-vcf   Track 1 from the provided VCF       (~2 h)  -> $(OUT_VCF)/"
 	@echo "  make track1       Track 1 from raw reads (FASTQ)      (~15 h) -> $(OUT_FULL)/"
 	@echo "  make track2       Track 2 mechanism + drug analyses   (~1.5 h) -> $(T2)/"
+	@echo "  make mva-genes    variant atlas for the other MVA genes (CEP57, TRIP13)"
+	@echo "                    -> $(FINDINGS)/genes/; any gene: make gene-atlas CONFIG=..."
 	@echo ""
 	@echo "  make smoke        quick pipeline test on a 2 M-read subset"
 	@echo "  make findings     copy shareable results into $(FINDINGS)/ (safe to commit)"
@@ -104,31 +109,39 @@ nmd: $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt
 $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt: $(GTF)
 	mkdir -p $(T2)
 	$(PY) bin/nmd_check.py --gtf $(GTF) --gene $(GENE) --pos $(PATIENT_PTC_POS) \
-	    --domains docs/bub1b_domains.tsv | tee $@
+	    $(if $(DOMAINS),--domains $(DOMAINS)) | tee $@
 
 esm: $(T2)/esm_scores.tsv
 $(T2)/esm_scores.tsv: resources/$(UNIPROT).fasta
 	mkdir -p $(T2)
-	$(PY) bin/esm_variant_score.py --fasta $< --patient $(PATIENT_MISSENSE) --out $@
+	$(PY) bin/esm_variant_score.py --config $(CONFIG) --fasta $< --out $@
 
 structure: $(T2)/structure_context.tsv
 $(T2)/structure_context.tsv: resources/AF-$(UNIPROT)-F1-model.pdb
 	mkdir -p $(T2)
-	$(PY) bin/structure_context.py --pdb $< --patient $(PATIENT_MISSENSE) --out $@
+	$(PY) bin/structure_context.py --config $(CONFIG) --pdb $< --out $@
 
 opentargets: $(T2)/opentargets/ot_target_drugs.tsv
 $(T2)/opentargets/ot_target_drugs.tsv:
-	$(PY) bin/opentargets_candidates.py --outdir $(T2)/opentargets
+	$(PY) bin/opentargets_candidates.py --config $(CONFIG) --outdir $(T2)/opentargets
 
 atlas: $(T2)/atlas/atlas_figure.pdf
 $(T2)/atlas/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb
-	$(PY) bin/bub1b_atlas.py --fasta resources/$(UNIPROT).fasta --gtf $(GTF) \
-	    --gene $(GENE) --domains docs/bub1b_domains.tsv \
-	    --pdb resources/AF-$(UNIPROT)-F1-model.pdb \
-	    --patient-missense $(PATIENT_MISSENSE) --patient-ptc $(PATIENT_PTC_CODON) \
-	    --outdir $(T2)/atlas
+	$(PY) bin/variant_atlas.py --config $(CONFIG) --fasta resources/$(UNIPROT).fasta \
+	    --gtf $(GTF) --pdb resources/AF-$(UNIPROT)-F1-model.pdb --outdir $(T2)/atlas
 
-resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb:
+# The same atlas for any gene with a config file: constraint and NMD fate of
+# every possible variant, without patient data.
+GA := $(FINDINGS)/genes/$(GENE)
+gene-atlas: $(GA)/atlas_figure.pdf
+$(GA)/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb
+	$(PY) bin/variant_atlas.py --config $(CONFIG) --fasta resources/$(UNIPROT).fasta \
+	    --gtf $(GTF) --pdb resources/AF-$(UNIPROT)-F1-model.pdb --outdir $(GA)
+
+mva-genes:
+	for c in $(MVA_GENES); do $(MAKE) --no-print-directory gene-atlas CONFIG=config/$$c.toml || exit 1; done
+
+resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb &:
 	UNIPROT=$(UNIPROT) bash scripts/prepare_inputs.sh public
 
 # Independent check of the atlas: where do ClinVar's BUB1B missense variants
@@ -137,7 +150,7 @@ CLINVAR ?= $(REFS)/clinvar/clinvar.chr.vcf.gz
 clinvar: $(T2)/clinvar_validation.tsv
 $(T2)/clinvar_validation.tsv: $(T2)/atlas/atlas_figure.pdf
 	$(PY) bin/clinvar_validate.py --clinvar $(CLINVAR) --fasta $(FASTA) --gtf $(GTF) \
-	    --gene $(GENE) --protein resources/$(UNIPROT).fasta \
+	    --config $(CONFIG) --protein resources/$(UNIPROT).fasta \
 	    --atlas $(T2)/atlas/atlas_missense.tsv --out $@
 
 # SpliceAI on the two causal alleles only: rules out a splicing mechanism.
