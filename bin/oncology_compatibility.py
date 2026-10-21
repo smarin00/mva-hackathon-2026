@@ -113,13 +113,16 @@ def query(drug):
     """openFDA search with retries: 404 = no label; 5xx and timeouts are
     retried with backoff, then with a smaller result page."""
     import time
-    q = urllib.parse.quote(f'openfda.generic_name:"{drug}"')
+    # Same form as openFDA's documented examples: literal ':' , quoted phrase,
+    # '+' for spaces (percent-encoding the ':' breaks the query).
+    q = f'openfda.generic_name:%22{urllib.parse.quote_plus(drug)}%22'
     last = None
     for limit in (100, 25):
         for attempt in range(3):
+            req = urllib.request.Request(f"{API}?search={q}&limit={limit}",
+                                         headers={"User-Agent": "mva-hackathon-pipeline"})
             try:
-                with urllib.request.urlopen(f"{API}?search={q}&limit={limit}",
-                                            timeout=60) as r:
+                with urllib.request.urlopen(req, timeout=60) as r:
                     return json.load(r).get("results", [])
             except urllib.error.HTTPError as e:
                 if e.code == 404:
@@ -142,8 +145,9 @@ def fetch(drug, cache, offline):
         return None
     results = query(drug)
     label = pick(results, drug)
-    os.makedirs(cache, exist_ok=True)
-    json.dump(label, open(path, "w"))
+    if label:                      # never cache a miss: it may be transient
+        os.makedirs(cache, exist_ok=True)
+        json.dump(label, open(path, "w"))
     return label
 
 
