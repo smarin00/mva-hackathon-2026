@@ -1,9 +1,11 @@
 # Open Targets Platform API 26.9.0, data 26.09
 query	found	drug	chembl_id	approved	max_stage	drug_type	mechanisms
-arimoclomol	yes	ARIMOCLOMOL	CHEMBL2107726	False	PHASE_3	Small molecule	not annotated
+niacin	yes	NIACIN	CHEMBL573	True	APPROVAL	Small molecule	not annotated
 nicotinamide riboside	yes	NICOTINAMIDE RIBOSIDE	CHEMBL438497	True	APPROVAL	Small molecule	not annotated
 nicotinamide mononucleotide	no						
 nicotinamide	yes	NIACINAMIDE	CHEMBL1140	True	APPROVAL	Small molecule	not annotated
+arimoclomol	yes	ARIMOCLOMOL	CHEMBL2107726	False	PHASE_3	Small molecule	not annotated
+valproic acid	yes	VALPROIC ACID	CHEMBL109	True	APPROVAL	Small molecule	Succinate semialdehyde dehydrogenase inhibitor [INHIBITOR] -> ALDH5A1
 dasatinib	yes	DASATINIB	CHEMBL5416410	True	APPROVAL	Small molecule	Bcr/Abl fusion protein inhibitor [INHIBITOR] -> ABL1,BCR
 quercetin	yes	QUERCETIN	CHEMBL50	True	APPROVAL	Small molecule	not annotated
 fisetin	yes	FISETIN	CHEMBL31574	True	APPROVAL	Small molecule	not annotated

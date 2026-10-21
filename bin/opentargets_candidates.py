@@ -231,7 +231,6 @@ def main():
     if not PANEL:
         sys.exit(f"{a.config} has no [[pathway]] panel")
 
-    import os
     os.makedirs(a.outdir, exist_ok=True)
 
     try:
