@@ -42,10 +42,20 @@ panel)
     ;;
 public)
     echo "== UniProt $UNIPROT sequence and AlphaFold model (public)"
-    curl -sf "https://rest.uniprot.org/uniprotkb/$UNIPROT.fasta" > "resources/$UNIPROT.fasta"
-    url=$(curl -sf "https://alphafold.ebi.ac.uk/api/prediction/$UNIPROT" \
-          | python3 -c 'import json,sys; print(json.load(sys.stdin)[0]["pdbUrl"])')
-    curl -sf "$url" -o "resources/AF-$UNIPROT-F1-model.pdb"
+    # fetch URL OUT: fail loudly with the URL; never leave a partial file
+    fetch() {
+        curl -sSfL --retry 3 "$1" -o "$2.part" \
+            || { rm -f "$2.part"; echo "ERROR: download failed: $1" >&2; exit 1; }
+        mv "$2.part" "$2"
+    }
+    fetch "https://rest.uniprot.org/uniprotkb/$UNIPROT.fasta" "resources/$UNIPROT.fasta"
+    fetch "https://alphafold.ebi.ac.uk/api/prediction/$UNIPROT" "resources/AF-$UNIPROT.json"
+    url=$(python3 -c 'import json,sys
+d = json.load(open(sys.argv[1]))
+if not d: sys.exit("ERROR: AlphaFold has no prediction for " + sys.argv[2])
+print(d[0]["pdbUrl"])' "resources/AF-$UNIPROT.json" "$UNIPROT")
+    rm -f "resources/AF-$UNIPROT.json"
+    fetch "$url" "resources/AF-$UNIPROT-F1-model.pdb"
     echo "   $url"
     ;;
 smoke)

@@ -5,6 +5,9 @@
 # this patient's case; another gene is one argument away:
 #     make gene-atlas CONFIG=config/cep57.toml
 
+# A recipe that fails deletes its half-written target, so a rerun redoes it.
+.DELETE_ON_ERROR:
+
 # ---- case -----------------------------------------------------------------
 CONFIG ?= config/bub1b.toml
 CFG    := python3 bin/caseconfig.py $(CONFIG)
