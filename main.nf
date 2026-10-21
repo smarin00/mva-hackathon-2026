@@ -300,18 +300,32 @@ process EXPANSIONHUNTER {
             fh.write(f"{chrom}\\t{start}\\t{end}\\n")
     PY
 
-    samtools view -b -M -T ${params.fasta} -L catalog_regions.bed \
+    samtools view -b -M -T ${params.fasta} -L catalog_regions.bed \\
         -o eh_input.bam ${cram}
     samtools index eh_input.bam
     n=\$(samtools view -c eh_input.bam)
     echo "reads extracted for ExpansionHunter: \$n" >&2
     [ "\$n" -gt 0 ] || { echo "ERROR: no reads in catalog regions (contig names?)" >&2; exit 1; }
 
-    ExpansionHunter \
-        --reads eh_input.bam \
-        --reference ${params.fasta} \
-        --variant-catalog catalog.ref.json \
-        --threads ${task.cpus} \
+    # Sex decides how X-linked repeats (FMR1, AR, AFF2) are genotyped. 'auto':
+    # chrY vs chrX depth per Mb from the CRAM index (male ~0.5-1, female ~0).
+    sex=${params.sex}
+    if [ "\$sex" = auto ]; then
+        r=\$(samtools idxstats ${cram} | awk '\$1=="chrX"||\$1=="X"{x=\$3/\$2} \$1=="chrY"||\$1=="Y"{y=\$3/\$2} END{print (x>0) ? y/x : 0}')
+        sex=\$(awk -v r=\$r 'BEGIN{print (r>0.3) ? "male" : (r<0.1) ? "female" : "unclear"}')
+        echo "sex from chrY/chrX depth ratio \$r: \$sex" >&2
+        if [ "\$sex" = unclear ]; then
+            echo "WARNING: sex unclear from depth; set sex: in the case file. Using female." >&2
+            sex=female
+        fi
+    fi
+
+    ExpansionHunter \\
+        --reads eh_input.bam \\
+        --reference ${params.fasta} \\
+        --variant-catalog catalog.ref.json \\
+        --sex \$sex \\
+        --threads ${task.cpus} \\
         --output-prefix ${params.sample_id}.eh
 
     rm -f eh_input.bam eh_input.bam.bai

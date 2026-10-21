@@ -35,6 +35,10 @@ spliceai_indel: ""
 alphamissense: /opt/refs/alphamissense/AlphaMissense_hg38.tsv.gz
 clinvar: /opt/refs/clinvar/clinvar.chr.vcf.gz
 
+# Sex, for X-linked repeat genotyping: male | female | auto (inferred from
+# chrY vs chrX read depth; a warning is printed if unclear)
+sex: auto
+
 # ExpansionHunter catalog for GRCh38; leave empty to skip
 str_catalog: /opt/tools/ExpansionHunter-v5.0.0-linux_x86_64/variant_catalog/grch38/variant_catalog.json
 
