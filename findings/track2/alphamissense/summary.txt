@@ -1,0 +1,26 @@
+BUB1B (O60566): 6173 AlphaMissense missense scores, 6173 matched to the atlas
+
+1. Calibration alleles
+   variant  class           AlphaMissense  AM class           ESM LLR
+   I909T    destabilising           0.451  ambiguous           -5.711
+   L1012P   destabilising           0.872  likely_pathogenic   -6.937
+   R727C    destabilising           0.238  likely_benign       -2.802
+   L844F    destabilising           0.292  likely_benign       -3.334
+   Q921H    stable                  0.491  ambiguous           -0.235
+   R550Q    stable                  0.066  likely_benign        0.367
+   N1002K   PATIENT                 0.923  likely_pathogenic   -5.810
+   destabilising min 0.238 vs stable max 0.491: classes OVERLAP
+
+2. Agreement with ESM-2 (Spearman; negative = agree, since the scales run opposite)
+   all matched missense (n = 6173): rho = -0.65
+   linker/other             n =  3336  rho = -0.53
+   PSEUDOKINASE             n =  1672  rho = -0.63
+   TPR                      n =   933  rho = -0.80
+
+3. ClinVar (calibration alleles excluded)
+   P/LP n = 1, B/LB n = 34
+   AUROC AlphaMissense 0.88, ESM-2 0.62 (same variants)
+   small groups: indicative only
+   B/LB: AlphaMissense likely_benign 34, likely_pathogenic 0, ambiguous 0
+   P/LP: AlphaMissense likely_benign 1, likely_pathogenic 0, ambiguous 0
+   VUS/conflicting n = 1447: both predictors damaging 169, both tolerated 404, rest discordant or intermediate 874

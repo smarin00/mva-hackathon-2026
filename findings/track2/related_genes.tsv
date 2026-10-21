@@ -1,0 +1,10 @@
+# genes related to BUB1B by disease (HPO annotations)
+gene	shared_links	selected	route	disease_id	disease_name
+CEP57	2	yes	series	OMIM:614114	Mosaic variegated aneuploidy syndrome 2
+CEP57	2	yes	orphanet	ORPHA:1052	Mosaic variegated aneuploidy syndrome
+TRIP13	2	yes	series	OMIM:617598	Mosaic variegated aneuploidy syndrome 3
+TRIP13	2	yes	orphanet	ORPHA:1052	Mosaic variegated aneuploidy syndrome
+BUB1	1	yes	orphanet	ORPHA:1052	Mosaic variegated aneuploidy syndrome
+BUB3	1	yes	orphanet	ORPHA:1052	Mosaic variegated aneuploidy syndrome
+CENATAC	1	yes	series	OMIM:620153	Mosaic variegated aneuploidy syndrome 4
+MAD1L1	1	yes	series	OMIM:620189	Mosaic variegated aneuploidy syndrome 7 with inflammation and tumor predisposition

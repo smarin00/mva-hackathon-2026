@@ -1,0 +1,5 @@
+# Domain annotations from UniProt Q86UT8 (https://rest.uniprot.org/uniprotkb/Q86UT8.json); essentiality not assessed
+start	end	feature	role	dispensable	source
+1	169	Required for centrosome location	Region	untested	UniProt Q86UT8
+169	213	Disordered	Region	untested	UniProt Q86UT8
+137	168	Coiled coil	Coiled coil	untested	UniProt Q86UT8

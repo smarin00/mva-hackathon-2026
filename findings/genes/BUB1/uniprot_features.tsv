@@ -1,0 +1,13 @@
+# Domain annotations from UniProt O43683 (https://rest.uniprot.org/uniprotkb/O43683.json); essentiality not assessed
+start	end	feature	role	dispensable	source
+11	182	BUB1 N-terminal	Domain	untested	UniProt O43683
+787	1085	Protein kinase	Domain	untested	UniProt O43683
+1	146	Necessary for kinetochore localization	Region	untested	UniProt O43683
+99	132	Necessary for interaction with KNL1	Region	untested	UniProt O43683
+229	256	Necessary for interaction with BUB3	Region	untested	UniProt O43683
+305	333	Disordered	Region	untested	UniProt O43683
+458	476	Essential for loading of BUBR1, MAD1L1 and MAD2L1 to kinetochores	Region	untested	UniProt O43683
+538	570	Disordered	Region	untested	UniProt O43683
+58	65	Nuclear localization signal	Motif	untested	UniProt O43683
+535	537	KEN box 1	Motif	untested	UniProt O43683
+625	627	KEN box 2	Motif	untested	UniProt O43683

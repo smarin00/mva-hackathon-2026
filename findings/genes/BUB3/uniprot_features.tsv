@@ -1,0 +1,9 @@
+# Domain annotations from UniProt O43684 (https://rest.uniprot.org/uniprotkb/O43684.json); essentiality not assessed
+start	end	feature	role	dispensable	source
+4	44	WD 1	Repeat	untested	UniProt O43684
+47	84	WD 2	Repeat	untested	UniProt O43684
+87	125	WD 3	Repeat	untested	UniProt O43684
+129	164	WD 4	Repeat	untested	UniProt O43684
+170	210	WD 5	Repeat	untested	UniProt O43684
+217	263	WD 6	Repeat	untested	UniProt O43684
+267	316	WD 7	Repeat	untested	UniProt O43684

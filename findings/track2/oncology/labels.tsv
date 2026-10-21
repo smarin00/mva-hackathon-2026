@@ -1,0 +1,12 @@
+drug	status	brand	set_id	version	effective_time
+vincristine	label	VinCRIStine Sulfate	b22e4c8e-dbe1-4d4b-a026-e1812974071c	16	20260217
+dactinomycin	label	DACTINOMYCIN	5da55538-2602-4704-a9da-603c9f7ff7dc	2	20240618
+cyclophosphamide	label	Cyclophosphamide	c961a1ac-6705-4756-9abc-9d84a6fcb5c8	8	20260903
+irinotecan	label	Camptosar	e518dfc6-7e93-4fee-a66c-51e1ab71c056	37	20260512
+doxorubicin	label	Doxorubicin Hydrochloride	1fd148fb-0fbc-4b6f-b790-23546fb46a71	28	20260505
+niacin	label	Niacin	8eff9205-84ac-e69d-e053-2995a90aad4b	7	20260415
+arimoclomol	label	MIPLYFFA	5feffc0e-453d-47fa-91dd-38d4952309bc	5	20260318
+dasatinib	label	DASATINIB	58ce42c6-10bd-4bb4-bf89-eae8ed82c339	2	20260727
+quercetin	no US prescription label (supplement or OTC)				
+valproic acid	label	Valproic Acid	1edd220d-d151-4177-9a29-9fee36489fb7	4	20260903
+nicotinamide riboside	no US prescription label (supplement or OTC)				

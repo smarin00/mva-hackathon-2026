@@ -1,0 +1,8 @@
+# Domain annotations from UniProt Q9Y6D9 (https://rest.uniprot.org/uniprotkb/Q9Y6D9.json); essentiality not assessed
+start	end	feature	role	dispensable	source
+301	340	Important for interaction with IK	Region	untested	UniProt Q9Y6D9
+380	532	Necessary for interaction with NEK2	Region	untested	UniProt Q9Y6D9
+439	480	Important for interaction with IK	Region	untested	UniProt Q9Y6D9
+540	551	Necessary for interaction with MAD2L1	Region	untested	UniProt Q9Y6D9
+46	632	Coiled coil	Coiled coil	untested	UniProt Q9Y6D9
+79	82	Nuclear localization signal	Motif	untested	UniProt Q9Y6D9
