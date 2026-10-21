@@ -48,23 +48,28 @@ ALL_FIELDS = WARN_FIELDS + ["drug_interactions", "clinical_pharmacology",
 TOXICITY = {
     "marrow": r"myelosuppression|bone marrow suppression|neutropenia|thrombocytopenia|"
               r"pancytopenia|agranulocytosis",
-    "liver": r"hepatotoxicity|hepatic failure|liver injury|liver failure|"
-             r"veno-occlusive|hepatic injury|sinusoidal obstruction",
+    "liver": r"hepatotoxicity|hepatic failure|liver injury|liver failure|liver dysfunction|"
+             r"hepatic dysfunction|(?<!pulmonary )veno-occlusive|hepatic injury|"
+             r"sinusoidal obstruction|transaminase",
     "heart/QT": r"qt prolongation|qtc prolongation|prolong the qt|cardiomyopathy|"
                 r"heart failure|cardiotoxicity|cardiac toxicity",
     "nerves": r"peripheral neuropathy|neurotoxicity|neuropathy",
     "pancreas": r"pancreatitis",
     "kidney": r"nephrotoxicity|renal failure|renal toxicity|acute kidney injury",
 }
-CYP_SUB = r"cyp3a4?[^.]{0,120}(substrate|metaboli[sz])|(substrate|metaboli[sz])[^.]{0,120}cyp3a4?"
-CYP_MOD = r"(inhibitor|inducer|inhibits|induces)[^.]{0,60}cyp3a4?|cyp3a4?[^.]{0,30}(inhibitor|inducer)"
+# CYP3A: the sentence must state it of the drug itself ("X is a substrate of /
+# is metabolized by / is an inhibitor of CYP3A"), never a negation ("X is not an
+# inhibitor of ...") and never a heading or advice about other drugs.
+NEGATED = re.compile(r"\b(not|no|neither|nor)\b[^.]{0,40}(inhibit|induc|substrate|metaboli)", re.I)
 
 
-def about(drug, pattern):
-    """Sentences stating `pattern` of the drug itself: they name the drug and
-    are not advice about other drugs ("Avoid strong CYP3A4 inhibitors")."""
-    return re.compile(rf"^(?!\s*(avoid|do not|consider|if|when|concomitant))"
-                      rf"(?=.*\b{re.escape(drug)}\b).*(?:{pattern})", re.I)
+def cyp_rx(drug, role):
+    d = re.escape(drug)
+    if role == "substrate":
+        verb = r"(is|are)[^.]{0,40}(substrate|metaboli[sz]ed)[^.]{0,60}(cyp\s?3a|cytochrome p450 3a)"
+    else:
+        verb = r"(is|acts as)[^.]{0,30}(inhibitor|inducer)[^.]{0,30}(cyp\s?3a|cytochrome p450 3a)"
+    return re.compile(rf"\b{d}\b[^.]{{0,60}}?{verb}", re.I)
 
 
 def sentences(text):
@@ -75,12 +80,24 @@ def section_text(label, fields):
     return " ".join(" ".join(label.get(f, [])) for f in fields)
 
 
-def find(label, fields, pattern):
+# A keyword preceded by these is a risk factor or a symptom list, not a
+# toxicity of the drug ("in patients with renal failure").
+RISK_CONTEXT = re.compile(r"(patients? with|history of|in patients|pre-?existing|"
+                          r"suggestive|symptoms|suspected|risk factors?)[^.]{0,120}$", re.I)
+
+
+def find(label, fields, pattern, toxicity=False):
     """First label sentence (in `fields`) matching pattern, shortened."""
     rx = pattern if hasattr(pattern, "search") else re.compile(pattern, re.I)
     for s in sentences(section_text(label, fields)):
-        if rx.search(s):
-            return s if len(s) <= 300 else s[:297] + "..."
+        m = rx.search(s)
+        if not m:
+            continue
+        if toxicity and RISK_CONTEXT.search(s[:m.start()]):
+            continue
+        if not toxicity and NEGATED.search(s):
+            continue
+        return s if len(s) <= 300 else s[:297] + "..."
     return ""
 
 
@@ -89,9 +106,16 @@ SALTS = {"hydrochloride", "hcl", "sulfate", "sodium", "citrate", "acetate", "pho
          "for", "injection", "usp", "and", "calcium", "potassium"}
 
 
+LABEL_TEXT = ("description", "boxed_warning", "package_label_principal_display_panel",
+              "spl_product_data_elements", "indications_and_usage")
+
+
 def plain(label, drug):
     """Generic name is the drug itself (plus salt words): not a liposomal
-    formulation and not a combination product."""
+    formulation (checked in the label text too: some liposomal generics are
+    named like the plain drug) and not a combination product."""
+    if "liposom" in " ".join(" ".join(label.get(k, [])) for k in LABEL_TEXT).lower():
+        return False
     want = set(drug.lower().split())
     for g in label.get("openfda", {}).get("generic_name", []):
         toks = set(re.findall(r"[a-z0-9]+", g.lower()))
@@ -106,7 +130,9 @@ def pick(results, drug):
         rx = any("PRESCRIPTION" in t for t in r.get("openfda", {}).get("product_type", []))
         return (plain(r, drug), rx, any(r.get(f) for f in WARN_FIELDS), r.get("effective_time", ""))
     best = max(results, key=key) if results else {}
-    return best if best and plain(best, drug) else {}
+    rx = any("PRESCRIPTION" in t for t in best.get("openfda", {}).get("product_type", []))
+    # only prescription labels count: approved medicines, not OTC/homeopathic listings
+    return best if best and plain(best, drug) and rx else {}
 
 
 def query(drug):
@@ -158,12 +184,13 @@ def check(cand, c_label, chemo, d_label):
     a, b = find(c_label, ALL_FIELDS, c_name), find(d_label, ALL_FIELDS, d_name)
     if a or b:
         flags.append(("named", "", a, b))
-    sub = find(d_label, ALL_FIELDS, about(chemo, CYP_SUB))
-    mod = find(c_label, ALL_FIELDS, about(cand, CYP_MOD))
+    sub = find(d_label, ALL_FIELDS, cyp_rx(chemo, "substrate"))
+    mod = find(c_label, ALL_FIELDS, cyp_rx(cand, "modulator"))
     if sub and mod:
         flags.append(("cyp3a4", "", mod, sub))
     for organ, pat in TOXICITY.items():
-        a, b = find(c_label, WARN_FIELDS, pat), find(d_label, WARN_FIELDS, pat)
+        a = find(c_label, WARN_FIELDS, pat, toxicity=True)
+        b = find(d_label, WARN_FIELDS, pat, toxicity=True)
         if a and b:
             flags.append(("toxicity", organ, a, b))
     return flags
@@ -171,7 +198,7 @@ def check(cand, c_label, chemo, d_label):
 
 def label_info(drug, label):
     if not label:
-        return {"drug": drug, "status": "no US drug label (e.g. dietary supplement)",
+        return {"drug": drug, "status": "no US prescription label (supplement or OTC)",
                 "brand": "", "set_id": "", "version": "", "effective_time": ""}
     o = label.get("openfda", {})
     return {"drug": drug, "status": "label",
