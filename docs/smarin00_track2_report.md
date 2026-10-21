@@ -161,7 +161,20 @@ result: burial alone does not separate the calibration classes (the stable
 control Q921H is buried too), so the structure supplies a physical mechanism,
 not independent discrimination.
 
-**Line 3: SpliceAI** excludes the alternative that the variant acts on
+**Line 3: an independent predictor.** AlphaMissense [19], trained on primate
+population frequency and structural context rather than on these alleles,
+scores p.Asn1002Lys 0.92, *likely pathogenic*: the two predictors converge on
+the patient allele (`make alphamissense`). It does **not** reproduce the
+experimental stability classes, however. It calls two verified destabilisers
+likely benign (R727C 0.24, L844F 0.29) and a third ambiguous (I909T 0.45), and
+scores the stable control Q921H (0.49) above three of the four. Across all
+6,173 missense changes it scores, the two predictors agree moderately
+(Spearman ρ = 0.65). Our reading: a general pathogenicity score, tuned to
+clearly damaging variants, underrates mild hypomorphic stability alleles, the
+class that MVA1 missense alleles belong to, which is why ESM-2 calibrated on
+measured stability is the primary line here. With n = 6 this is indicative.
+
+**Line 4: SpliceAI** excludes the alternative that the variant acts on
 splicing (all delta scores ≤ 0.02 in BUB1B and in the overlapping PAK6
 read-through annotation).
 
@@ -379,7 +392,12 @@ published functional data, is what variant-classification guidelines can use
 to move such alleles out of uncertainty. Of the 1,427 unique ClinVar VUS, the
 atlas places 419 as likely tolerated and 107 in the stability-defect class,
 where the strategy proposed here would apply if they occurred with a null
-allele.
+allele. AlphaMissense agrees on part of this triage: about 12% of VUS records
+are called damaging and 28% tolerated by both predictors, a higher-confidence
+subset; the rest are discordant or intermediate. AlphaMissense also calls all
+34 benign records likely benign, but that agreement is not independent: benign
+classifications often rest on population frequency, which AlphaMissense was
+trained on.
 
 ## 5. Proposed validation
 
@@ -494,3 +512,5 @@ reviewed by the author. No genome-scale data were shared (`docs/llm_usage.md`).
     Health, Dactinomycin for nephroblastoma, historically accepted use (2025).
 18. US FDA prescribing information via the openFDA drug label API; label set
     IDs, versions and dates in `findings/track2/oncology/labels.tsv`.
+19. Cheng J. et al. Accurate proteome-wide missense variant effect prediction
+    with AlphaMissense. *Science* 381, eadg7492 (2023).

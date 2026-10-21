@@ -113,6 +113,7 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 |---|---|---|
 | ESM-2, calibrated | Classes separate; N1002K between L1012P and I909T | Moderate (n = 6, p ≈ 0.07) |
 | Structure | Confident, partially buried; breaks a side-chain H-bond bridge | Physical mechanism; burial alone does not discriminate |
+| AlphaMissense | N1002K 0.92, likely pathogenic; does not separate the experimental stability classes (R727C, L844F called likely benign) | Independent convergence on the patient allele; weaker than calibrated ESM-2 for mild stability alleles |
 | Literature | Same domain as four verified stability mutants; domain role is structural | Strong prior |
 
 - **Conclusion [hypothesis, supported by three independent lines]:** N1002K
