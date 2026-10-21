@@ -5,7 +5,7 @@ stop in one protein, each mapped to a predicted mechanism and, where the gene
 is calibrated, the therapeutic direction that mechanism implies.
 
 Gene-agnostic: everything case-specific comes from a config file
-(config/<gene>.toml). Built first for BUB1B / MVA1, where every reported
+(config/genes/<gene>.yaml). Built first for BUB1B / MVA1, where every reported
 patient carries one truncating and one missense allele (Hanks 2004), so a new
 family always needs the same two answers:
 
@@ -37,8 +37,8 @@ PTC position), splice variants, in-frame indels, complexes.
 The ESM scan (one forward pass per residue) is cached, so reruns of the
 tables and figure take seconds.
 
-Usage
-  variant_atlas.py --config config/bub1b.toml --fasta resources/O60566.fasta \\
+Usage (or `make atlas`, `make gene-atlas G=CEP57`)
+  variant_atlas.py --config config/genes/bub1b.yaml --fasta resources/O60566.fasta \\
       --gtf /opt/refs/Homo_sapiens.GRCh38.116.gtf.gz \\
       --pdb resources/AF-O60566-F1-model.pdb --outdir findings/track2/atlas
 """
@@ -416,7 +416,7 @@ def write_tsv(path, header, rows):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--config", required=True, help="config/<gene>.toml")
+    p.add_argument("--config", required=True, help="resolved case (findings/track2/case.yaml) or gene file")
     p.add_argument("--fasta", required=True)
     p.add_argument("--gtf", required=True)
     p.add_argument("--pdb", help="AlphaFold model for per-residue pLDDT / RSA")

@@ -37,3 +37,4 @@ __pycache__/
 *.pyc
 .pytest_cache/
 repo_snapshot*
+findings/track2/case.mk

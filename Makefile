@@ -1,24 +1,25 @@
 # MVA Hackathon 2026 -- single entry point.  Run `make` for the menu.
 #
-# Everything case-specific (gene, protein, domain map, calibration alleles,
-# patient variants, drug-screen panel) is in a config file. The default is
-# this patient's case; another gene is one argument away:
-#     make gene-atlas CONFIG=config/cep57.toml
+# One case file (params.yaml, from params.example.yaml) describes a patient
+# for both tracks; gene knowledge lives in config/genes/<gene>.yaml and is
+# generated from UniProt when missing. After the one-time setup,
+#     make all
+# runs Track 1, hands the top-ranked candidate to Track 2, and builds the
+# atlases for the genes listed in the case file.
 
 # A recipe that fails deletes its half-written target, so a rerun redoes it.
 .DELETE_ON_ERROR:
 
 # ---- case -----------------------------------------------------------------
-CONFIG ?= config/bub1b.toml
-CFG    := python3 bin/caseconfig.py $(CONFIG)
-GENE               := $(shell $(CFG) gene)
-UNIPROT            := $(shell $(CFG) uniprot)
-DOMAINS            := $(shell $(CFG) domains)
-PATIENT_CHROM      := $(shell $(CFG) patient.chrom)
-PATIENT_PTC_POS    := $(shell $(CFG) patient.ptc_pos)
-PATIENT_PTC_ALLELE := $(shell $(CFG) patient.ptc_allele)
-PATIENT_MIS_ALLELE := $(shell $(CFG) patient.missense_allele)
-MVA_GENES          ?= cep57 trip13
+CASE ?= params.yaml
+PYC   = $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+CFG   = $(PYC) bin/caseconfig.py
+# value from the case file (evaluated only where used)
+case  = $(shell $(CFG) $(CASE) $(1) 2>/dev/null)
+ROUTE     = $(or $(call case,mode),full)
+MVA_GENES = $(call case,mva_genes)
+# GENE, UNIPROT, DOMAINS, PANEL, PATIENT_*: from the resolved case, written
+# by `make case` as case.mk and included below once it exists.
 
 # ---- locations ------------------------------------------------------------
 REFS       ?= /opt/refs
@@ -29,14 +30,18 @@ OUT_VCF    ?= results_vcf
 OUT_FULL   ?= results_full
 FINDINGS   ?= findings
 PY         ?= .venv/bin/python
-NXF        ?= nextflow run main.nf -params-file params.yaml
+NXF        ?= nextflow run main.nf -params-file $(CASE)
 
-T2 := $(FINDINGS)/track2
+T2    := $(FINDINGS)/track2
+RCASE := $(T2)/case.yaml
+-include $(wildcard $(T2)/case.mk)
+OUT    = $(if $(filter vcf,$(ROUTE)),$(OUT_VCF),$(OUT_FULL))
+SUBMISSION = $(OUT)/submission/submission.csv
 
 
-.PHONY: help install refs gtf setup data inputs lint smoke track1-vcf track1 \
-	    gene-atlas mva-genes \
-	    track2 nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
+.PHONY: help all install refs gtf setup data inputs lint smoke track1-vcf track1 \
+	    case gene-config gene-atlas mva-genes track2 track2-steps \
+	    nmd esm structure opentargets atlas spliceai clinvar aneuploidy-sensitivity \
 	    findings versions deletion-check clean
 
 help:
@@ -47,13 +52,16 @@ help:
 	@echo "  make gtf          only the Ensembl annotation (enough for Track 2, 60 MB)"
 	@echo "  make setup        Python environment (.venv)"
 	@echo "  make data         download the patient dataset (needs approved access)"
-	@echo "  make inputs       prepare VCF, gene panel and public protein files"
+	@echo "  make inputs       prepare VCF and gene panel; creates params.yaml"
+	@echo ""
+	@echo "  make all          everything below, as set in params.yaml (CASE=...)"
 	@echo ""
 	@echo "  make track1-vcf   Track 1 from the provided VCF       (~2 h)  -> $(OUT_VCF)/"
 	@echo "  make track1       Track 1 from raw reads (FASTQ)      (~15 h) -> $(OUT_FULL)/"
 	@echo "  make track2       Track 2 mechanism + drug analyses   (~1.5 h) -> $(T2)/"
-	@echo "  make mva-genes    variant atlas for the other MVA genes (CEP57, TRIP13)"
-	@echo "                    -> $(FINDINGS)/genes/; any gene: make gene-atlas CONFIG=..."
+	@echo "                    variants from params.yaml, or Track 1's top candidate"
+	@echo "  make mva-genes    variant atlas for the genes in params.yaml (mva_genes)"
+	@echo "  make gene-atlas G=CEP57   atlas for any gene -> $(FINDINGS)/genes/"
 	@echo ""
 	@echo "  make smoke        quick pipeline test on a 2 M-read subset"
 	@echo "  make findings     copy shareable results into $(FINDINGS)/ (safe to commit)"
@@ -84,9 +92,16 @@ data:
 	bash scripts/prepare_inputs.sh data
 
 inputs:
-	REFS=$(REFS) UNIPROT=$(UNIPROT) bash scripts/prepare_inputs.sh vcf panel public
-	@test -f params.yaml || { cp params.example.yaml params.yaml; \
-	    echo "Created params.yaml from the template: add the HPO terms before running."; }
+	REFS=$(REFS) bash scripts/prepare_inputs.sh vcf panel
+	@test -f $(CASE) || { cp params.example.yaml $(CASE); \
+	    echo "Created $(CASE) from the template: add the HPO terms before running."; }
+
+# ---- everything -------------------------------------------------------------
+all:
+	$(MAKE) --no-print-directory $(if $(filter vcf,$(ROUTE)),track1-vcf,track1 aneuploidy-sensitivity)
+	$(MAKE) --no-print-directory track2
+	$(MAKE) --no-print-directory mva-genes
+	$(MAKE) --no-print-directory findings versions
 
 lint:
 	nextflow lint main.nf nextflow.config
@@ -105,8 +120,23 @@ track1:
 	@echo "Submission: $(OUT_FULL)/submission/submission.csv"
 
 # ---- Track 2 ----------------------------------------------------------------
-track2: nmd esm structure opentargets atlas spliceai clinvar
+# The case is resolved first (variants -> consequences, gene file generated if
+# missing); the steps then run in a second make, which reads the result.
+# Steps whose input is absent are skipped: no stop -> no NMD check, no
+# missense -> no ESM/structure, no pathway panel -> no drug screen.
+track2: case
+	$(MAKE) --no-print-directory track2-steps
 	@echo "Track 2 outputs in $(T2)/"
+
+case: $(RCASE)
+$(RCASE): $(CASE) $(GTF) $(wildcard $(SUBMISSION)) $(wildcard config/genes/*.yaml)
+	$(PY) bin/resolve_case.py --case $(CASE) --gtf $(GTF) --fasta $(FASTA) \
+	    --submission $(SUBMISSION) --out $@
+	$(PY) bin/caseconfig.py --make $@ > $(T2)/case.mk
+
+track2-steps: $(if $(PATIENT_PTC_POS),nmd) $(if $(PATIENT_MISSENSE),esm structure) \
+	    $(if $(PANEL),opentargets) $(if $(PATIENT_PTC_POS)$(PATIENT_MISSENSE),spliceai) \
+	    atlas clinvar
 
 nmd: $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt
 $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt: $(GTF)
@@ -117,35 +147,48 @@ $(T2)/nmd_$(GENE)_$(PATIENT_PTC_POS).txt: $(GTF)
 esm: $(T2)/esm_scores.tsv
 $(T2)/esm_scores.tsv: resources/$(UNIPROT).fasta
 	mkdir -p $(T2)
-	$(PY) bin/esm_variant_score.py --config $(CONFIG) --fasta $< --out $@
+	$(PY) bin/esm_variant_score.py --config $(RCASE) --fasta $< --out $@
 
 structure: $(T2)/structure_context.tsv
 $(T2)/structure_context.tsv: resources/AF-$(UNIPROT)-F1-model.pdb
 	mkdir -p $(T2)
-	$(PY) bin/structure_context.py --config $(CONFIG) --pdb $< --out $@
+	$(PY) bin/structure_context.py --config $(RCASE) --pdb $< --out $@
 
 opentargets: $(T2)/opentargets/ot_target_drugs.tsv
 $(T2)/opentargets/ot_target_drugs.tsv:
-	$(PY) bin/opentargets_candidates.py --config $(CONFIG) --outdir $(T2)/opentargets
+	$(PY) bin/opentargets_candidates.py --config $(RCASE) --outdir $(T2)/opentargets
 
 atlas: $(T2)/atlas/atlas_figure.pdf
 $(T2)/atlas/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb
-	$(PY) bin/variant_atlas.py --config $(CONFIG) --fasta resources/$(UNIPROT).fasta \
+	$(PY) bin/variant_atlas.py --config $(RCASE) --fasta resources/$(UNIPROT).fasta \
 	    --gtf $(GTF) --pdb resources/AF-$(UNIPROT)-F1-model.pdb --outdir $(T2)/atlas
 
-# The same atlas for any gene with a config file: constraint and NMD fate of
-# every possible variant, without patient data.
-GA := $(FINDINGS)/genes/$(GENE)
-gene-atlas: $(GA)/atlas_figure.pdf
-$(GA)/atlas_figure.pdf: $(GTF) resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb
-	$(PY) bin/variant_atlas.py --config $(CONFIG) --fasta resources/$(UNIPROT).fasta \
-	    --gtf $(GTF) --pdb resources/AF-$(UNIPROT)-F1-model.pdb --outdir $(GA)
+# Atlas for any gene, without patient data: make gene-atlas G=CEP57.
+# The gene file is generated from UniProt if it does not exist yet.
+G   ?=
+GLC  = $(shell echo $(G) | tr A-Z a-z)
+GCFG = config/genes/$(GLC).yaml
+GUNI = $(if $(wildcard $(GCFG)),$(shell $(CFG) $(GCFG) uniprot))
+GA   = $(FINDINGS)/genes/$(shell echo $(G) | tr a-z A-Z)
+
+gene-config:
+	@test -n "$(G)" || { echo "usage: make gene-config G=SYMBOL"; exit 1; }
+	$(MAKE) --no-print-directory $(GCFG)
+config/genes/%.yaml:
+	$(PY) bin/make_gene_config.py --gene $* --out $@
+
+gene-atlas: gene-config
+	$(MAKE) --no-print-directory $(GA)/atlas_figure.pdf G=$(G)
+$(FINDINGS)/genes/%/atlas_figure.pdf: $(GTF) resources/$(GUNI).fasta resources/AF-$(GUNI)-F1-model.pdb
+	$(PY) bin/variant_atlas.py --config $(GCFG) --fasta resources/$(GUNI).fasta \
+	    --gtf $(GTF) --pdb resources/AF-$(GUNI)-F1-model.pdb --outdir $(@D)
 
 mva-genes:
-	for c in $(MVA_GENES); do $(MAKE) --no-print-directory gene-atlas CONFIG=config/$$c.toml || exit 1; done
+	for g in $(MVA_GENES); do $(MAKE) --no-print-directory gene-atlas G=$$g || exit 1; done
 
-resources/$(UNIPROT).fasta resources/AF-$(UNIPROT)-F1-model.pdb &:
-	UNIPROT=$(UNIPROT) bash scripts/prepare_inputs.sh public
+# Public protein inputs for any UniProt accession
+resources/%.fasta resources/AF-%-F1-model.pdb:
+	UNIPROT=$* bash scripts/prepare_inputs.sh public
 
 # Independent check of the atlas: where do ClinVar's BUB1B missense variants
 # (pathogenic, benign, uncertain) fall? Needs the ClinVar file from `make refs`.
@@ -153,7 +196,7 @@ CLINVAR ?= $(REFS)/clinvar/clinvar.chr.vcf.gz
 clinvar: $(T2)/clinvar_validation.tsv
 $(T2)/clinvar_validation.tsv: $(T2)/atlas/atlas_figure.pdf
 	$(PY) bin/clinvar_validate.py --clinvar $(CLINVAR) --fasta $(FASTA) --gtf $(GTF) \
-	    --config $(CONFIG) --protein resources/$(UNIPROT).fasta \
+	    --config $(RCASE) --protein resources/$(UNIPROT).fasta \
 	    --atlas $(T2)/atlas/atlas_missense.tsv --out $@
 
 # SpliceAI on the two causal alleles only: rules out a splicing mechanism.

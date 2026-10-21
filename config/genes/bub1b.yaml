@@ -1,0 +1,102 @@
+# Gene knowledge: BUB1B / MVA type 1. Reusable for every BUB1B family; the
+# patient's own variants go in the case file (params.yaml), not here.
+#
+# Only `gene` and `uniprot` are required (`make gene-config GENE=X` writes
+# that much from UniProt). Each optional section switches on an analysis:
+#   domains            curated functional map; otherwise UniProt annotations
+#   stability_features features where a destabilising missense = dose defect
+#   calibration        experimentally classed alleles -> missense mechanism bins
+#   pathway            drug-screen panel -> Open Targets screen
+#   named_drugs        drugs looked up by name (pathway-level agents)
+
+gene: BUB1B
+uniprot: O60566
+disorder: MVA1
+
+# Curated functional map (start, end, feature, role, dispensable, source).
+domains: docs/bub1b_domains.tsv
+
+# Features in which a destabilising missense implies a stability defect that
+# raising the protein dose should rescue (the catalytically dead pseudokinase).
+stability_features: [PSEUDOKINASE, K795, D882, D911]
+
+# Drugs looked up by name: they act on a pathway, not one annotated target.
+named_drugs:
+  - niacin
+  - nicotinamide riboside
+  - nicotinamide mononucleotide
+  - nicotinamide
+  - arimoclomol
+  - valproic acid
+  - dasatinib
+  - quercetin
+  - fisetin
+  - navitoclax
+
+# Experimentally characterised alleles that calibrate the missense bins
+# (Suijkerbuijk et al., Cancer Res 2010). destabilising: reduced steady-state
+# level / faster turnover, HSP90-dependent. stable: level and function as WT.
+calibration:
+  - {variant: I909T, class: destabilising}
+  - {variant: L1012P, class: destabilising}
+  - {variant: R727C, class: destabilising}
+  - {variant: L844F, class: destabilising}
+  - {variant: Q921H, class: stable}
+  - {variant: R550Q, class: stable}
+
+# Pathway panel for the direction-aware drug screen.
+# desired: up | down | no_inhibit; tier 1 = acts on BubR1 dose or the
+# checkpoint, tier 2 = downstream consequences.
+pathway:
+  - symbol: BUB1B
+    desired: up
+    tier: "1"
+    rationale: "The deficient protein; MVA1 is a BubR1 dosage disorder (Suijkerbuijk 2010)."
+  - symbol: SIRT2
+    desired: up
+    tier: "1"
+    rationale: "Deacetylates BubR1 K668 and raises BubR1 abundance; extends lifespan of BubR1 hypomorphic mice (North 2014)."
+  - symbol: NAMPT
+    desired: up
+    tier: "1"
+    rationale: "Rate-limiting NAD+ salvage enzyme; NAD+ supports SIRT2 activity on BubR1 (North 2014)."
+  - symbol: CREBBP
+    desired: down
+    tier: "1"
+    rationale: "CBP acetylates BubR1 K668, opposing SIRT2 (North 2014). Caution: CREBBP loss causes Rubinstein-Taybi syndrome."
+  - symbol: HDAC2
+    desired: down
+    tier: "1"
+    rationale: "Deacetylates BubR1 K250 in mitosis to initiate checkpoint silencing (Park 2017); K250 acetylation protects BubR1 from APC/C degradation in mitosis (Choi 2009). Acts on mitotic timing, not steady-state level (Park 2013): exploratory."
+  - symbol: HDAC3
+    desired: down
+    tier: "1"
+    rationale: "As HDAC2 (Park 2017). Exploratory: inhibition prolongs metaphase."
+  - symbol: HSF1
+    desired: up
+    tier: "1"
+    rationale: "Master regulator of the heat-shock response; chaperone support for a misfolding-prone client."
+  - symbol: HSPA1A
+    desired: up
+    tier: "1"
+    rationale: "HSP70; folding support for destabilised clients."
+  - symbol: HSP90AA1
+    desired: no_inhibit
+    tier: "1"
+    rationale: "Mutant BubR1 is an HSP90 client; HSP90 inhibition depletes it (Suijkerbuijk 2010)."
+  - symbol: HSP90AB1
+    desired: no_inhibit
+    tier: "1"
+    rationale: "HSP90 beta; as above."
+  - symbol: TTK
+    desired: no_inhibit
+    tier: "1"
+    rationale: "MPS1 kinase; inhibition weakens the spindle assembly checkpoint further."
+  - symbol: AURKB
+    desired: no_inhibit
+    tier: "1"
+    rationale: "Aurora B; inhibition impairs error correction and the checkpoint."
+  - symbol: BCL2L1
+    desired: down
+    tier: "2"
+    rationale: "BCL-xL; senolytic target. Senescent-cell clearance delayed ageing phenotypes in BubR1 progeroid mice (Baker 2011)."

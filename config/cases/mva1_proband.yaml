@@ -1,0 +1,10 @@
+# Track 2 part of this hackathon's case, for reproducing Track 2 without the
+# patient data:  make track2 CASE=config/cases/mva1_proband.yaml
+# (The full case file, params.yaml, also holds data paths and HPO terms and
+# is not committed.)
+track2:
+  gene: BUB1B
+  variants:
+    - {chrom: chr15, pos: 40209701, ref: T, alt: G}   # p.Leu737*
+    - {chrom: chr15, pos: 40220612, ref: T, alt: G}   # p.Asn1002Lys
+mva_genes: [CEP57, TRIP13]

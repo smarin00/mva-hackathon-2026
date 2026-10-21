@@ -1,5 +1,10 @@
-# Copy to params.yaml (gitignored) and fill in.
-# Paths match the layout created by `make install` and `make refs`.
+# The case file: one patient, both tracks. Copy to params.yaml (gitignored),
+# fill in the HPO terms, then `make all`. Paths match the layout created by
+# `make install` and `make refs`.
+
+# ---- Track 1 ----------------------------------------------------------------
+# full: from raw reads (~15 h)  |  vcf: from the provided VCF (~2 h)
+mode: full
 
 sample_id: proband
 outdir: results
@@ -22,3 +27,19 @@ clinvar: /opt/refs/clinvar/clinvar.chr.vcf.gz
 
 # ExpansionHunter catalog for GRCh38; leave empty to skip
 str_catalog: /opt/tools/ExpansionHunter-v5.0.0-linux_x86_64/variant_catalog/grch38/variant_catalog.json
+
+# ---- Track 2 ----------------------------------------------------------------
+# auto: take the gene and variants from Track 1's top-ranked candidate.
+# Or set them explicitly (GRCh38, as in the VCF), e.g. for this case:
+#   gene: BUB1B
+#   variants:
+#     - {chrom: chr15, pos: 40209701, ref: T, alt: G}
+#     - {chrom: chr15, pos: 40220612, ref: T, alt: G}
+# Gene knowledge comes from config/genes/<gene>.yaml, generated from UniProt
+# if missing.
+track2:
+  gene: auto
+  variants: auto
+
+# Genes with a related phenotype: variant atlas without patient data.
+mva_genes: [CEP57, TRIP13]

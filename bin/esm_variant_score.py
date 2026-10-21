@@ -23,14 +23,10 @@ allow -- in practice the window drops at most 28 residues from one terminus.
 
 Runs on CPU. Model weights (~2.5 GB) download once from dl.fbaipublicfiles.com.
 
-Setup (once, in the project venv):
-  uv pip install fair-esm torch --index-url https://download.pytorch.org/whl/cpu \\
-      --extra-index-url https://pypi.org/simple
-  curl -s https://rest.uniprot.org/uniprotkb/O60566.fasta > resources/O60566.fasta
-
-Usage:
-  esm_variant_score.py --fasta resources/O60566.fasta --patient N1002K \\
-      --out findings/track2/esm_scores.tsv
+Usually run by `make esm`. Directly:
+  esm_variant_score.py --config findings/track2/case.yaml \\
+      --fasta resources/O60566.fasta --out findings/track2/esm_scores.tsv
+  (a gene file instead of the resolved case needs --patient, e.g. N1002K)
 """
 
 import argparse
@@ -40,7 +36,7 @@ import sys
 AA = "ACDEFGHIKLMNPQRSTVWY"
 
 # Calibration alleles and the domain map come from the case configuration
-# (config/<gene>.toml); for BUB1B these are the six MVA alleles characterised
+# (config/genes/<gene>.yaml); for BUB1B these are the six MVA alleles characterised
 # by Suijkerbuijk et al. 2010 (Cancer Res 70:4891).
 WINDOW = 1022
 
@@ -66,9 +62,9 @@ def window(seq, pos):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--config", required=True, help="config/<gene>.toml")
+    p.add_argument("--config", required=True, help="resolved case or gene file (YAML)")
     p.add_argument("--fasta", required=True)
-    p.add_argument("--patient", help="e.g. N1002K (default: patient.missense in the config)")
+    p.add_argument("--patient", help="e.g. N1002K (default: patient.missense in the case)")
     p.add_argument("--out", required=True)
     p.add_argument("--model", default="esm2_t33_650M_UR50D")
     p.add_argument("--threads", type=int, default=16)
@@ -86,8 +82,11 @@ def main():
     cfg = caseconfig.load(a.config)
     CALIBRATION = caseconfig.calibration(cfg)
     a.patient = a.patient or cfg["patient"].get("missense")
-    if not a.patient or not CALIBRATION:
-        sys.exit("needs a patient missense and calibration alleles (see the config)")
+    if not a.patient:
+        sys.exit("needs a patient missense (--patient or patient.missense in the case)")
+    if not CALIBRATION:
+        print("no calibration alleles: reporting the patient score and percentile "
+              "only, without a class", file=sys.stderr)
 
     seq = read_fasta(a.fasta)
     print(f"sequence length {len(seq)}", file=sys.stderr)
@@ -165,6 +164,9 @@ def main():
 
     d = [s for _, c, s in rows if c == "destabilising"]
     st = [s for _, c, s in rows if c == "stable"]
+    if not (d and st):
+        print(f"wrote {a.out}", file=sys.stderr)
+        return
     sep = max(d) < min(st)
     print(f"\ncalibration: destabilising max {max(d):+.2f}, stable min "
           f"{min(st):+.2f} -> classes {'SEPARATE' if sep else 'OVERLAP'}",

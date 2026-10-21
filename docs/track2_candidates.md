@@ -182,7 +182,7 @@ measurable fall in missegregation.
 
 ## Automated layer: how candidates were screened
 
-`bin/opentargets_candidates.py` queries 13 pathway genes (`config/bub1b.toml`), each with a
+`bin/opentargets_candidates.py` queries 13 pathway genes (`config/genes/bub1b.yaml`), each with a
 literature-justified desired direction, against Open Targets known drugs and
 clinical candidates, and classifies every drug by its ChEMBL action type.
 

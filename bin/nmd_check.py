@@ -283,8 +283,8 @@ def main():
             if d is None:
                 print("  (none)")
                 continue
-            flag = {"yes": "dispensable for SAC",
-                    "no": "REQUIRED for SAC",
+            flag = {"yes": "dispensable",
+                    "no": "REQUIRED for function",
                     "partial": "partially required",
                     "untested": "untested"}.get(d["dispensable"], d["dispensable"])
             print(f"  {d['feature']:<14} {d['start']}-{d['end']}   [{flag}]")
@@ -295,12 +295,12 @@ def main():
             print(f"=> Truncated product would be NON-FUNCTIONAL: loses "
                   f"{', '.join(essential_lost)}.")
         else:
-            print("=> Truncated product retains every SAC-essential feature. "
+            print("=> Truncated product retains every essential feature. "
                   "If it escaped decay")
-            print("   and were stable, it could be partially functional "
-                  "(cf. BUB1B 731X, which")
-            print("   fully rescues checkpoint and alignment despite lacking "
-                  "the pseudokinase domain).")
+            print("   and were stable, it could be partially functional.")
+            if (a.gene or "").upper() == "BUB1B":
+                print("   (cf. BUB1B 731X, which fully rescues checkpoint and "
+                      "alignment despite lacking the pseudokinase domain.)")
 
     return 0
 

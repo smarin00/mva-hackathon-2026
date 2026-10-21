@@ -27,7 +27,7 @@ Caveats reported with the result:
 Usage
   clinvar_validate.py --clinvar /opt/refs/clinvar/clinvar.chr.vcf.gz \\
       --fasta /opt/refs/GRCh38.fa --gtf /opt/refs/Homo_sapiens.GRCh38.116.gtf.gz \\
-      --protein resources/O60566.fasta \\
+      --config findings/track2/case.yaml --protein resources/O60566.fasta \\
       --atlas findings/track2/atlas/atlas_missense.tsv \\
       --out findings/track2/clinvar_validation.tsv
 """
@@ -99,7 +99,7 @@ def main():
     a.add_argument("--clinvar", required=True)
     a.add_argument("--fasta", required=True)
     a.add_argument("--gtf", required=True)
-    a.add_argument("--config", required=True, help="config/<gene>.toml")
+    a.add_argument("--config", required=True, help="resolved case (findings/track2/case.yaml) or gene file")
     a.add_argument("--protein", required=True)
     a.add_argument("--atlas", required=True)
     a.add_argument("--out", required=True)

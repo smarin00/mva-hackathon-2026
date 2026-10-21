@@ -1,0 +1,8 @@
+# Gene knowledge: TRIP13 / MVA type 3. Gene-level only: no curated domain map,
+# calibration alleles or drug panel. The atlas reports positional constraint
+# (ESM-2) and the NMD fate of every possible premature stop, with domain
+# annotations from UniProt. See bub1b.yaml for the optional sections.
+
+gene: TRIP13
+uniprot: Q15645
+disorder: MVA3

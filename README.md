@@ -36,20 +36,28 @@ make install     # system tools                        (~15 min, needs sudo)
 make refs        # reference genome and databases      (1-3 h, ~100 GB)
 make setup       # Python environment                  (~5 min)
 make data        # patient dataset (approved access only, see below)
-make inputs      # prepare inputs; then add HPO terms to params.yaml
-make track1-vcf  # Track 1 from the provided VCF       (~2 h)
-make track2      # Track 2 analyses                    (~1.5 h)
+make inputs      # prepare inputs; creates params.yaml -> add the HPO terms
+make all         # Track 1, then Track 2 on its top candidate, then the
+                 # atlases for related genes                (~4 h VCF route)
 ```
 
-`make` on its own prints this menu. Every step can be re-run safely: finished
-work is reused, not repeated.
+`make` on its own prints the menu; each part also runs on its own
+(`make track1-vcf`, `make track2`, `make mva-genes`). Every step can be
+re-run safely: finished work is reused, not repeated.
+
+**One file describes the case.** `params.yaml` holds everything about one
+patient: data paths, HPO terms, the Track 1 route (`mode: vcf` or `full`) and
+the Track 2 variants. Left at `auto`, Track 2 takes the gene and variants from
+Track 1's top-ranked candidate and works out each variant's consequence (stop,
+missense) from the reference genome. Knowledge about a gene (domains,
+calibration alleles, drug-screen panel) lives in `config/genes/<gene>.yaml`;
+for a gene without one, a minimal file is generated from UniProt.
 
 **Track 2 runs without the patient data.** It needs only public resources (the
-Ensembl annotation, the protein sequence and structure, and drug databases)
-and the case description in `config/bub1b.toml` (gene, variant positions,
-calibration alleles, drug-screen panel). To
-reproduce the Track 2 results on any Linux machine with
-[uv](https://docs.astral.sh/uv/) installed: `make setup gtf track2 REFS=$HOME/refs`.
+Ensembl annotation, the protein sequence and structure, drug databases) and
+the two variants, which are in `config/cases/mva1_proband.yaml`. On any Linux
+machine with [uv](https://docs.astral.sh/uv/):
+`make setup gtf track2 CASE=config/cases/mva1_proband.yaml REFS=$HOME/refs`.
 
 ## What you need
 
@@ -121,6 +129,7 @@ How the submission file is built (`bin/make_submission.py`):
 | `make esm` | `bin/esm_variant_score.py` | Does the missense look like the known MVA stability mutants? (ESM-2, calibrated on six experimentally characterised alleles) |
 | `make structure` | `bin/structure_context.py` | Where does the residue sit in the AlphaFold structure, and which contacts does the change break? |
 | `make opentargets` | `bin/opentargets_candidates.py` | Which drugs push the pathway in the desired direction, and which push it the wrong way? |
+| `make case` | `bin/resolve_case.py` | Which gene and variants, and what does each do to the protein (stop, missense)? |
 | `make atlas` | `bin/variant_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar variants it never saw? |
 | `make mva-genes` | `bin/variant_atlas.py` | Constraint and NMD maps for the other MVA genes, CEP57 (MVA2) and TRIP13 (MVA3) |
@@ -140,18 +149,17 @@ flagged as unconfirmed rather than called.
 
 ## Reusing it
 
-- **Another patient:** new `params.yaml` (data paths, HPO terms) and the same
-  commands.
-- **Another BubR1 variant:** look it up in `findings/track2/atlas/`, or copy
-  `config/bub1b.toml`, change the `[patient]` block and run
-  `make track2 CONFIG=config/<copy>.toml`.
-- **Another gene:** write a config file with at least the gene symbol and
-  UniProt accession (see `config/cep57.toml`), then
-  `make gene-atlas CONFIG=config/<gene>.toml`. Without a curated domain map the
-  atlas uses UniProt's domain annotations; without calibration alleles it
-  reports constraint but makes no mechanism call; without a `[[pathway]]`
-  panel there is no drug screen. Each of these is a few lines of TOML, and
-  the curation behind them is the real work for a new gene.
+- **Another patient:** a new case file (copy `params.example.yaml`: data
+  paths, HPO terms), then `make all CASE=other.yaml`. Track 2 follows Track 1's
+  top candidate, in whatever gene it is.
+- **Another BubR1 variant:** look it up in `findings/track2/atlas/`, or list
+  it under `track2.variants` in a case file and run `make track2 CASE=...`.
+- **Another gene:** `make gene-atlas G=SYMBOL` writes `config/genes/<gene>.yaml`
+  from UniProt and builds the atlas. Adding knowledge to that file switches
+  on more analyses: a curated domain map replaces UniProt's annotations,
+  calibration alleles turn constraint into mechanism calls, and a `pathway`
+  panel switches on the drug screen. That curation, not the code, is the
+  real work for a new gene.
 
 ## Repository layout
 
@@ -159,9 +167,10 @@ flagged as unconfirmed rather than called.
 Makefile                single entry point (run `make`)
 main.nf                 Track 1 pipeline (Nextflow)
 nextflow.config         resources, containers, error handling
-params.example.yaml     configuration template -> params.yaml (not committed)
+params.example.yaml     case file template -> params.yaml (not committed)
 bin/                    all analysis scripts (Track 1 and Track 2)
-config/                 one file per gene/case: domains, calibration, patient, drug panel
+config/genes/           gene knowledge: domains, calibration, drug panel (one YAML each)
+config/cases/           committed Track 2 case for reproducing without patient data
 scripts/                install_tools.sh, setup_refs.sh, prepare_inputs.sh
 resources/              chr_map.txt (contig renaming); downloaded files land here
 findings/               shareable results

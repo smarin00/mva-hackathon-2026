@@ -39,7 +39,7 @@ import urllib.request
 API = "https://api.platform.opentargets.org/api/v4/graphql"
 
 # The biology -- pathway panel (symbol, desired direction, tier, rationale)
-# and named drugs -- comes from the case configuration (config/<gene>.toml).
+# and named drugs -- comes from the case configuration (config/genes/<gene>.yaml).
 # desired: 'up' | 'down' | 'no_inhibit'
 PANEL = []
 NAMED_DRUGS = []
@@ -211,7 +211,7 @@ def introspect(type_name):
 # ---------------------------------------------------------------------------
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--config", help="config/<gene>.toml (pathway panel, named drugs)")
+    p.add_argument("--config", help="resolved case or gene file (pathway panel, named drugs)")
     p.add_argument("--outdir", default="findings/track2/opentargets")
     p.add_argument("--introspect", metavar="TYPE",
                    help="print the fields of a GraphQL type and exit (debug)")

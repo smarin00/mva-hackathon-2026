@@ -1,4 +1,0 @@
-# Gene-level configuration: TRIP13 / MVA type 3. See config/cep57.toml.
-gene = "TRIP13"
-uniprot = "Q15645"
-disorder = "MVA3"

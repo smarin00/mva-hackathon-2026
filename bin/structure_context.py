@@ -19,11 +19,10 @@ Caveats the output keeps in view:
   * RSA is only interpretable where pLDDT is high (>70); disordered regions
     are flagged, not interpreted.
 
-Setup: uv pip install biopython
-Usage:
-  structure_context.py --config config/bub1b.toml --uniprot O60566 \\
-      --out findings/track2/structure_context.tsv
-  structure_context.py --pdb AF-O60566-F1-model.pdb ...   # offline
+Usually run by `make structure`. Directly:
+  structure_context.py --config findings/track2/case.yaml \\
+      --pdb resources/AF-O60566-F1-model.pdb --out findings/track2/structure_context.tsv
+  (--uniprot O60566 instead of --pdb downloads the model)
 """
 
 import argparse
@@ -42,7 +41,7 @@ THREE = {"A": "ALA", "R": "ARG", "N": "ASN", "D": "ASP", "C": "CYS",
          "S": "SER", "T": "THR", "W": "TRP", "Y": "TYR", "V": "VAL"}
 BACKBONE = {"N", "CA", "C", "O"}
 
-# Calibration alleles come from the case configuration (config/<gene>.toml).
+# Calibration alleles come from the case configuration (config/genes/<gene>.yaml).
 
 BURIED_RSA = 0.20          # conventional cut-off
 CONTACT_A = 4.5            # heavy-atom contact distance
@@ -99,7 +98,7 @@ def main():
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--uniprot")
     g.add_argument("--pdb")
-    p.add_argument("--config", required=True, help="config/<gene>.toml")
+    p.add_argument("--config", required=True, help="resolved case (findings/track2/case.yaml) or gene file")
     p.add_argument("--patient", help="default: patient.missense in the config")
     p.add_argument("--out", required=True)
     a = p.parse_args()
