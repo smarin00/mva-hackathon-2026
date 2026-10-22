@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="385.11pt" height="148.1328pt" viewBox="0 0 385.11 148.1328" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-22T22:23:05.370516</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 148.1328 
+L 385.11 148.1328 
+L 385.11 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 88.874374 39.9147 
+L 144.407017 39.9147 
+L 144.407017 23.055 
+L 88.874374 23.055 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 147.951654 39.9147 
+L 203.484297 39.9147 
+L 203.484297 23.055 
+L 147.951654 23.055 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #fbe6dc"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 207.028934 39.9147 
+L 262.561577 39.9147 
+L 262.561577 23.055 
+L 207.028934 23.055 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #fbe6dc"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 266.106213 39.9147 
+L 321.638856 39.9147 
+L 321.638856 23.055 
+L 266.106213 23.055 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 325.183493 39.9147 
+L 380.716136 39.9147 
+L 380.716136 23.055 
+L 325.183493 23.055 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 88.874374 58.9359 
+L 144.407017 58.9359 
+L 144.407017 42.0762 
+L 88.874374 42.0762 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 147.951654 58.9359 
+L 203.484297 58.9359 
+L 203.484297 42.0762 
+L 147.951654 42.0762 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 207.028934 58.9359 
+L 262.561577 58.9359 
+L 262.561577 42.0762 
+L 207.028934 42.0762 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 266.106213 58.9359 
+L 321.638856 58.9359 
+L 321.638856 42.0762 
+L 266.106213 42.0762 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 325.183493 58.9359 
+L 380.716136 58.9359 
+L 380.716136 42.0762 
+L 325.183493 42.0762 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #ffffff; stroke: #e1e0d9; stroke-width: 0.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 88.874374 92.223 
+L 144.407017 92.223 
+L 144.407017 61.0974 
+L 88.874374 61.0974 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f7cdb9"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 147.951654 92.223 
+L 203.484297 92.223 
+L 203.484297 61.0974 
+L 147.951654 61.0974 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f7cdb9"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 207.028934 92.223 
+L 262.561577 92.223 
+L 262.561577 61.0974 
+L 207.028934 61.0974 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3b496"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 266.106213 92.223 
+L 321.638856 92.223 
+L 321.638856 61.0974 
+L 266.106213 61.0974 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f7cdb9"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 325.183493 92.223 
+L 380.716136 92.223 
+L 380.716136 61.0974 
+L 325.183493 61.0974 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3b496"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 88.874374 118.37715 
+L 144.407017 118.37715 
+L 144.407017 94.3845 
+L 88.874374 94.3845 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #fbe6dc"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 147.951654 118.37715 
+L 203.484297 118.37715 
+L 203.484297 94.3845 
+L 147.951654 94.3845 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f7cdb9"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 207.028934 118.37715 
+L 262.561577 118.37715 
+L 262.561577 94.3845 
+L 207.028934 94.3845 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f7cdb9"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 266.106213 118.37715 
+L 321.638856 118.37715 
+L 321.638856 94.3845 
+L 266.106213 94.3845 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #fbe6dc"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 325.183493 118.37715 
+L 380.716136 118.37715 
+L 380.716136 94.3845 
+L 325.183493 94.3845 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #fbe6dc"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 88.874374 131.77845 
+L 144.407017 131.77845 
+L 144.407017 120.53865 
+L 88.874374 120.53865 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 147.951654 131.77845 
+L 203.484297 131.77845 
+L 203.484297 120.53865 
+L 147.951654 120.53865 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 207.028934 131.77845 
+L 262.561577 131.77845 
+L 262.561577 120.53865 
+L 207.028934 120.53865 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 266.106213 131.77845 
+L 321.638856 131.77845 
+L 321.638856 120.53865 
+L 266.106213 120.53865 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 325.183493 131.77845 
+L 380.716136 131.77845 
+L 380.716136 120.53865 
+L 325.183493 120.53865 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 88.874374 145.17975 
+L 144.407017 145.17975 
+L 144.407017 133.93995 
+L 88.874374 133.93995 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 147.951654 145.17975 
+L 203.484297 145.17975 
+L 203.484297 133.93995 
+L 147.951654 133.93995 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 207.028934 145.17975 
+L 262.561577 145.17975 
+L 262.561577 133.93995 
+L 207.028934 133.93995 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 266.106213 145.17975 
+L 321.638856 145.17975 
+L 321.638856 133.93995 
+L 266.106213 133.93995 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 325.183493 145.17975 
+L 380.716136 145.17975 
+L 380.716136 133.93995 
+L 325.183493 133.93995 
+z
+" clip-path="url(#p7d43ea43f9)" style="fill: #f3f2ee"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="116.640696" y="11.231595" transform="rotate(-0 116.640696 11.231595)">vincristine</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 5.6px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="116.640696" y="18.029669" transform="rotate(-0 116.640696 18.029669)">all regimens</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="175.717975" y="11.231595" transform="rotate(-0 175.717975 11.231595)">dactinomycin</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 5.6px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="175.717975" y="18.029669" transform="rotate(-0 175.717975 18.029669)">all regimens</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="234.795255" y="11.231595" transform="rotate(-0 234.795255 11.231595)">cyclophosphamide</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 5.6px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="234.795255" y="18.029669" transform="rotate(-0 234.795255 18.029669)">VAC · VAC/VI</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="293.872535" y="11.231595" transform="rotate(-0 293.872535 11.231595)">irinotecan</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 5.6px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="293.872535" y="18.029669" transform="rotate(-0 293.872535 18.029669)">VAC/VI</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="352.949815" y="11.231595" transform="rotate(-0 352.949815 11.231595)">doxorubicin</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 5.6px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="352.949815" y="18.029669" transform="rotate(-0 352.949815 18.029669)">DD-4A</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="33.99486" transform="rotate(-0 82.375873 33.99486)">niacin</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="116.640696" y="33.658678" transform="rotate(-0 116.640696 33.658678)">–</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 6px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="175.717975" y="33.703913" transform="rotate(-0 175.717975 33.703913)">liver</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="234.795255" y="33.703913" transform="rotate(-0 234.795255 33.703913)">liver</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="293.872535" y="33.658678" transform="rotate(-0 293.872535 33.658678)">–</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="352.949815" y="33.658678" transform="rotate(-0 352.949815 33.658678)">–</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="53.01606" transform="rotate(-0 82.375873 53.01606)">arimoclomol</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="116.640696" y="52.679878" transform="rotate(-0 116.640696 52.679878)">–</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="175.717975" y="52.679878" transform="rotate(-0 175.717975 52.679878)">–</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="234.795255" y="52.679878" transform="rotate(-0 234.795255 52.679878)">–</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="293.872535" y="52.679878" transform="rotate(-0 293.872535 52.679878)">–</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7px; font-family: 'Inter'; text-anchor: middle; fill: #898781" x="352.949815" y="52.679878" transform="rotate(-0 352.949815 52.679878)">–</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="79.17021" transform="rotate(-0 82.375873 79.17021)">dasatinib</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(104.636008 74.305346)">CYP3A4</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(105.872571 82.82646)">marrow</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(164.94985 73.751753)">marrow</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(169.759225 83.416616)">liver</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(224.02713 69.214399)">marrow</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(228.836505 78.879263)">liver</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(222.178849 87.691938)">heart/QT</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(281.867847 74.305346)">CYP3A4</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(283.10441 82.82646)">marrow</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(340.945127 69.767993)">CYP3A4</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(342.18169 78.289106)">marrow</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(340.333408 87.691938)">heart/QT</text>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="108.890835" transform="rotate(-0 82.375873 108.890835)">valproic acid</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 6px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="116.640696" y="108.009731" transform="rotate(-0 116.640696 108.009731)">marrow</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(164.94985 103.472378)">marrow</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(169.759225 113.137241)">liver</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(224.02713 103.472378)">marrow</text>
+    <text style="font-size: 6px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(228.836505 113.137241)">liver</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 6px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="293.872535" y="108.009731" transform="rotate(-0 293.872535 108.009731)">marrow</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 6px; font-family: 'Inter'; text-anchor: middle; fill: #0b0b0b" x="352.949815" y="108.009731" transform="rotate(-0 352.949815 108.009731)">marrow</text>
+   </g>
+   <g id="text_35">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="128.66856" transform="rotate(-0 82.375873 128.66856)">quercetin</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="234.795255" y="128.413921" transform="rotate(-0 234.795255 128.413921)">no US prescription label: not assessable from labels</text>
+   </g>
+   <g id="text_37">
+    <text style="font-weight: 600; font-size: 6.9px; font-family: 'Inter'; text-anchor: end; fill: #0b0b0b" x="82.375873" y="142.06986" transform="rotate(-0 82.375873 142.06986)">NR</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="234.795255" y="141.815221" transform="rotate(-0 234.795255 141.815221)">no US prescription label: not assessable from labels</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7d43ea43f9">
+   <rect x="1.44" y="1.44" width="382.23" height="145.2528"/>
+  </clipPath>
+ </defs>
+</svg>

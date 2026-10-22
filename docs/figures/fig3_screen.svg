@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="537.435806pt" height="228.781561pt" viewBox="0 0 537.435806 228.781561" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-22T22:23:05.244966</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 228.781561 
+L 537.435806 228.781561 
+L 537.435806 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 94.276022 201.096053 
+L 244.011542 201.096053 
+L 244.011542 12.218453 
+L 94.276022 12.218453 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 1.44 27.357498 
+L 535.995806 27.357498 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 1.44 41.775635 
+L 535.995806 41.775635 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 1.44 56.193773 
+L 535.995806 56.193773 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 1.44 70.61191 
+L 535.995806 70.61191 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 1.44 85.030047 
+L 535.995806 85.030047 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 1.44 99.448185 
+L 535.995806 99.448185 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 1.44 113.866322 
+L 535.995806 113.866322 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 1.44 128.28446 
+L 535.995806 128.28446 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 1.44 142.702597 
+L 535.995806 142.702597 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 1.44 157.120734 
+L 535.995806 157.120734 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_11">
+    <path d="M 1.44 171.538872 
+L 535.995806 171.538872 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_12">
+    <path d="M 1.44 185.957009 
+L 535.995806 185.957009 
+" style="fill: none; stroke: #e1e0d9; stroke-width: 0.4; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 182.35574 53.165964 
+L 173.547768 53.165964 
+L 173.547768 44.803444 
+L 182.35574 44.803444 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 182.35574 67.584101 
+L 186.759726 67.584101 
+L 186.759726 59.221581 
+L 182.35574 59.221581 
+z
+" clip-path="url(#pede12777cc)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 182.35574 82.002239 
+L 235.203571 82.002239 
+L 235.203571 73.639719 
+L 182.35574 73.639719 
+z
+" clip-path="url(#pede12777cc)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 182.35574 96.420376 
+L 235.203571 96.420376 
+L 235.203571 88.057856 
+L 182.35574 88.057856 
+z
+" clip-path="url(#pede12777cc)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 182.35574 125.256651 
+L 177.951754 125.256651 
+L 177.951754 116.894131 
+L 182.35574 116.894131 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 182.35574 139.674788 
+L 142.719867 139.674788 
+L 142.719867 131.312268 
+L 182.35574 131.312268 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 182.35574 154.092926 
+L 142.719867 154.092926 
+L 142.719867 145.730406 
+L 182.35574 145.730406 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 182.35574 168.511063 
+L 173.547768 168.511063 
+L 173.547768 160.148543 
+L 182.35574 160.148543 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 182.35574 182.9292 
+L 103.083994 182.9292 
+L 103.083994 174.566681 
+L 182.35574 174.566681 
+z
+" clip-path="url(#pede12777cc)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 182.35574 197.347338 
+L 191.163712 197.347338 
+L 191.163712 188.984818 
+L 182.35574 188.984818 
+z
+" clip-path="url(#pede12777cc)" style="fill: #2a78d6"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_13">
+      <defs>
+       <path id="m37050133dc" d="M 0 0 
+L 0 3.5 
+" style="stroke: #898781; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m37050133dc" x="103.083994" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="103.083994" y="214.102303" transform="rotate(-0 103.083994 214.102303)">18</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m37050133dc" x="129.507909" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="129.507909" y="214.102303" transform="rotate(-0 129.507909 214.102303)">12</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m37050133dc" x="155.931825" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="155.931825" y="214.102303" transform="rotate(-0 155.931825 214.102303)">6</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m37050133dc" x="182.35574" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="182.35574" y="214.102303" transform="rotate(-0 182.35574 214.102303)">0</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m37050133dc" x="208.779655" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="208.779655" y="214.102303" transform="rotate(-0 208.779655 214.102303)">6</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m37050133dc" x="235.203571" y="201.096053" style="fill: #898781; stroke: #898781; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 6.2px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="235.203571" y="214.102303" transform="rotate(-0 235.203571 214.102303)">12</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: middle; fill: #52514e" x="169.143782" y="225.797811" transform="rotate(-0 169.143782 225.797811)">compounds (parent molecules; salts merged)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2"/>
+   <g id="line2d_19">
+    <path d="M 182.35574 201.096053 
+L 182.35574 12.218453 
+" clip-path="url(#pede12777cc)" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 94.276022 201.096053 
+L 244.011542 201.096053 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.6; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="184.117334" y="22.476554" transform="rotate(-0 184.117334 22.476554)">0</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="22.76757" transform="rotate(-0 1.44 22.76757)">BUB1B</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="22.622062" transform="rotate(-0 44.863301 22.622062)">raise</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="22.585685" transform="rotate(-0 250.000963 22.585685)">no drug in Open Targets</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="184.117334" y="36.894691" transform="rotate(-0 184.117334 36.894691)">0</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="37.185707" transform="rotate(-0 1.44 37.185707)">SIRT2</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="37.040199" transform="rotate(-0 44.863301 37.040199)">raise</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="37.003822" transform="rotate(-0 250.000963 37.003822)">no drug; reached through NAD⁺ (niacin)</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="171.786174" y="51.312829" transform="rotate(-0 171.786174 51.312829)">2</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="51.603844" transform="rotate(-0 1.44 51.603844)">NAMPT</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="51.458337" transform="rotate(-0 44.863301 51.458337)">raise</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="51.42196" transform="rotate(-0 250.000963 51.42196)">do-no-harm: NAMPT inhibitors deplete NAD⁺</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="188.52132" y="65.730966" transform="rotate(-0 188.52132 65.730966)">1</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="66.021982" transform="rotate(-0 1.44 66.021982)">CREBBP</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="65.876474" transform="rotate(-0 44.863301 65.876474)">lower</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="65.840097" transform="rotate(-0 250.000963 65.840097)">rejected: PRI-724 blocks CBP–β-catenin, not K668</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="236.965165" y="80.149104" transform="rotate(-0 236.965165 80.149104)">12</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="80.440119" transform="rotate(-0 1.44 80.440119)">HDAC2</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="80.294611" transform="rotate(-0 44.863301 80.294611)">lower</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="80.258235" transform="rotate(-0 250.000963 80.258235)">not ranked: acts on mitotic timing, not level</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="236.965165" y="94.567241" transform="rotate(-0 236.965165 94.567241)">12</text>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="94.858257" transform="rotate(-0 1.44 94.858257)">HDAC3</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="94.712749" transform="rotate(-0 44.863301 94.712749)">lower</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="94.676372" transform="rotate(-0 250.000963 94.676372)">not ranked: as HDAC2</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="184.117334" y="108.985378" transform="rotate(-0 184.117334 108.985378)">0</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="109.276394" transform="rotate(-0 1.44 109.276394)">HSF1</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="109.130886" transform="rotate(-0 44.863301 109.130886)">raise</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="109.094509" transform="rotate(-0 250.000963 109.094509)">no drug; reached through arimoclomol</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="176.19016" y="123.403516" transform="rotate(-0 176.19016 123.403516)">1</text>
+   </g>
+   <g id="text_37">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="123.694531" transform="rotate(-0 1.44 123.694531)">HSPA1A</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="123.549024" transform="rotate(-0 44.863301 123.549024)">raise</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="123.512647" transform="rotate(-0 250.000963 123.512647)">do-no-harm: CD24Fc (annotated HSP70/90 inhibitor)</text>
+   </g>
+   <g id="text_40">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="140.958273" y="137.821653" transform="rotate(-0 140.958273 137.821653)">9</text>
+   </g>
+   <g id="text_41">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="138.112669" transform="rotate(-0 1.44 138.112669)">HSP90AA1</text>
+   </g>
+   <g id="text_42">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="137.967161" transform="rotate(-0 44.863301 137.967161)">do not inhibit</text>
+   </g>
+   <g id="text_43">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="137.930784" transform="rotate(-0 250.000963 137.930784)">do-no-harm: mutant BubR1 is an HSP90 client</text>
+   </g>
+   <g id="text_44">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="140.958273" y="152.239791" transform="rotate(-0 140.958273 152.239791)">9</text>
+   </g>
+   <g id="text_45">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="152.530806" transform="rotate(-0 1.44 152.530806)">HSP90AB1</text>
+   </g>
+   <g id="text_46">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="152.385298" transform="rotate(-0 44.863301 152.385298)">do not inhibit</text>
+   </g>
+   <g id="text_47">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="152.348922" transform="rotate(-0 250.000963 152.348922)">do-no-harm: as HSP90AA1</text>
+   </g>
+   <g id="text_48">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="171.786174" y="166.657928" transform="rotate(-0 171.786174 166.657928)">2</text>
+   </g>
+   <g id="text_49">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="166.948944" transform="rotate(-0 1.44 166.948944)">TTK</text>
+   </g>
+   <g id="text_50">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="166.803436" transform="rotate(-0 44.863301 166.803436)">do not inhibit</text>
+   </g>
+   <g id="text_51">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="166.767059" transform="rotate(-0 250.000963 166.767059)">do-no-harm: weakens the checkpoint</text>
+   </g>
+   <g id="text_52">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: end; fill: #52514e" x="101.3224" y="181.076065" transform="rotate(-0 101.3224 181.076065)">18</text>
+   </g>
+   <g id="text_53">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="181.367081" transform="rotate(-0 1.44 181.367081)">AURKB</text>
+   </g>
+   <g id="text_54">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="181.221573" transform="rotate(-0 44.863301 181.221573)">do not inhibit</text>
+   </g>
+   <g id="text_55">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="181.185196" transform="rotate(-0 250.000963 181.185196)">do-no-harm: impairs error correction</text>
+   </g>
+   <g id="text_56">
+    <text style="font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="192.925306" y="195.494203" transform="rotate(-0 192.925306 195.494203)">2</text>
+   </g>
+   <g id="text_57">
+    <text style="font-weight: 600; font-size: 7.2px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="1.44" y="195.785219" transform="rotate(-0 1.44 195.785219)">BCL2L1</text>
+   </g>
+   <g id="text_58">
+    <text style="font-size: 6.8px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="44.863301" y="195.639711" transform="rotate(-0 44.863301 195.639711)">lower</text>
+   </g>
+   <g id="text_59">
+    <text style="font-size: 6.7px; font-family: 'Inter'; text-anchor: start; fill: #52514e" x="250.000963" y="195.603334" transform="rotate(-0 250.000963 195.603334)">rejected: navitoclax, obatoclax (thrombocytopenia)</text>
+   </g>
+   <g id="text_60">
+    <text style="font-weight: 600; font-size: 5.9px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="1.44" y="7.155625" transform="rotate(-0 1.44 7.155625)">PANEL GENE</text>
+   </g>
+   <g id="text_61">
+    <text style="font-weight: 600; font-size: 5.9px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="44.863301" y="7.155625" transform="rotate(-0 44.863301 7.155625)">DESIRED</text>
+   </g>
+   <g id="text_62">
+    <text style="font-weight: 600; font-size: 5.9px; font-family: 'Inter'; text-anchor: end; fill: #898781" x="181.871302" y="7.155625" transform="rotate(-0 181.871302 7.155625)">← ACTS AGAINST</text>
+   </g>
+   <g id="text_63">
+    <text style="font-weight: 600; font-size: 5.9px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="184.866012" y="7.155625" transform="rotate(-0 184.866012 7.155625)">IN DIRECTION →</text>
+   </g>
+   <g id="text_64">
+    <text style="font-weight: 600; font-size: 5.9px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="250.000963" y="7.155625" transform="rotate(-0 250.000963 7.155625)">CURATION OUTCOME</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pede12777cc">
+   <rect x="94.276022" y="12.218453" width="149.73552" height="188.8776"/>
+  </clipPath>
+ </defs>
+</svg>

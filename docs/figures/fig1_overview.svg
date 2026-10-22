@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="496.08pt" height="222.48pt" viewBox="0 0 496.08 222.48" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-22T22:23:04.783996</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 222.48 
+L 496.08 222.48 
+L 496.08 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 11.304 116.230909 
+L 109.944 116.230909 
+Q 114.876 116.230909 114.876 111.24 
+L 114.876 26.394545 
+Q 114.876 21.403636 109.944 21.403636 
+L 11.304 21.403636 
+Q 6.372 21.403636 6.372 26.394545 
+L 6.372 111.24 
+Q 6.372 116.230909 11.304 116.230909 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 11.304 216.049091 
+L 109.944 216.049091 
+Q 114.876 216.049091 114.876 211.058182 
+L 114.876 126.212727 
+Q 114.876 121.221818 109.944 121.221818 
+L 11.304 121.221818 
+Q 6.372 121.221818 6.372 126.212727 
+L 6.372 211.058182 
+Q 6.372 216.049091 11.304 216.049091 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 134.604 116.230909 
+L 233.244 116.230909 
+Q 238.176 116.230909 238.176 111.24 
+L 238.176 26.394545 
+Q 238.176 21.403636 233.244 21.403636 
+L 134.604 21.403636 
+Q 129.672 21.403636 129.672 26.394545 
+L 129.672 111.24 
+Q 129.672 116.230909 134.604 116.230909 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 134.604 216.049091 
+L 233.244 216.049091 
+Q 238.176 216.049091 238.176 211.058182 
+L 238.176 126.212727 
+Q 238.176 121.221818 233.244 121.221818 
+L 134.604 121.221818 
+Q 129.672 121.221818 129.672 126.212727 
+L 129.672 211.058182 
+Q 129.672 216.049091 134.604 216.049091 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 257.904 216.049091 
+L 356.544 216.049091 
+Q 361.476 216.049091 361.476 211.058182 
+L 361.476 26.394545 
+Q 361.476 21.403636 356.544 21.403636 
+L 257.904 21.403636 
+Q 252.972 21.403636 252.972 26.394545 
+L 252.972 211.058182 
+Q 252.972 216.049091 257.904 216.049091 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #f3f2ee; stroke: #52514e; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 378.738 66.321818 
+L 484.776 66.321818 
+Q 489.708 66.321818 489.708 61.330909 
+L 489.708 26.394545 
+Q 489.708 21.403636 484.776 21.403636 
+L 378.738 21.403636 
+Q 373.806 21.403636 373.806 26.394545 
+L 373.806 61.330909 
+Q 373.806 66.321818 378.738 66.321818 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 378.738 116.230909 
+L 484.776 116.230909 
+Q 489.708 116.230909 489.708 111.24 
+L 489.708 76.303636 
+Q 489.708 71.312727 484.776 71.312727 
+L 378.738 71.312727 
+Q 373.806 71.312727 373.806 76.303636 
+L 373.806 111.24 
+Q 373.806 116.230909 378.738 116.230909 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 378.738 166.14 
+L 484.776 166.14 
+Q 489.708 166.14 489.708 161.149091 
+L 489.708 126.212727 
+Q 489.708 121.221818 484.776 121.221818 
+L 378.738 121.221818 
+Q 373.806 121.221818 373.806 126.212727 
+L 373.806 161.149091 
+Q 373.806 166.14 378.738 166.14 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 378.738 216.049091 
+L 484.776 216.049091 
+Q 489.708 216.049091 489.708 211.058182 
+L 489.708 176.121818 
+Q 489.708 171.130909 484.776 171.130909 
+L 378.738 171.130909 
+Q 373.806 171.130909 373.806 176.121818 
+L 373.806 211.058182 
+Q 373.806 216.049091 378.738 216.049091 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #fbfaf8; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 116.3556 68.817273 
+Q 122.274 68.817273 127.297973 68.817273 
+" clip-path="url(#p63b05bcf0f)" style="fill: none; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+    <path d="M 124.497973 67.417273 
+L 127.297973 68.817273 
+L 124.497973 70.217273 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 116.3556 168.635455 
+Q 122.274 168.635455 127.297973 168.635455 
+" clip-path="url(#p63b05bcf0f)" style="fill: none; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+    <path d="M 124.497973 167.235455 
+L 127.297973 168.635455 
+L 124.497973 170.035455 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 239.6556 68.817273 
+Q 245.574 82.542273 251.138236 95.445952 
+" clip-path="url(#p63b05bcf0f)" style="fill: none; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+    <path d="M 251.315096 92.320457 
+L 251.138236 95.445952 
+L 248.743956 93.429166 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 239.6556 168.635455 
+Q 245.574 154.910455 251.138236 142.006775 
+" clip-path="url(#p63b05bcf0f)" style="fill: none; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+    <path d="M 248.743956 144.023561 
+L 251.138236 142.006775 
+L 251.315096 145.13227 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 362.9556 118.726364 
+Q 367.641 118.726364 371.431973 118.726364 
+" clip-path="url(#p63b05bcf0f)" style="fill: none; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+    <path d="M 368.631973 117.326364 
+L 371.431973 118.726364 
+L 368.631973 120.126364 
+z
+" clip-path="url(#p63b05bcf0f)" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 600; font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="6.372" y="10.755398" transform="rotate(-0 6.372 10.755398)">GENOTYPE (TRACK 1)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 600; font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="129.672" y="10.755398" transform="rotate(-0 129.672 10.755398)">MECHANISM</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 600; font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="252.972" y="10.755398" transform="rotate(-0 252.972 10.755398)">THERAPEUTIC GOAL</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 600; font-size: 6.4px; font-family: 'Inter'; text-anchor: start; fill: #898781" x="373.806" y="10.755398" transform="rotate(-0 373.806 10.755398)">OUTPUTS</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="12.7836" y="35.736276" transform="rotate(-0 12.7836 35.736276)">p.Leu737*</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 51.054697)">stop-gain in exon 17 of 23</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 62.436152)">chr15:40209701 T&gt;G</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="12.7836" y="135.540005" transform="rotate(-0 12.7836 135.540005)">p.Asn1002Lys</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 150.877519)">missense in the pseudo-</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 161.753146)">kinase domain, 10 residues</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 173.104695)">from MVA allele L1012P</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(12.7836 183.808103)">chr15:40220612 T&gt;G</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="136.0836" y="36.413261" transform="rotate(-0 136.0836 36.413261)">Null allele</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 51.059338)">stop lies 747 nt upstream</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 61.874121)">of the last exon junction:</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 72.827092)">mRNA decay (NMD),</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 83.401593)">no protein</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="136.0836" y="136.359786" transform="rotate(-0 136.0836 136.359786)">Unstable but functional</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 151.50916)">ESM-2 calibrated on six</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 161.579381)">measured alleles; AlphaFold</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 172.439023)">contacts; AlphaMissense;</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(136.0836 183.181103)">published biology</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(259.3836 35.891214)">Too little BubR1,</text>
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; fill: #0b0b0b" transform="translate(259.3836 47.157714)">not broken BubR1</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 66.20174)">All of the child's BubR1</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 76.979398)">comes from the unstable</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 87.647228)">allele.</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 96.068995)"/>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 108.651341)">Segregation fails at about</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 120.097249)">6% of normal BubR1 and is</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 130.803751)">near normal at about 13%.</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 139.192003)"/>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 152.444661)">Goal: raise the level of the</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 162.546851)">protein the child already</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(259.3836 173.4694)">makes, about two-fold.</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="380.2176" y="36.541604" transform="rotate(-0 380.2176 36.541604)">Candidates</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 51.154213)">niacin, arimoclomol;</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 61.84009)">dasatinib + quercetin</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="380.2176" y="86.450695" transform="rotate(-0 380.2176 86.450695)">Do-no-harm list</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 101.024632)">HSP90, NAMPT, Aurora B</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 112.380821)">and MPS1 inhibitors</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="380.2176" y="136.267864" transform="rotate(-0 380.2176 136.267864)">Cancer-treatment check</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 150.864629)">candidates vs chemotherapy,</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 162.323943)">from FDA label sentences</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 600; font-size: 7.4px; font-family: 'Inter'; text-anchor: start; fill: #0b0b0b" x="380.2176" y="186.268877" transform="rotate(-0 380.2176 186.268877)">Resource for families</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 200.807751)">atlas of every BUB1B variant;</text>
+    <text style="font-size: 6.6px; font-family: 'Inter'; fill: #52514e" transform="translate(380.2176 211.52869)">six related MVA genes</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p63b05bcf0f">
+   <rect x="1.44" y="1.44" width="493.2" height="219.6"/>
+  </clipPath>
+ </defs>
+</svg>
