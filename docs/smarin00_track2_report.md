@@ -4,8 +4,9 @@
 Santiago Marin Martinez (Hugging Face / GitHub: smarin00) · 24 October 2026
 Code, results and every number in this report: <https://github.com/smarin00/mva-hackathon-2026>
 
-> **Summary.** This child's mosaic variegated aneuploidy (MVA) is explained by two
-> *BUB1B* alleles, found in Track 1 (rank points 100/100). The stop-gain p.Leu737\*
+> **Summary.** This child presented with rhabdomyosarcoma. The genome explains why: two
+> *BUB1B* alleles, found in Track 1 (rank points 100/100), cause mosaic variegated
+> aneuploidy (MVA), a cancer-predisposing disorder. The stop-gain p.Leu737\*
 > is degraded by nonsense-mediated decay (NMD), so every BubR1 molecule the child has
 > comes from the missense allele p.Asn1002Lys. Four lines of evidence indicate that this
 > allele makes a working but unstable protein: a protein language model calibrated
@@ -22,8 +23,8 @@ Code, results and every number in this report: <https://github.com/smarin00/mva-
 > **dasatinib + quercetin** (senescent-cell clearance, downstream). The same screen
 > gives a **do-no-harm list** of 31 compounds, many of them oncology drugs, that would
 > push the wrong way. A check against current FDA labels shows that niacin and
-> arimoclomol could continue alongside the chemotherapy this child would receive for an
-> MVA-associated cancer, whereas dasatinib should not.
+> arimoclomol could continue alongside rhabdomyosarcoma chemotherapy, which children
+> with this syndrome are reported to tolerate poorly, whereas dasatinib should not.
 >
 > For other families, a **variant atlas** maps all 19,950 possible BubR1 missense
 > changes and all 1,050 possible premature stops to a mechanism and a therapy
@@ -61,11 +62,15 @@ That points to a strategy: not replacing the protein, but helping the cell keep 
 of the protein it already makes. We looked for existing, approved medicines that act on
 the cell's protein-protection systems. We found three worth testing in the laboratory,
 and a list of medicines that would push in the wrong direction, which may be useful to
-the child's doctors now. None of this has been tested in this child's cells yet, and it
+the child's doctors now. Because the child has already had a cancer, we also checked
+that these medicines would not clash with cancer treatment. None of this has been tested in this child's cells yet, and it
 is not a treatment recommendation. It is a set of specific, testable ideas, together with
 the experiments that would show whether they are right.
 
 ## 1. Case and genotype
+
+The child presented with rhabdomyosarcoma (HPO HP:0002859), the oncological event that
+triggered the genetic investigation. Track 1 found two *BUB1B* alleles:
 
 | Allele | GRCh38 | cDNA | Protein | Consequence |
 |---|---|---|---|---|
@@ -177,7 +182,7 @@ cells (Section 5).
 |---|---|
 | Loss or gain of function | **Loss of function**: one null allele plus one hypomorphic (destabilised) allele |
 | Pathway disrupted | **Spindle assembly checkpoint.** BubR1, with Bub3, Mad2 and Cdc20, forms the mitotic checkpoint complex, which holds back the APC/C–Cdc20 ubiquitin ligase until every kinetochore is attached; BubR1 also stabilises kinetochore-microtubule attachments |
-| Downstream consequence | Premature anaphase and chromosome missegregation, giving **mosaic aneuploidy** across tissues; cancer predisposition (embryonal rhabdomyosarcoma, Wilms tumour, leukaemia [1, 12]); in BubR1-hypomorphic mice, early senescence and progeroid features [13, 14] |
+| Downstream consequence | Premature anaphase and chromosome missegregation, giving **mosaic aneuploidy** across tissues; cancer predisposition (rhabdomyosarcoma, this child's presenting tumour; Wilms tumour; leukaemia [1, 12]); in BubR1-hypomorphic mice, early senescence and progeroid features [13, 14] |
 
 **The quantitative key.** Segregation is very sensitive to the BubR1 dose: about 6% of
 normal causes missegregation in most cells, while about 13% has virtually no effect
@@ -291,47 +296,66 @@ toxic systemically; they remain a proof of mechanism.
 
 ### 3.4 Do-no-harm list
 
-This may be the output most useful to the child's doctors today, because several of
-these agents are in oncology use or trials and the child is cancer-predisposed.
+This may be the output most useful to the child's doctors today: the child has had
+rhabdomyosarcoma, and several of these agents are in oncology use or trials.
 
 | Class | Compounds | Why it is expected to harm | Examples |
 |---|---|---|---|
 | HSP90 inhibitors | 9 | Mutant BubR1 is an HSP90 client; HSP90 inhibition depleted it in patient-derived cells [4] | ganetespib, tanespimycin, luminespib, onalespib |
 | NAMPT inhibitors | 2 | Deplete NAD⁺, opposing candidate 1 | daporinad (trialled in childhood leukaemia), teglarinad |
-| Aurora B inhibitors | 18 | Impair error correction in an already weakened checkpoint | barasertib, tozasertib, danusertib |
+| Aurora B inhibitors | 18 | Impair error correction and checkpoint signalling in an already weakened checkpoint (contested, see below) | barasertib, tozasertib, danusertib |
 | MPS1 (TTK) inhibitors | 2 | Weaken the spindle assembly checkpoint directly | BAY-1161909, BAY-1217389 |
 
 The HSP90 count includes CD24Fc, a fusion protein that ChEMBL annotates as an
 HSP70/HSP90 inhibitor. Only the HSP90 entry rests on a direct measurement in MVA
 patient cells; the others follow from the mechanism.
 
+**The Aurora B entry is contested.** BubR1 recruits the phosphatase PP2A-B56 to
+kinetochores, where it counterbalances Aurora B, and inhibiting Aurora B restored
+chromosome congression in cells whose BubR1 cannot recruit PP2A-B56 [23]. Congression is
+not accurate segregation, however: Aurora B also corrects wrong attachments and signals
+to the checkpoint, and the clinical inhibitors are dosed to stop cancer cells from
+dividing. We keep the class on the list at oncology doses and test low-dose inhibition
+as an open question in patient cells (Section 5, step 7).
+
 ### 3.5 Compatibility with cancer treatment
 
-MVA1 predisposes to embryonal rhabdomyosarcoma, Wilms tumour and leukaemia [1, 12]. A
-medicine this child might take for years has to be compatible with the chemotherapy
-the child would receive if one of these cancers develops. We checked each candidate
-against the standard regimens, VAC and VAC/VI for rhabdomyosarcoma [23, 24] and EE-4A
-and DD-4A for Wilms tumour [25], using the current US prescribing information (FDA
-labels via openFDA [26]; `make oncology`). Three checks are run for each pair: one label
+This child presented with rhabdomyosarcoma, and MVA1 also predisposes to Wilms tumour
+and leukaemia [1, 12]. A medicine the child might take for years has to be compatible
+with rhabdomyosarcoma treatment, now or at relapse, and with the treatment of a later
+cancer. Children with this syndrome are also reported to tolerate chemotherapy poorly.
+A boy with premature chromatid separation/MVA, the form linked to *BUB1B*, and bilateral
+Wilms tumours had a severe reaction to dactinomycin monotherapy and reached long-term
+remission only through bilateral nephrectomy and dialysis [24]. A child with
+rhabdomyosarcoma and the same syndrome was treated successfully with reduced-intensity
+chemotherapy [25]. A candidate that adds toxicity to chemotherapy is therefore a
+practical risk for this child, not a theoretical one.
+
+We checked each candidate against the standard regimens, VAC and VAC/VI for rhabdomyosarcoma [26, 27] and EE-4A
+and DD-4A for Wilms tumour [28], using the current US prescribing information (FDA
+labels via openFDA [29]; `make oncology`). Three checks are run for each pair: one label
 names the other drug; one drug inhibits or induces CYP3A4 while the other is a CYP3A4
 substrate; or both labels warn of the same organ toxicity. Every flag carries the label
 sentences it rests on (`findings/track2/oncology/compatibility.tsv`).
 
 ![Oncology](figures/fig4_oncology.svg)
 
-**Figure 4. Candidates against the chemotherapy for MVA-associated cancers.** Each cell
+**Figure 4. Candidates against the chemotherapy for rhabdomyosarcoma and Wilms tumour.** Each cell
 lists the checks that flagged the pair; shading darkens with the number of flags. Label
 versions and dates: `findings/track2/oncology/labels.tsv`.
 
 The check separates the candidates. Niacin's only flags are liver warnings shared with
 dactinomycin and cyclophosphamide (both carry hepatic veno-occlusive disease), which
-liver-enzyme monitoring addresses. Arimoclomol raises no flag; its label states that it
+liver-enzyme monitoring addresses. Because dactinomycin is also the drug reported to have
+caused a severe reaction in MVA [24], a cautious option is to pause niacin during
+dactinomycin-containing cycles. Arimoclomol raises no flag; its label states that it
 neither inhibits nor induces CYP3A4/5. Dasatinib inhibits CYP3A4, which clears
 vincristine, irinotecan and doxorubicin, and it overlaps with every regimen drug on
 marrow suppression. Valproate overlaps on marrow and liver, a further reason not to rank
 it. So the two candidates that act on the BubR1 dose, niacin and arimoclomol, could
 continue alongside cancer treatment, while dasatinib, which treats consequences, should
-be stopped before it. The flags are prompts for clinical review, not verdicts, and the
+be stopped before it; its marrow overlap matters more in a syndrome where chemotherapy
+is already poorly tolerated. The flags are prompts for clinical review, not verdicts, and the
 absence of a flag is not proof of safety. No leukaemia regimen was modelled, because the
 leukaemia subtype in MVA is not specified.
 
@@ -375,7 +399,7 @@ stop. Figure as committed in `findings/track2/atlas/atlas_figure.png`.
 ### 4.2 Independent check against ClinVar
 
 `bin/clinvar_validate.py` maps every *BUB1B* missense SNV in ClinVar (file date
-2026-10-04) [27] to the atlas, excluding the six calibration alleles. ClinVar holds
+2026-10-04) [30] to the atlas, excluding the six calibration alleles. ClinVar holds
 1,494 *BUB1B* missense records, 97% of them uncertain or conflicting.
 
 ![ClinVar](figures/fig6_clinvar.svg)
@@ -432,6 +456,7 @@ In patient-derived cells (a lymphoblastoid line or fibroblasts), with healthy co
 | 4 | Checkpoint (nocodazole arrest) and missegregation (live imaging or interphase FISH) | **Go** if missegregation falls measurably |
 | 5 | HSP90 inhibitor as positive control | Tests the do-no-harm prediction: BubR1 should fall further |
 | 6 | Exploratory: valproate at 0.3–0.7 mM; acetyl-K250 BubR1, time from nuclear-envelope breakdown to anaphase, missegregation | A longer mitosis without fewer errors, or mitotic death, rules the route out |
+| 7 | Exploratory: low-dose Aurora B inhibitor; chromosome alignment and missegregation | Better alignment with more missegregation confirms the do-no-harm entry; fewer errors would overturn it |
 
 A positive result in steps 3–4 would justify a discussion with the child's clinicians.
 Steps 1–2 would also provide the functional evidence needed to reclassify
@@ -448,7 +473,9 @@ p.Asn1002Lys.
 | Niacin raises mutant BubR1 | SIRT2–K668 route in mice, on wild-type BubR1 [14] | Weak to moderate | No rise in patient cells |
 | Arimoclomol helps | Mechanism class; L1012P is chaperone-dependent [4] | Weak | No rise in patient cells |
 | HSP90 inhibitors harm | Depletion of mutant BubR1 in patient cells [4] | Strong | — |
-| Aurora B, MPS1, NAMPT inhibitors harm | Mechanism | Moderate | — |
+| MPS1 and NAMPT inhibitors harm | Mechanism | Moderate | — |
+| Aurora B inhibitors harm | Mechanism; but partial inhibition restored congression in BUBR1-deficient cells [23] | Contested | Fewer segregation errors at low dose in patient cells |
+| Children with MVA tolerate chemotherapy poorly | Two case reports [24, 25] | Weak (n = 2) | Standard-intensity treatment tolerated in further cases |
 
 **What we tested ourselves.** Every predictor was tested against measured data before
 being used, and negative results are reported: burial does not separate the measured
@@ -494,7 +521,8 @@ breadth comes from the pipeline.
   senolytics act downstream. Pediatric dosing and safety of niacin at NAD⁺-raising
   doses are unknown.
 - The oncology check reads label text: flags are prompts for review, and the leukaemia
-  regimen was not modelled.
+  regimen was not modelled. Poor chemotherapy tolerance in MVA rests on case reports.
+- The Aurora B entry of the do-no-harm list is contested (Section 3.4).
 - Bulk sequencing cannot measure mosaic aneuploidy at the levels expected in MVA.
 - All drug and target annotations come from public databases at one release;
   regulatory status was checked against primary sources on 19–20 October 2026.
@@ -569,18 +597,28 @@ data were shared (`docs/llm_usage.md`).
 22. Park I. et al. Loss of BubR1 acetylation causes defects in spindle assembly
     checkpoint signaling and promotes tumor formation. *J Cell Biol* 202, 295–309
     (2013).
-23. Arndt C.A.S. et al. Vincristine, actinomycin, and cyclophosphamide compared with
+23. Xu P., Raetz E.A., Kitagawa M., Virshup D.M., Lee S.H. BUBR1 recruits PP2A via the
+    B56 family of targeting subunits to promote chromosome congression. *Biol Open* 2,
+    479–486 (2013).
+24. Ochiai K. et al. Long-term remission of bilateral Wilms tumors that developed from
+    premature separation of chromatids/mosaic variegated aneuploidy syndrome due to
+    bilateral nephrectomy and peritoneal dialysis. *Pediatr Blood Cancer* 66, e27804
+    (2019).
+25. Nishitani-Isa M. et al. Rhabdomyosarcoma with premature chromatid
+    separation–mosaic variegated aneuploidy syndrome: reduced-intensity chemotherapy.
+    *Pediatr Int* (2019). doi:10.1111/ped.13849
+26. Arndt C.A.S. et al. Vincristine, actinomycin, and cyclophosphamide compared with
     vincristine, actinomycin, and cyclophosphamide alternating with vincristine,
     topotecan, and cyclophosphamide for intermediate-risk rhabdomyosarcoma: Children's
     Oncology Group study D9803. *J Clin Oncol* 27, 5182–5188 (2009).
-24. Hawkins D.S. et al. Addition of vincristine and irinotecan to vincristine,
+27. Hawkins D.S. et al. Addition of vincristine and irinotecan to vincristine,
     dactinomycin, and cyclophosphamide does not improve outcome for intermediate-risk
     rhabdomyosarcoma: a report from the Children's Oncology Group. *J Clin Oncol* 36,
     2770–2777 (2018).
-25. Green D.M. et al. Comparison between single-dose and divided-dose administration of
+28. Green D.M. et al. Comparison between single-dose and divided-dose administration of
     dactinomycin and doxorubicin for patients with Wilms' tumor: a report from the
     National Wilms' Tumor Study Group. *J Clin Oncol* 16, 237–245 (1998).
-26. US FDA prescribing information via the openFDA drug label API; set IDs, versions
+29. US FDA prescribing information via the openFDA drug label API; set IDs, versions
     and dates in `findings/track2/oncology/labels.tsv`.
-27. Landrum M.J. et al. ClinVar: improving access to variant interpretations and
+30. Landrum M.J. et al. ClinVar: improving access to variant interpretations and
     supporting evidence. *Nucleic Acids Res* 46, D1062–D1067 (2018).
