@@ -5,8 +5,11 @@ is tagged **[data]** (from this child's sequencing), **[literature]**
 (published experimental evidence), or **[hypothesis]** (our inference, to be
 tested or stated as such).
 
-Status: 19 Oct 2026. Mechanism analysis complete; candidates in
-`track2_candidates.md`.
+Status: 24 Oct 2026. Final; the submitted report is
+`docs/smarin00_track2_report.pdf`, candidates in `track2_candidates.md`.
+
+The child presented with rhabdomyosarcoma (HP:0002859), the event that triggered
+the genetic investigation.
 
 ---
 
@@ -56,8 +59,9 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 - **[literature]** The BubR1 kinase domain is a **pseudokinase**:
   catalytically inactive and dispensable for the spindle checkpoint
   (Suijkerbuijk 2012).
-- **[literature]** MVA missense alleles in that domain (I909T, L1012P,
-  R727C) are **stability mutants**: about 2-fold faster turnover, dependent
+- **[literature]** MVA missense alleles in or packed against that domain
+  (I909T, L1012P, R727C; R727 lies just before the curated boundary at 766 but
+  contacts Trp803 and Phe912 in the AlphaFold model) are **stability mutants**: about 2-fold faster turnover, dependent
   on HSP90, cleared by the proteasome, 2–6-fold lower abundance in patient
   cells. Restoring their level restores function (Suijkerbuijk 2010).
 - **[literature]** The dose response is steep. About 6% of normal BubR1
@@ -116,7 +120,7 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 | AlphaMissense | N1002K 0.92, likely pathogenic; does not separate the experimental stability classes (R727C, L844F called likely benign) | Independent convergence on the patient allele; weaker than calibrated ESM-2 for mild stability alleles |
 | Literature | Same domain as four verified stability mutants; domain role is structural | Strong prior |
 
-- **Conclusion [hypothesis, supported by three independent lines]:** N1002K
+- **Conclusion [hypothesis, supported by four lines of evidence]:** N1002K
   most likely destabilises BubR1. No single line is proof; experimental
   confirmation is the cycloheximide-chase step of the validation plan in
   `track2_candidates.md`.
@@ -145,13 +149,14 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 
 ## 6. Aneuploidy from bulk sequencing depth: unconfirmed
 
-- **[data]** GC-corrected depth shows chr16, 17 and 19 elevated by 1.3–1.9%.
+- **[data]** GC-corrected depth shows chr16, 17 and 19 elevated by 1.3–2.3%,
+  depending on the GC model (table below).
   The shift persists under three GC-correction models, but chromosome GC
   content predicts the depth ratio under all three (Spearman ρ 0.48–0.69).
   BAF shows no corresponding signal.
 - **[data]** These are reported as **flagged, unconfirmed**, consistent with,
-  but not proven to be, residual GC/replication-timing bias. Practical
-  detection limit: above ~3% mosaicism.
+  but not proven to be, residual GC/replication-timing bias. Noise-based
+  detection limit: about 2% of cells (`findings/aneuploidy/*.limit`).
 - **[literature]** This is expected. MVA aneuploidy is random across cells
   and averages out in bulk DNA; the cytogenetic diagnosis rests on the
   clinical karyotype.
@@ -165,25 +170,38 @@ Transcript: ENST00000287598 (MANE Select), 23 exons, 1050 aa.
 ## 7. BUB1B variant atlas and ClinVar check
 
 - **[data]** The atlas (`findings/track2/atlas/`) recovers the functional map
-  from sequence alone: KEN1 (mean ESM LLR −11.2), GLEBS (−7.8) and TPR (−6.9)
-  are the most constrained regions; the disordered linker 450–650 (median
-  pLDDT 34) is nearly unconstrained (−1.0).
+  from sequence alone: KEN1 (mean ESM LLR −11.2, more constrained than 98.6% of
+  positions), KEN2 (−9.0), GLEBS (−7.8) and TPR (−6.9) are the most constrained
+  features; the disordered linker 450–650 (median pLDDT 34) is nearly
+  unconstrained (−1.0).
 - **[data]** Premature stops at codons 1–969 are NMD-sensitive; codons
   970–1050 escape NMD and keep all checkpoint-essential features.
 - **[data]** ClinVar (`findings/track2/clinvar_validation.tsv`): 1,494 BUB1B
   missense records, 97% VUS/conflicting. Benign variants (33 unique) fall in
-  the damaging bin at 3% vs a 43% base rate (p ≈ 2e-7), in the tolerated bin
-  at 58% vs 20% (p ≈ 2e-6). One non-calibration pathogenic variant (Q467H)
-  only, so the pathogenic side cannot be tested.
+  the damaging bin at 3% against 34% of single-nucleotide-reachable changes
+  (one-sided binomial p = 2e-5), and in the tolerated bin at 58% against 26%
+  (p = 1e-4). (An earlier baseline over all 19 substitutions, 43% and 20%,
+  overstated this; see `docs/decisions.md`.) One non-calibration pathogenic
+  variant (Q467H) only, so the pathogenic side cannot be tested.
+- **[data]** Of 1,427 unique VUS, the atlas places 107 in the stability-defect
+  class and 419 as likely tolerated; AlphaMissense and ESM-2 agree on 12%
+  (damaging) and 28% (tolerated) of VUS records.
 - **[data]** ClinVar lists the verified destabilisers L1012P, L844F and R727C,
   and the patient's N1002K, as VUS.
 
-## 8. Open items
+## 8. Related genes
 
-- Report: draft in `docs/smarin00_track2_report.md`; PDF and methods form
-- Pitch video (3 min)
-- Optional: physics- or ML-based ΔΔG (e.g. ThermoMPNN) as a fourth line of
-  evidence, calibrated the same way
+- **[data]** From the HPO annotations the pipeline finds six other genes linked
+  to MVA: CEP57 (MVA2), TRIP13 (MVA3), CENATAC (MVA4), MAD1L1 (MVA7), and BUB1
+  and BUB3 (Orphanet MVA group), and builds constraint and NMD maps for each
+  (`findings/genes/`). CENATAC and MAD1L1 had been missed by the hand-made list.
+
+## 9. Status and possible extensions
+
+- Done: report (`docs/smarin00_track2_report.md` and `.pdf`), methods form,
+  pitch video.
+- Possible extension: physics- or ML-based ΔΔG (e.g. ThermoMPNN) as a further
+  line of evidence, calibrated against the same six alleles.
 
 ## References
 

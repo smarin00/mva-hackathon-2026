@@ -34,3 +34,50 @@ Limitation: predictions only; RNA from the patient would confirm.
 - Compound-het pairs built only from variants Exomiser scored under AR/XR modes.
 - Hypervariable loci (HLA, KIR, MUC, olfactory receptors, immunoglobulin/TCR) excluded as
   mapping-artefact-prone in short-read WGS.
+
+## Track 1 rules generalised (October 2026)
+- Lessons from the gene-level review became rules applied to every genome
+  (`bin/make_submission.py`): population frequency must fit the mode of
+  inheritance (at most 0.1% for AD/XD, 2% for AR/XR, cf. ACMG BS1), and genes
+  with no OMIM or Orphanet disease in the HPO annotations (v2026-09-01) are
+  ranked last rather than removed. On this genome the rules alone produce the
+  same four submitted variants; the review only moves LZTR1 to a secondary
+  finding (`config/cases/mva1_proband.curation.tsv`).
+
+## Final Track 1 submission (2026-10-24)
+- The read-level submission (`findings/track1/submission_full.csv`) replaces the
+  first one (provided VCF, `docs/submission1_table.md`). Both contain the same
+  four variants; the read-level route adds independent calling, phasing and the
+  mosaic, structural, repeat and aneuploidy checks.
+
+## Reproducibility check (2026-10-22)
+- A clean clone was run end to end with `make all` (about 15 h). The submission
+  and every Track 2 table were identical to the committed ones. Aneuploidy
+  estimates differed by at most 0.03 percentage points: the mosdepth coverage
+  differed, because bwa-mem without a fixed batch size (`-K`) batches reads by
+  thread timing. Adding `-K` would make alignment deterministic, but was not
+  done before the deadline because it could not be re-validated on the full
+  run; it is listed as a limitation.
+
+## Track 2 statistics and counts (2026-10-22)
+- ClinVar check of the atlas: the expected share of each bin is taken from
+  missense changes reachable by a single nucleotide substitution (the 6,173
+  changes AlphaMissense scores), not from all 19 substitutions per residue,
+  because ClinVar can only hold the former. Benign variants in the damaging bin:
+  1 of 33 against 34% expected (one-sided binomial p = 2e-5; tolerated bin 19 of
+  33 against 26%, p = 1e-4). The earlier all-substitution baseline (43%,
+  p = 2e-7) overstated the result.
+- No AUROC is reported for the ClinVar check: ClinVar holds a single pathogenic
+  BUB1B missense outside the calibration set.
+- Drug counts in the screen are parent compounds (salt forms merged): 15 in the
+  desired direction (12 HDAC inhibitors, 2 BCL-xL inhibitors, PRI-724; all
+  curated out) and 31 do-no-harm (Aurora B 18, HSP90 9 including CD24Fc,
+  NAMPT 2, MPS1 2).
+- The Aurora B entry of the do-no-harm list is marked contested: inhibiting
+  Aurora B restored chromosome congression in cells whose BubR1 cannot recruit
+  PP2A-B56 (Xu et al., Biol Open 2013). It stays on the list at oncology doses;
+  low-dose inhibition is an exploratory step of the validation plan.
+- The child presented with rhabdomyosarcoma (HP:0002859). The cancer-treatment
+  check is therefore framed around the child's own treatment, and two case
+  reports of poor chemotherapy tolerance in MVA (Ochiai 2019; Nishitani-Isa
+  2019) are cited.

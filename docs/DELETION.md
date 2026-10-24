@@ -18,6 +18,11 @@ table of genotypes is the dataset in a different format."
 - [ ] ~/mva/results/phasing/, results/qc/ (per-sample QC)
 - [ ] ~/mva/results_full/   full read-level run: CRAM, all VCFs, phasing, QC, mosdepth
 - [ ] ~/mva/results_vcf/, ~/mva/results_smoke/   other run outputs
+- [ ] ~/mva-rerun/          clean-clone reproducibility run (22 Oct 2026): data/ (links to the
+      patient FASTQ/VCF), work/, results_full/ (CRAM, VCFs), .nextflow*, rerun.log; delete the
+      whole directory
+- [ ] ~/mva/.nextflow*, ~/mva/*.log   Nextflow logs and run caches (contain file paths and
+      process logs from patient runs)
 - [ ] Check nothing is left:  make deletion-check   (should print nothing)
 - [ ] ~/.cache/huggingface/  (xet download cache)
 - [ ] Then: delete the server instance itself + any snapshots/backups in Hetzner console
@@ -26,14 +31,16 @@ table of genotypes is the dataset in a different format."
 - [ ] Laptop: downloaded submission CSVs and any other files from the server (Downloads folder)
 - [ ] GitHub: confirm no data files ever committed:
       git log --all --name-only --format='' | grep -E '\.(vcf|bam|cram|fastq|tbi|csi)' || echo clean
-- [ ] claude.ai: delete any chats where variant blocks or phenotype text were pasted
+- [ ] claude.ai: delete any chats and sessions where variant blocks, run logs with variant
+      rows or phenotype text were pasted (including the main analysis session)
 
 ## KEEP (findings; must contain no items from the delete list)
 - Submission CSVs (a handful of named variants)
 - HPO term list
 - Exomiser *.genes.tsv (gene rankings), mechanism and pathway analyses, drug candidates
 - Aneuploidy figure + per-chromosome summary table (aggregate, not genotypes)
-- Code, docs, report, pitch, leaderboard entry
+- Code, docs, Track 1 and Track 2 reports (md, PDF, figures), methods forms, pitch video
+  and slides, leaderboard entry
 - results/pipeline_info/ (run reports; no genotypes)
 - Everything in findings/ (collected by `make findings`, reviewed before each commit):
   Track 2 tables (ESM scores, structural context, Open Targets screen, variant atlas)

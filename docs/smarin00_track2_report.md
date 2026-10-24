@@ -484,7 +484,8 @@ wrong residue when the reference residue or isoform does not match. Fifteen test
 synthetic data run on every push (GitHub Actions). A clean clone, run end to end with
 `make all` (about 15 hours on a 16-core server), reproduced the Track 1 submission and
 every Track 2 table exactly. The aneuploidy estimates agreed within 0.03 percentage
-points; read placement by bwa-mem varies with thread batching, but no call changed.
+points; read placement by bwa-mem varies with thread batching, but the submission did
+not change.
 
 ## 7. Scalability and reuse
 

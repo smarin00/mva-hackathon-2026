@@ -18,10 +18,10 @@ Code for the [Rare Disease, Real Kid: MVA Hackathon 2026](https://huggingface.co
 
 | | Result | Details |
 |---|---|---|
-| Track 1 | Both causal BUB1B variants ranked first as a compound-heterozygous pair (rank points 100/100, F-max 1.000) | `docs/smarin00_track1_report.pdf` |
-| Mechanism | p.Leu737\* is degraded by nonsense-mediated decay (null allele); p.Asn1002Lys most likely destabilises BubR1, so the disease is a matter of protein *quantity* | `docs/track2_conclusions.md` |
-| Candidates | Niacin (NAD⁺ → SIRT2 → BubR1 stability), arimoclomol (chaperone support), dasatinib + quercetin (senescence); do-no-harm list incl. HSP90, NAMPT, Aurora B and MPS1 inhibitors | `docs/track2_candidates.md` |
-| Resource | Atlas of every possible BubR1 missense and premature-stop variant, each with predicted mechanism and therapy direction | `findings/track2/atlas/` |
+| Track 1 | Both causal BUB1B variants ranked first as a compound-heterozygous pair (rank points 100/100, F-max 1.000); final submission re-analysed from the raw reads | `docs/smarin00_track1_report.pdf` |
+| Mechanism | p.Leu737\* is degraded by nonsense-mediated decay (null allele); p.Asn1002Lys most likely destabilises BubR1 (ESM-2 calibrated on six measured MVA alleles), so the disease is a matter of protein *quantity* | `docs/smarin00_track2_report.pdf`, `docs/track2_conclusions.md` |
+| Candidates | Niacin (NAD⁺ → SIRT2 → BubR1 stability), arimoclomol (chaperone support), dasatinib + quercetin (senescence); do-no-harm list of 31 compounds (HSP90, NAMPT, Aurora B, MPS1 inhibitors); every candidate checked against the child's rhabdomyosarcoma chemotherapy using FDA labels | `docs/smarin00_track2_report.pdf`, `docs/track2_candidates.md` |
+| Resource | Atlas of every possible BubR1 missense and premature-stop variant, each with predicted mechanism and therapy direction, tested against ClinVar; constraint and NMD maps for the six other genes linked to MVA | `findings/track2/atlas/`, `findings/genes/` |
 
 These are hypotheses for experimental follow-up, not evidence that any
 medicine works.
@@ -42,7 +42,10 @@ make all         # Track 1, then Track 2 on its top candidate, then atlases
 ```
 
 `make test` checks the scripts on synthetic data in about ten seconds (also run by
-GitHub Actions on every push). `make` on its own prints the menu; each part also runs on its own
+GitHub Actions on every push). Start long runs so that they survive a closed
+terminal: inside `tmux` (`tmux new -s run`, then `make all 2>&1 | tee run.log`), or
+with `setsid nohup make all > run.log 2>&1 < /dev/null &`. A plain `nohup ... &`
+is stopped by the shell, because Nextflow reads from the terminal. `make` on its own prints the menu; each part also runs on its own
 (`make track1-vcf`, `make track2`, `make related-genes`). Every step can be
 re-run safely: finished work is reused, not repeated.
 
@@ -136,13 +139,24 @@ How the submission file is built (`bin/make_submission.py`):
 | `make alphamissense` | `bin/alphamissense_compare.py` | Does an independent predictor (AlphaMissense) agree with ESM-2 on the calibration alleles, across the protein, and against ClinVar? |
 | `make oncology` | `bin/oncology_compatibility.py` | Do the candidates clash with the chemotherapy for the cancers MVA predisposes to (shared metabolism, overlapping toxicity)? From FDA labels. |
 | `make atlas` | `bin/variant_atlas.py` | The same questions for *every* possible BubR1 variant, for other families |
-| `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar variants it never saw? |
-| `make related-genes` | `bin/related_genes.py`, `bin/variant_atlas.py` | Which genes cause other forms of the same disease (HPO: OMIM series, Orphanet group), and their constraint and NMD maps |
 | `make clinvar` | `bin/clinvar_validate.py` | Does the atlas agree with ClinVar's pathogenic and benign BUB1B variants, which it never saw? |
+| `make related-genes` | `bin/related_genes.py`, `bin/variant_atlas.py` | Which genes cause other forms of the same disease (HPO: OMIM series, Orphanet group), and their constraint and NMD maps |
 
 `make aneuploidy-sensitivity` re-runs the aneuploidy analysis under three GC
 correction models; chromosomes whose depth shift follows GC content are
 flagged as unconfirmed rather than called.
+
+**4. Reports.** The figures of the Track 2 report are drawn from the committed
+tables in `findings/` by `scripts/report_figures.py`; `scripts/build_report_pdf.py`
+renders either report from its Markdown to PDF (needs `markdown` and Playwright
+with Chromium, which are not part of the analysis environment):
+
+```bash
+python3 scripts/report_figures.py
+python3 scripts/build_report_pdf.py docs/smarin00_track2_report.md docs/smarin00_track2_report.pdf
+python3 scripts/build_report_pdf.py docs/smarin00_track1_report.md docs/smarin00_track1_report.pdf \
+    "Read-level re-analysis: compound-heterozygous BUB1B variants · Track 1 · smarin00"
+```
 
 ## What comes out
 
@@ -151,6 +165,19 @@ flagged as unconfirmed rather than called.
 | `results_vcf/`, `results_full/` | Alignments, VCFs, rankings, QC | **Never**: patient data |
 | `findings/` | Submission files, figures, per-chromosome summaries, Track 2 tables | Yes: collected by `make findings`, reviewed before commit |
 | `docs/` | Reports, decisions, curation, data handling | Yes |
+
+## What is input, what is curated
+
+| | What | Where |
+|---|---|---|
+| Input | Reads (FASTQ) or a VCF, the HPO terms, the route (`mode`) | the case file, `params.yaml` |
+| Automatic | Track 1 ranking and submission, Track 2 gene and variants (rank 1), consequences, gene file from UniProt, related genes from HPO, every analysis and figure | the pipeline |
+| Curated, per gene | Domain map, calibration alleles with measured classes, pathway panel with desired directions, named drugs, cancer regimens | `config/genes/<gene>.yaml` |
+| Curated, per case | Gene-level review of Track 1 candidates, each decision with its reason | `config/cases/<case>.curation.tsv` |
+
+Without the curated files everything still runs: Track 1 applies its general
+rules only, and Track 2 reports constraint and NMD geometry without calling a
+mechanism or running the drug screen.
 
 ## Reusing it
 
@@ -166,6 +193,24 @@ flagged as unconfirmed rather than called.
   panel switches on the drug screen. That curation, not the code, is the
   real work for a new gene.
 
+## Limitations
+
+- Phase is used only to report pairs; read-backed evidence that two variants
+  are in cis does not yet remove the pair (`load_cis_pairs` in
+  `bin/make_submission.py` is a stub).
+- Track 2 follows the top-ranked Track 1 candidate (or the variants named in
+  the case file); a wrong rank 1 needs `track2.gene`/`track2.variants` set by hand.
+- Track 2 calls mechanism for stop-gains and missense changes; indels and
+  splice variants are reported as "not classified", and gain-of-function
+  mechanisms are not modelled.
+- Without HPO terms, Exomiser cannot rank by phenotype; the candidate-gene
+  panel for the read-level checks (`docs/panel_genes.txt`) was curated, not
+  derived automatically.
+- bwa-mem is run without a fixed batch size (`-K`), so read placement varies
+  slightly between runs with different thread timing; a clean rerun reproduced
+  the submission and every Track 2 table, and aneuploidy estimates within 0.03
+  percentage points.
+
 ## Repository layout
 
 ```
@@ -177,14 +222,19 @@ bin/                    all analysis scripts (Track 1 and Track 2)
 tests/                  tests on synthetic data (make test; CI in .github/workflows)
 config/genes/           gene knowledge: domains, calibration, drug panel (one YAML each)
 config/cases/           committed Track 2 case for reproducing without patient data
-scripts/                install_tools.sh, setup_refs.sh, prepare_inputs.sh
+scripts/                install_tools.sh, setup_refs.sh, prepare_inputs.sh;
+                        report_figures.py, build_report_pdf.py (reports)
 resources/              chr_map.txt (contig renaming); downloaded files land here
 findings/               shareable results
 docs/
+  smarin00_track1_report.md/.pdf   Track 1 report (final, read-level submission)
+  smarin00_track2_report.md/.pdf   Track 2 report; figures in docs/figures/
   reference_data.md     tools and references, versions and sources
   decisions.md          analysis decisions and rationale
   bub1b_domains.tsv     BubR1 functional map with literature sources
-  track2_*.md           mechanism conclusions and drug candidates
+  panel_genes.txt       candidate-gene panel for the read-level checks (132 genes)
+  submission1_table.md  rows of the first Track 1 submission (provided VCF)
+  track2_*.md           working records: mechanism conclusions and drug candidates
   llm_usage.md          AI-assistant use declaration
   DELETION.md           data deletion plan
 requirements.in/.lock   Python environment

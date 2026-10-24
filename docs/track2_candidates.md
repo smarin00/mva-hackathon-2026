@@ -1,8 +1,9 @@
 # Track 2: Drug candidates
 
-Status: 19 Oct 2026. Builds on `track2_conclusions.md` (mechanism) and
+Status: 24 Oct 2026. Final; the submitted report is
+`docs/smarin00_track2_report.pdf`. Builds on `track2_conclusions.md` (mechanism) and
 `findings/track2/opentargets/ot_*.tsv` (automated layer, Open Targets Platform API 26.9.0,
-data 26.09).
+data 26.09). The child presented with rhabdomyosarcoma (HP:0002859).
 
 ## Therapeutic premise
 
@@ -80,7 +81,8 @@ The mechanism and evidence for the NAD⁺ route:
   N1002K is predicted to destabilise BubR1, and its neighbour L1012P is a
   verified chaperone-dependent client.
 - **Status.** FDA-approved September 2024 (Miplyffa) for Niemann-Pick disease
-  type C, **adults and children aged 2 and older**, oral. **Not approved in
+  type C, in combination with miglustat, **adults and children aged 2 and
+  older**, oral. **Not approved in
   the EU:** the EMA's CHMP adopted a negative opinion in July 2026, and a
   re-examination is pending. Open Targets still lists it as phase 3.
 - **Gap.** No BubR1-specific data; this is a mechanism-class extrapolation.
@@ -104,10 +106,12 @@ The mechanism and evidence for the NAD⁺ route:
 ## Considered, not ranked: HDAC inhibition (valproic acid)
 
 HDAC2 and HDAC3 deacetylate BubR1 at K250, so a class I HDAC inhibitor would
-keep BubR1 acetylated. Valproic acid is an approved class I HDAC inhibitor
-with long pediatric use (epilepsy), so it is the obvious approved drug for
-this route. We read the three primary papers in full; they argue against
-ranking it.
+keep BubR1 acetylated. The screen returns 12 HDAC inhibitors in the desired
+direction, six of them listed as approved in Open Targets, including givinostat
+(FDA-approved March 2024 for Duchenne muscular dystrophy from age 6). Valproic
+acid, a weak class I inhibitor with long pediatric use (epilepsy), entered
+through named-drug lookup. We read the three primary papers in full; they argue
+against ranking any of these.
 
 - **It acts on timing in mitosis, not on dose.** K250 is acetylated only in
   prometaphase, and HDAC2/3 bind BubR1 only in mitosis, not in interphase
@@ -133,6 +137,8 @@ ranking it.
   unknown. Known risks include hepatotoxicity (highest under age 2) and
   pancreatitis.
 
+The oncology HDAC inhibitors also cause thrombocytopenia.
+
 Verdict: a mechanistically coherent but double-edged hypothesis. It is
 included in the validation plan as an exploratory arm (mitotic timing and
 missegregation in patient cells), not as a ranked candidate.
@@ -149,21 +155,40 @@ missegregation in patient cells), not as a ranked candidate.
 ## Do-no-harm list
 
 Drugs that act *against* the therapeutic direction. Several are in oncology
-pipelines, which matters for a child with MVA-associated cancer
-predisposition (rhabdomyosarcoma, Wilms tumour, leukaemia).
+use or trials, which matters for a child who has had rhabdomyosarcoma and is
+predisposed to Wilms tumour and leukaemia. Counts are parent compounds (salt
+forms merged): 31 in total.
 
-| Class | Count in Open Targets | Mechanism of harm | Examples |
+| Class | Compounds | Mechanism of harm | Examples |
 |---|---|---|---|
-| HSP90 inhibitors | 10 | Mutant BubR1 is an HSP90 client; inhibition depletes it (Suijkerbuijk 2010) | ganetespib, tanespimycin, retaspimycin, luminespib, onalespib |
-| NAMPT inhibitors | 3 | Deplete NAD⁺, opposing candidate 1 | daporinad (trialled in childhood leukaemia), teglarinad |
-| Aurora B inhibitors | 18 | Impair error correction in an already weakened checkpoint | barasertib, ibcasertib, tozasertib, danusertib |
+| HSP90 inhibitors | 9 | Mutant BubR1 is an HSP90 client; inhibition depletes it (Suijkerbuijk 2010) | ganetespib, tanespimycin, retaspimycin, luminespib, onalespib |
+| NAMPT inhibitors | 2 | Deplete NAD⁺, opposing candidate 1 | daporinad (trialled in childhood leukaemia), teglarinad |
+| Aurora B inhibitors | 18 | Impair error correction and checkpoint signalling in an already weakened checkpoint (contested, below) | barasertib, ibcasertib, tozasertib, danusertib |
 | MPS1 / TTK inhibitors | 2 | Weaken the spindle assembly checkpoint directly | BAY-1161909, BAY-1217389 |
 | SIRT2 inhibitors | 0 in clinic | Would block the K668 deacetylation route | AGK2 (research tool) |
 
+The HSP90 count includes CD24Fc, a fusion protein that ChEMBL annotates as an
+HSP70/HSP90 inhibitor. Only the HSP90 entry rests on a direct measurement in MVA
+patient cells.
+
+**Aurora B is contested.** BubR1 recruits PP2A-B56 to kinetochores to
+counterbalance Aurora B, and inhibiting Aurora B restored chromosome congression
+in cells whose BubR1 cannot recruit PP2A-B56 (Xu 2013). Congression is not
+accurate segregation: Aurora B also corrects wrong attachments and signals to the
+checkpoint, and the clinical inhibitors are dosed to stop cancer cells dividing.
+Kept on the list at oncology doses; low-dose inhibition is an exploratory step of
+the validation plan.
+
 ## Compatibility with cancer treatment
 
-MVA1 predisposes to embryonal rhabdomyosarcoma, Wilms tumour and leukaemia
-(Hanks 2004; Atlas of Genetics and Cytogenetics in Oncology). `make oncology`
+The child presented with rhabdomyosarcoma, and MVA1 also predisposes to Wilms
+tumour and leukaemia (Hanks 2004; Atlas of Genetics and Cytogenetics in Oncology).
+Children with this syndrome are reported to tolerate chemotherapy poorly: a boy
+with premature chromatid separation/MVA and bilateral Wilms tumours had a severe
+reaction to dactinomycin monotherapy and reached remission through bilateral
+nephrectomy and dialysis (Ochiai 2019); a child with rhabdomyosarcoma and the same
+syndrome was treated successfully with reduced-intensity chemotherapy
+(Nishitani-Isa 2019). `make oncology`
 checks every candidate against the standard regimens (VAC and VAC/VI for
 rhabdomyosarcoma, COG D9803 and ARST0531; EE-4A and DD-4A for Wilms tumour)
 using the current FDA labels from openFDA. Three checks per pair: one label
@@ -173,9 +198,9 @@ toxicity. Each flag carries the label sentences (`findings/track2/oncology/`).
 
 | Candidate | Flags | Reading |
 |---|---|---|
-| Niacin | liver (with dactinomycin, cyclophosphamide: hepatic veno-occlusive disease) | compatible with liver-enzyme monitoring |
+| Niacin | liver (with dactinomycin, cyclophosphamide: hepatic veno-occlusive disease) | compatible with liver-enzyme monitoring; a cautious option is to pause it during dactinomycin-containing cycles |
 | Arimoclomol | none; its label states it is not a CYP3A4/5 inhibitor or inducer | compatible |
-| Dasatinib | CYP3A4 (vincristine, irinotecan, doxorubicin); marrow (all); heart/QT (doxorubicin, cyclophosphamide); liver | avoid during chemotherapy |
+| Dasatinib | CYP3A4 (vincristine, irinotecan, doxorubicin); marrow (all); heart/QT (doxorubicin, cyclophosphamide); liver (dactinomycin, cyclophosphamide) | avoid during chemotherapy; the marrow overlap matters more when chemotherapy is poorly tolerated |
 | Valproic acid | marrow (all); liver (dactinomycin, cyclophosphamide) | supports "not ranked" |
 | Quercetin, NR | no US prescription label | not assessable |
 
@@ -198,6 +223,9 @@ In patient-derived cells (lymphoblastoid line or fibroblasts):
    reading out acetyl-K250 BubR1, time from nuclear-envelope breakdown to
    anaphase, and missegregation. A longer mitosis without fewer errors, or
    mitotic death, would rule it out.
+6. Exploratory: low-dose Aurora B inhibitor, reading out chromosome alignment
+   and missegregation. Better alignment with more missegregation confirms the
+   do-no-harm entry; fewer errors would overturn it.
 
 Success criterion: BubR1 raised from below to above ~13% of normal, with a
 measurable fall in missegregation.
@@ -208,8 +236,10 @@ measurable fall in missegregation.
 literature-justified desired direction, against Open Targets known drugs and
 clinical candidates, and classifies every drug by its ChEMBL action type.
 
-- Result: no drug acts directly on BUB1B, SIRT2 or HSF1. Leads 1 and 2 enter
-  through named-drug lookup and literature curation, not target matching.
+- Result: no drug acts directly on BUB1B, SIRT2 or HSF1. 15 compounds act in
+  the desired direction (12 HDAC inhibitors, navitoclax and obatoclax, PRI-724),
+  all curated out; 31 act against it and form the do-no-harm list. Leads 1 and 2
+  enter through named-drug lookup and literature curation, not target matching.
 - Database limitations found: stale regulatory status (arimoclomol), and
   "APPROVAL" flags on supplements (NR, quercetin, fisetin). Regulatory status
   in this report is taken from primary sources.
@@ -243,3 +273,13 @@ clinical candidates, and classifies every drug by its ChEMBL action type.
   doi:10.1002/mds.28788
 - FDA. FDA approves first treatment for Niemann-Pick disease type C
   (20 Sep 2024).
+- FDA. Duvyzat (givinostat) prescribing information (approved 21 Mar 2024).
+- Xu P. et al. BUBR1 recruits PP2A via the B56 family of targeting subunits to
+  promote chromosome congression. *Biol Open* 2, 479–486 (2013).
+- Ochiai K. et al. Long-term remission of bilateral Wilms tumors that developed
+  from premature separation of chromatids/mosaic variegated aneuploidy syndrome
+  due to bilateral nephrectomy and peritoneal dialysis. *Pediatr Blood Cancer*
+  66, e27804 (2019).
+- Nishitani-Isa M. et al. Rhabdomyosarcoma with premature chromatid
+  separation–mosaic variegated aneuploidy syndrome: reduced-intensity
+  chemotherapy. *Pediatr Int* (2019). doi:10.1111/ped.13849

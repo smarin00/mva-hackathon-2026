@@ -46,6 +46,17 @@ records the versions actually present, with container sha256 digests, in
 | Exomiser | CLI 15.1.0 (Java 21) | GitHub release |
 | Python | 3.12, packages pinned in `requirements.lock`; PyTorch CPU build | uv |
 
+## Reports and pitch video (not part of the analysis)
+
+| Tool | Version | Use |
+|---|---|---|
+| python-markdown | 3.10 | report Markdown to HTML (`scripts/build_report_pdf.py`) |
+| Playwright with Chromium | Playwright for Python, Chromium build 1194 | HTML to PDF; slide rendering |
+| Fonts | Source Serif 4 and Inter (fontsource 5.1.0, SIL Open Font License) | report and slide typography |
+| matplotlib | 3.8.4 (as pinned) | report figures (`scripts/report_figures.py`) |
+| Kokoro | v1.0 ONNX model, `kokoro-onnx` 0.6.1, voice `af_heart` | synthetic narration of the pitch video, run locally |
+| ffmpeg | system package | video assembly |
+
 ## Not used
 
 - SpliceAI genome-wide precomputed scores: the BaseSpace share is US-region

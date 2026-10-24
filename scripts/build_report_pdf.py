@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Render the Track 2 report from Markdown to a styled PDF (A4).
+Render a report (Track 1 or Track 2) from Markdown to a styled PDF (A4).
 
   python3 scripts/build_report_pdf.py docs/smarin00_track2_report.md \\
-      docs/smarin00_track2_report.pdf
+      docs/smarin00_track2_report.pdf ["footer text"]
 
 Needs python-markdown and Playwright with Chromium (not part of the analysis
 environment: `pip install markdown playwright && playwright install chromium`).
@@ -184,6 +184,8 @@ def build_html(md_path):
 
 def main():
     md_path, pdf_path = sys.argv[1], sys.argv[2]
+    footer = (sys.argv[3] if len(sys.argv) > 3 else
+              "BUB1B-related MVA: from genotype to drug hypotheses · Track 2 · smarin00")
     page = build_html(md_path)
     import tempfile
     html_path = os.path.join(tempfile.mkdtemp(), "report.html")
@@ -191,7 +193,7 @@ def main():
     from playwright.sync_api import sync_playwright
     foot = ("<div style='font-family:Inter,sans-serif;font-size:6.5pt;color:#898781;"
             "width:100%;padding:0 17mm;display:flex;justify-content:space-between'>"
-            "<span>BUB1B-related MVA: from genotype to drug hypotheses · Track 2 · smarin00</span>"
+            f"<span>{html.escape(footer)}</span>"
             "<span><span class='pageNumber'></span> / <span class='totalPages'></span></span></div>")
     with sync_playwright() as p:
         b = p.chromium.launch()
