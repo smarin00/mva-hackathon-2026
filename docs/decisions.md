@@ -46,7 +46,7 @@ Limitation: predictions only; RNA from the patient would confirm.
 
 ## Final Track 1 submission (2026-10-24)
 - The read-level submission (`findings/track1/submission_full.csv`) replaces the
-  first one (provided VCF, `docs/submission1_table.md`). Both contain the same
+  first one (provided VCF, `findings/track1/submission_vcf.csv`). Both contain the same
   four variants; the read-level route adds independent calling, phasing and the
   mosaic, structural, repeat and aneuploidy checks.
 

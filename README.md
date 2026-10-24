@@ -19,8 +19,8 @@ Code for the [Rare Disease, Real Kid: MVA Hackathon 2026](https://huggingface.co
 | | Result | Details |
 |---|---|---|
 | Track 1 | Both causal BUB1B variants ranked first as a compound-heterozygous pair (rank points 100/100, F-max 1.000); final submission re-analysed from the raw reads | `docs/smarin00_track1_report.pdf` |
-| Mechanism | p.Leu737\* is degraded by nonsense-mediated decay (null allele); p.Asn1002Lys most likely destabilises BubR1 (ESM-2 calibrated on six measured MVA alleles), so the disease is a matter of protein *quantity* | `docs/smarin00_track2_report.pdf`, `docs/track2_conclusions.md` |
-| Candidates | Niacin (NAD⁺ → SIRT2 → BubR1 stability), arimoclomol (chaperone support), dasatinib + quercetin (senescence); do-no-harm list of 31 compounds (HSP90, NAMPT, Aurora B, MPS1 inhibitors); every candidate checked against the child's rhabdomyosarcoma chemotherapy using FDA labels | `docs/smarin00_track2_report.pdf`, `docs/track2_candidates.md` |
+| Mechanism | p.Leu737\* is degraded by nonsense-mediated decay (null allele); p.Asn1002Lys most likely destabilises BubR1 (ESM-2 calibrated on six measured MVA alleles), so the disease is a matter of protein *quantity* | `docs/smarin00_track2_report.pdf` |
+| Candidates | Niacin (NAD⁺ → SIRT2 → BubR1 stability), arimoclomol (chaperone support), dasatinib + quercetin (senescence); do-no-harm list of 31 compounds (HSP90, NAMPT, Aurora B, MPS1 inhibitors); every candidate checked against the child's rhabdomyosarcoma chemotherapy using FDA labels | `docs/smarin00_track2_report.pdf` |
 | Resource | Atlas of every possible BubR1 missense and premature-stop variant, each with predicted mechanism and therapy direction, tested against ClinVar; constraint and NMD maps for the six other genes linked to MVA | `findings/track2/atlas/`, `findings/genes/` |
 
 These are hypotheses for experimental follow-up, not evidence that any
@@ -233,8 +233,6 @@ docs/
   decisions.md          analysis decisions and rationale
   bub1b_domains.tsv     BubR1 functional map with literature sources
   panel_genes.txt       candidate-gene panel for the read-level checks (132 genes)
-  submission1_table.md  rows of the first Track 1 submission (provided VCF)
-  track2_*.md           working records: mechanism conclusions and drug candidates
   llm_usage.md          AI-assistant use declaration
   DELETION.md           data deletion plan
 requirements.in/.lock   Python environment
